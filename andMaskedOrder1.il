@@ -38,14 +38,14 @@ deadcodeelim:
 print:
   kind: macrodef
   target: andMaskedOrder1
-  verbosity: 1;
+  verbosity: 0;
 
 print:
   kind: maskverif
   target: andMaskedOrder1
   verbosity: 0;
 
-/*check:
+check:
   kind: NI
-  target: andMaskedOrder1;*/
+  target: andMaskedOrder1;
 ...

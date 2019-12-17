@@ -40,9 +40,9 @@ deadcodeelim:
 print:
   kind: maskverif
   target: xorMaskedOrder1
-  verbosity: 1;
+  verbosity: 0;
 
-/*check:
+check:
   kind: NI
-  target: xorMaskedOrder1;*/
+  target: xorMaskedOrder1;
 ...
