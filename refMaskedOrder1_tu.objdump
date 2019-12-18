@@ -17,4 +17,3 @@
     1a44:	bc30      	pop	{r4, r5}
     1a46:	1d10      	adds	r0, r2, #4
     1a48:	4770      	bx	lr
-
