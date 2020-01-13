@@ -71,7 +71,9 @@ print:
 partialeval:
   target: firstref;
 
-deadcodeelim:
+rewriteformv:
+  inferinput: true
+  inferoutput: true
   target: firstref;
 
 print:

@@ -111,18 +111,6 @@ print:
   target: load
   verbosity: 0;
 
-/* put all leakages of a macro in a single leak statement at the beginning.
-accumulate:
-  target: [load,store,xor,and]
-  leaks: any
-  keep: false; // remove the old leakages
-*/
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
 addleakage:
   target: present;
 
@@ -137,17 +125,19 @@ print:
 partialeval:
   target: present;
 
-deadcodeelim:
-  target: present;
+rewriteformv:
+  target: present
+  inferinput: true
+  inferoutput: true;
 
-/* remove all ...OperandA and ...OperandB leakages */
+/* remove all ...OperandA and ...OperandB leakages
 filterleak:
   target: present
   inverse: false
-  leaks: "*Operand?";
+  leaks: "*Operand?";*/
 
 print:
-  kind: evaltrace
+  kind: maskverif
   target: present
   verbosity: 1;
 

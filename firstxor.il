@@ -79,7 +79,9 @@ print:
 partialeval:
   target: firstxor;
 
-deadcodeelim:
+rewriteformv:
+  inferinput: true
+  inferoutput: true
   target: firstxor;
 
 print:

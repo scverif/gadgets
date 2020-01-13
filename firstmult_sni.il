@@ -60,6 +60,17 @@ load_pub(r6);
 
 /*store value of r6 = b0a1 + b1*a1 +rnd0 as output value c1 */
   store(r6, r0, 1);
+
+(* to see which outputs you have to clear look into the header when printing the maskverif program *)
+r1 <- pub;
+r4 <- pub;
+r5 <- pub;
+r6 <- pub;
+r7 <- pub;
+opA <- pub;
+opB <- pub;
+opR <- pub;
+opW <- pub;
 }
 
 annotate firstmult
@@ -105,13 +116,15 @@ print:
 partialeval:
   target: firstmult;
 
-deadcodeelim:
+rewriteformv:
+  inferinput: true
+  inferoutput: true
   target: firstmult;
 
 print:
-  kind: evaltrace
+  kind: maskverif
   target: firstmult
-  verbosity: 0;
+  verbosity: 1;
 
 check:
   target: firstmult
