@@ -1,4 +1,4 @@
-// Copyright 2019 - TU Darmstadt, NXP
+// Copyright 2019-2020 - TU Darmstadt, NXP
 
 include il "isa/pseudoisa.il"
 /*
@@ -10,7 +10,7 @@ macro firstxor ()
 
 /*load a0 into register r4*/
   load(r4, r1, 0);
-/*load b0 into register r5*/ 
+/*load b0 into register r5*/
   load(r5, r2, 0);
 
 /*xor r4 and r5 s.t. r4 contains a0+b0*/
@@ -34,6 +34,13 @@ clear_opW();
 /*store value of r5 = a1+b1 as output value c1*/
   store(r5, r0, 1);
 
+  scrub(r4);
+  scrub(r5);
+  scrub(r6);
+  clear_opW();
+  clear_opB();
+  clear_opA();
+  clear_opR();
 }
 
 annotate firstxor
@@ -85,11 +92,18 @@ rewriteformv:
   target: firstxor;
 
 print:
-  kind: evaltrace
+  kind: maskverif
   target: firstxor
-  verbosity: 0;
+  verbosity: 1;
+
+print:
+  kind: state
+  target: firstxor
+  verbosity: 1;
+
 
 check:
   target: firstxor
-  kind: NI;
+//  kind: NI;
+  kind: "Stateful NI";
 ...

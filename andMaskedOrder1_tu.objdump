@@ -1,32 +1,32 @@
-; Copyright 2019 - Ruhr University Bochum, NXP, TU Darmstadt
+; Copyright 2019-2020 - Ruhr University Bochum, NXP, TU Darmstadt
 
 ; gadgets/measure_device.axf:     file format elf32-littlearm
 
 ; Disassembly of section ER_m_text:
 
-00001a00 <andMaskedOrder1_TU>:
-    1a00:	b4f0      	push	{r4, r5, r6, r7}
-    1a02:	6814      	ldr	r4, [r2, #0]
-    1a04:	680d      	ldr	r5, [r1, #0]
-    1a06:	402c      	ands	r4, r5
-    1a08:	681e      	ldr	r6, [r3, #0]
-    1a0a:	4066      	eors	r6, r4
-    1a0c:	6857      	ldr	r7, [r2, #4]
-    1a0e:	403d      	ands	r5, r7
-    1a10:	4075      	eors	r5, r6
-    1a12:	6005      	str	r5, [r0, #0]
-    1a14:	6040      	str	r0, [r0, #4]
-    1a16:	4064      	eors	r4, r4
-    1a18:	4076      	eors	r6, r6
-    1a1a:	684c      	ldr	r4, [r1, #4]
-    1a1c:	4027      	ands	r7, r4
-    1a1e:	681e      	ldr	r6, [r3, #0]
-    1a20:	407e      	eors	r6, r7
-    1a22:	6815      	ldr	r5, [r2, #0]
-    1a24:	4025      	ands	r5, r4
-    1a26:	406e      	eors	r6, r5
-    1a28:	6046      	str	r6, [r0, #4]
-    1a2a:	bcf0      	pop	{r4, r5, r6, r7}
-    1a2c:	1d18      	adds	r0, r3, #4
-    1a2e:	1d00      	adds	r0, r0, #4
-    1a30:	4770      	bx	lr
+0000005c <andMaskedOrder1_TU>:
+  5c:	b4f0      	push	{r4, r5, r6, r7}
+  5e:	6814      	ldr	r4, [r2, #0]
+  60:	680d      	ldr	r5, [r1, #0]
+  62:	402c      	ands	r4, r5
+  64:	681e      	ldr	r6, [r3, #0]
+  66:	4066      	eors	r6, r4
+  68:	6857      	ldr	r7, [r2, #4]
+  6a:	403d      	ands	r5, r7
+  6c:	4075      	eors	r5, r6
+  6e:	6005      	str	r5, [r0, #0]
+  70:	6040      	str	r0, [r0, #4]
+  72:	4064      	eors	r4, r4
+  74:	4076      	eors	r6, r6
+  76:	684c      	ldr	r4, [r1, #4]
+  78:	4027      	ands	r7, r4
+  7a:	681e      	ldr	r6, [r3, #0]
+  7c:	407e      	eors	r6, r7
+  7e:	6815      	ldr	r5, [r2, #0]
+  80:	4025      	ands	r5, r4
+  82:	406e      	eors	r6, r5
+  84:	6046      	str	r6, [r0, #4]
+  86:	bcf0      	pop	{r4, r5, r6, r7}
+  88:	1d18      	adds	r0, r3, #4
+  8a:   0000            str     r0, [sp, #-4]
+  8c:	4770      	bx	lr

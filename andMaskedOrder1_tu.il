@@ -40,7 +40,7 @@ annotate andMaskedOrder1_TU
 
 ---
 addleakage:
-  target: andMaskedOrder1_TU;
+  target: "*";
 
 print:
   kind: macrodef
@@ -64,7 +64,12 @@ rewriteformv:
   inferoutput: true;
 
 print:
-  kind: initials
+  kind: evaltrace
+  target: andMaskedOrder1_TU
+  verbosity: 0;
+
+print:
+  kind: state
   target: andMaskedOrder1_TU
   verbosity: 0;
 
@@ -74,6 +79,6 @@ print:
   verbosity: 0;
 
 check:
-  kind: SNI
+  kind: "Stateful SNI"
   target: andMaskedOrder1_TU;
 ...
