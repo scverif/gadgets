@@ -1,8 +1,6 @@
-include il "isa/pseudoisa.il"
+// Copyright 2019 - TU Darmstadt, NXP
 
-/*
-printf "include il \"first_order/firstref_sni.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
-*/
+include il "isa/pseudoisa.il"
 
 macro firstref ()
 {
@@ -73,7 +71,9 @@ print:
 partialeval:
   target: firstref;
 
-deadcodeelim:
+rewriteformv:
+  inferinput: true
+  inferoutput: true
   target: firstref;
 
 print:

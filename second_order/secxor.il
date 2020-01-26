@@ -1,6 +1,4 @@
-/*
-printf "include il \"sec_order/secxor.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
-*/
+// Copyright 2019 - TU Darmstadt, NXP
 
 include il "isa/pseudoisa.il"
 
@@ -16,7 +14,7 @@ clear_opW();
 
   load(r6, r1, 1);
   load(r7, r2, 1);
-  xor(r7, r6);printf "include il \"sec_order/secxor.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
+  xor(r7, r6);
   store(r7, r0, 1);
 
 clear_opB();
