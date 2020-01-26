@@ -1,12 +1,9 @@
-/*
-printf "include il \"present/first_order/present.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
-printf "include il \"present/first_order/present.il\"\n" | ./main.native | sed -e 's/NI/Probing/g'  | ../maskverif/tool2/main_input.native
-*/
+// Copyright 2019-2020 - NXP, TU Darmstadt
 
 include il "isa/pseudoisa.il"
-include il "present/first_order/sbox_gadgets.il"
+include il "final_gadgets/present/first_order/sbox_gadgets.il"
 
-//helper register for intermediate outputs between calculations 
+//helper register for intermediate outputs between calculations
 w32 rai1;
 w32 rbi1;
 w32 rci1;
@@ -29,16 +26,16 @@ w32 rdo;
 
 
 macro present ()
-{ 
-  /*present with optimzed gadgets */  
-  
+{
+  /*present with optimzed gadgets */
+
   calcB_opt(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3, 0);
   calcG_paraMult(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 3);
   calcG_paraMult(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 6);
   calcA_opt(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 7);
 
   /*compostion of first order gadgets
- 
+
   calcB(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3, 0);
   firstref(rci1, r3, 1 ,rci1);
   calcG(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 3);

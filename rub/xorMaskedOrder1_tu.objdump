@@ -1,0 +1,19 @@
+; Copyright 2019-2020 - Ruhr University Bochum, NXP, TU Darmstadt
+
+; gadgets/measure_device.axf:     file format elf32-littlearm
+
+; Disassembly of section ER_m_text:
+
+00000044 <xorMaskedOrder1_TU>:
+  44:	b430      	push	{r4, r5}
+  46:	680b      	ldr	r3, [r1, #0]
+  48:	6814      	ldr	r4, [r2, #0]
+  4a:	4063      	eors	r3, r4
+  4c:	6003      	str	r3, [r0, #0]
+  4e:	684c      	ldr	r4, [r1, #4]
+  50:	6855      	ldr	r5, [r2, #4]
+  52:	406c      	eors	r4, r5
+  54:	6040      	str	r0, [r0, #4]
+  56:	6044      	str	r4, [r0, #4]
+  58:	bc30      	pop	{r4, r5}
+  5a:	4770      	bx	lr

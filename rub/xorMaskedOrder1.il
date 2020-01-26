@@ -2,50 +2,49 @@
 
 include il "isa/isa-cortex-m0plus.il"
 include il "isa/leakyisa-cortex-m0plus.il"
-include asm "gadgets/refMaskedOrder1_tu.objdump"
+include asm "gadgets/xorMaskedOrder1.objdump"
 
-annotate refMaskedOrder1_TU
+annotate xorMaskedOrder1
   region mem w32 a[0:1]
   region mem w32 b[0:1]
   region mem w32 c[0:1]
-  region mem w32 rnd[0:0]
   region mem w32 stack[-3:-1]
   init r1 [a 0]
   init r2 [b 0]
-  init r3 [rnd 0]
   init r0 [c 0]
   init sp [stack 0]
   init lr exit
   input sharing a
   input sharing b
-  input urandom rnd
   output sharing c
   /* everything else assumed to be public input !and! public output */;
 
 ---
 addleakage:
-  target: refMaskedOrder1_TU;
+  target: xorMaskedOrder1;
 
 print:
   kind: macrodef
-  target: refMaskedOrder1_TU
+  target: xorMaskedOrder1
   verbosity: 0;
 
 inlinecall:
-  target: refMaskedOrder1_TU;
+  target: xorMaskedOrder1;
 
 partialeval:
-  target: refMaskedOrder1_TU;
+  target: xorMaskedOrder1;
 
-deadcodeelim:
-  target: refMaskedOrder1_TU;
+rewriteformv:
+  target: xorMaskedOrder1_TU
+  inferinput: false
+  inferoutput: true;
 
 print:
   kind: maskverif
-  target: refMaskedOrder1_TU
-  verbosity: 0;
+  target: xorMaskedOrder1
+  verbosity: 1;
 
 check:
-  kind: SNI
-  target: refMaskedOrder1_TU;
+  kind: NI
+  target: xorMaskedOrder1;
 ...
