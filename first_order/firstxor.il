@@ -1,9 +1,7 @@
 // Copyright 2019-2020 - TU Darmstadt, NXP
 
-include il "isa/pseudoisa.il"
-/*
-printf "include il \"first_order/firstxor.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
-*/
+include il "models/pseudoisa.il"
+
 macro firstxor ()
 {
 /*calculation of thefirst outputshare c0 = a0+b0*/
@@ -59,21 +57,8 @@ annotate firstxor
   ;
 
 ---
-verbosity:
-  verbosity: 1;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
 addleakage:
-  target: firstxor;
+  target: "*";
 
 inlinecall:
   target: firstxor;
@@ -94,16 +79,13 @@ rewriteformv:
 print:
   kind: maskverif
   target: firstxor
-  verbosity: 1;
-
-print:
-  kind: state
-  target: firstxor
-  verbosity: 1;
-
+  verbosity: 0;
 
 check:
   target: firstxor
-//  kind: NI;
   kind: "Stateful NI";
 ...
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))
+// End:

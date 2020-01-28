@@ -1,6 +1,6 @@
 // Copyright 2019 - TU Darmstadt, NXP
 
-include il "isa/pseudoisa.il"
+include il "models/pseudoisa.il"
 
 macro firstref ()
 {
@@ -29,6 +29,14 @@ clear_opW();
 
 /*store value of r6 = a1+rnd0 as output share c1 */
   store(r4, r0, 1);
+
+  clear_opA();
+  clear_opB();
+  clear_opR();
+  clear_opW();
+  scrub(r4);
+  scrub(r5);
+  scrub(r6);
 }
 
 annotate firstref
@@ -44,21 +52,8 @@ annotate firstref
   ;
 
 ---
-verbosity:
-  verbosity: 1;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
 addleakage:
-  target: firstref;
+  target: "*";
 
 inlinecall:
   target: firstref;
@@ -83,5 +78,9 @@ print:
 
 check:
   target: firstref
-  kind: SNI;
+  kind: "Stateful SNI";
 ...
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))
+// End:

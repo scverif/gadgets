@@ -1,10 +1,6 @@
 // Copyright 2019 - TU Darmstadt, NXP
 
-include il "isa/pseudoisa.il"
-
-/*
-printf "include il \"first_order/firstmult_sni.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
-*/
+include il "models/pseudoisa.il"
 
 macro firstmult ()
 {
@@ -61,16 +57,13 @@ load_pub(r6);
 /*store value of r6 = b0a1 + b1*a1 +rnd0 as output value c1 */
   store(r6, r0, 1);
 
-(* to see which outputs you have to clear look into the header when printing the maskverif program *)
-r1 <- pub;
-r4 <- pub;
-r5 <- pub;
-r6 <- pub;
-r7 <- pub;
-opA <- pub;
-opB <- pub;
-opR <- pub;
-opW <- pub;
+  scrub(r4);
+  scrub(r5);
+  scrub(r6);
+  scrub(r7);
+  clear_opB();
+  clear_opR();
+  clear_opW();
 }
 
 annotate firstmult
@@ -89,21 +82,8 @@ annotate firstmult
   ;
 
 ---
-verbosity:
-  verbosity: 1;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
 addleakage:
-  target: firstmult;
+  target: "*";
 
 inlinecall:
   target: firstmult;
@@ -124,9 +104,13 @@ rewriteformv:
 print:
   kind: maskverif
   target: firstmult
-  verbosity: 1;
+  verbosity: 0;
 
 check:
   target: firstmult
-  kind: SNI;
+  kind: "Stateful SNI";
 ...
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))
+// End:
