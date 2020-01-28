@@ -1,6 +1,11 @@
-include il "present/second_order/basic_gadgets.il"
+/* Copyright 2020 - TU Darmstadt, NXP */
 
-macro calcG (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)int indx
+include il "second_order/basic_gadgets.il"
+
+macro calcG (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
+             w32 a_out, w32 b_out, w32 c_out, w32 d_out,
+             w32 rnd_loc, int rnd_index)
+  int indx
 {
   indx <- rnd_index;
   secmult(b_in, d_in, rnd_loc, indx, d_out);
@@ -24,10 +29,12 @@ macro calcG (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c
  //secref(c_out, rnd_loc, 19, c_out);
 }
 
-macro calcB (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)
+macro calcB (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
+             w32 a_out, w32 b_out, w32 c_out, w32 d_out,
+             w32 rnd_loc, int rnd_index)
 {
   secxor(b_in, d_in, d_out);
-  secxorone(d_out, d_out);
+  secnot(d_out, d_out);
   secref(d_out, r3, rnd_index + 0, d_out);
   secstore(c_in, c_out);
   secref(c_out, r3, rnd_index + 6, c_out);
@@ -35,28 +42,29 @@ macro calcB (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c
   secref(b_out, r3, rnd_index + 2, b_out);
   secxor(a_in, b_in, a_out);
   secref(a_out, r3, rnd_index + 4, a_out);
-
-
 }
 
-macro calcA (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)int indx
+macro calcA (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
+             w32 a_out, w32 b_out, w32 c_out, w32 d_out,
+             w32 rnd_loc, int rnd_index)
 {
-  indx <- rnd_index;
   secxor(a_in, c_in, a_out);
-  secxorone(b_in, b_out);
+  secnot(b_in, b_out);
   secstore(a_in, c_out);
   secxor(a_in, c_in, d_out);
   secxor(d_out, d_in, d_out);
-  secxorone(d_out, d_out);
+  secnot(d_out, d_out);
 }
 
-macro calcB_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)
+macro calcB_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
+                 w32 a_out, w32 b_out, w32 c_out, w32 d_out,
+                 w32 rnd_loc, int rnd_index)
 {
   load(r4, b_in, 0);
   load(r5, d_in, 0);
   xor(r5, r4);
   xor(r5, (w32) 255);
-  load(r6, rnd_loc, 0 + rnd_index);
+  load(r6, rnd_loc, 0);
   xor(r5,r6);
   store(r5, d_out, 0);
 
@@ -180,7 +188,9 @@ clear_opR();
 clear_opW();
 }
 
-macro calcA_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)
+macro calcA_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
+                 w32 a_out, w32 b_out, w32 c_out, w32 d_out,
+                 w32 rnd_loc, int unused)
 {
   load(r4, a_in, 0);
   store(r4,c_out,0);
@@ -242,7 +252,9 @@ clear_opW();
 
 
 
-macro calcG_paraMult (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)
+macro calcG_paraMult (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
+                      w32 a_out, w32 b_out, w32 c_out, w32 d_out,
+                      w32 rnd_loc, int rnd_index)
 {
 
   load(r4,b_in,0);
