@@ -1,6 +1,6 @@
-// Copyright 2019 - TU Darmstadt, NXP
+// Copyright 2019-2020 - TU Darmstadt, NXP
 
-include il "isa/pseudoisa.il"
+include il "models/pseudoisa.il"
 
 macro secxor ()
 {
@@ -25,6 +25,14 @@ load_pub(r6);
   load(r6, r2, 2);
   xor(r5, r6);
   store(r5, r0, 2);
+
+  scrub(r4);
+  scrub(r5);
+  scrub(r6);
+  scrub(r7);
+  clear_opB();
+  clear_opR();
+  clear_opW();
 }
 
 annotate secxor
@@ -43,29 +51,6 @@ annotate secxor
   ;
 
 ---
-verbosity:
-  verbosity: 1;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-/* put all leakages of a macro in a single leak statement at the beginning.
-accumulate:
-  target: [load,store,xor,and]
-  leaks: any
-  keep: false; // remove the old leakages
-*/
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-addleakage:
-  target: secxor;
-
 inlinecall:
   target: secxor;
 
@@ -77,14 +62,10 @@ print:
 partialeval:
   target: secxor;
 
-deadcodeelim:
-  target: secxor;
-
-/* remove all ...OperandA and ...OperandB leakages */
-filterleak:
+rewriteformv:
   target: secxor
-  inverse: false
-  leaks: "*Operand?";
+  inferinput: true
+  inferoutput: true;
 
 print:
   kind: evaltrace
@@ -93,5 +74,9 @@ print:
 
 check:
   target: secxor
-  kind: NI;
+  kind: "Stateful NI";
 ...
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))
+// End:

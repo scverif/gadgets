@@ -50,7 +50,7 @@ macro secmult (w32 op1, w32 op2, w32 rnd_loc, int rnd_index,w32 str)
 
 clear_opB();/*This clearing is needed to remove b0*a0 from opB otherwise (Load Operand) would leak*/
 
-/*In register r7 b1 is loaded and a0 still is in register r5*/  
+/*In register r7 b1 is loaded and a0 still is in register r5*/
   load(r7, op2, 1);
 
 /*in r7 the result b1*a0 is stored*/
@@ -117,7 +117,7 @@ load_pub(r7);
 
 clear_opB();/*This clearing is needed to remove b1*a1 from opB otherwise (Load Operand) would leak*/
 
-/*In register r7 b2 is loaded and a1 still is in register r5*/  
+/*In register r7 b2 is loaded and a1 still is in register r5*/
   load(r7, op2, 2);
 
 /*in r7 the result b2*a1 is stored*/
@@ -183,7 +183,7 @@ load_pub(r7);
 
 clear_opB();/*This clearing is needed to remove b2*a2 from opB otherwise (Load Operand) would leak*/
 
-/*In register r7 b0 is loaded and a1 still is in register r5*/  
+/*In register r7 b0 is loaded and a1 still is in register r5*/
   load(r7, op2, 0);
 
 /*in r7 the result b0*a2 is stored*/
@@ -240,7 +240,7 @@ clear_opR();
   load(r5, rnd_loc, rnd_index +  1);
 
   xor(r6, r4);
-  
+
   store(r6, str, 0);
 
 clear_opW();
@@ -249,7 +249,7 @@ load_pub(r6);
   load(r7, op1, 1);
 clear_opA();
   xor(r7, r5);
-  
+
   store(r7, str, 1);
 
 clear_opW();
@@ -260,7 +260,7 @@ load_pub(r5);
 clear_opB();
   load(r5, op1, 2);
   xor(r5, r4);
-  
+
   store(r5, str, 2);
 
 load_pub(r4);
@@ -344,4 +344,3 @@ clear_opR();
 clear_opA();
 clear_opB();
 }
-

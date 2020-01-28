@@ -1,7 +1,7 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 
-include il "isa/pseudoisa.il"
-include il "final_gadgets/present/first_order/sbox_gadgets.il"
+include il "models/pseudoisa.il"
+include il "present/first_order/sbox_gadgets.il"
 
 //helper register for intermediate outputs between calculations
 w32 rai1;
@@ -22,8 +22,6 @@ w32 rao;
 w32 rbo;
 w32 rco;
 w32 rdo;
-
-
 
 macro present ()
 {
@@ -84,6 +82,32 @@ annotate present
   input sharing c
   input sharing d
   input urandom rnd
+  input public pub
+  input public opA
+  input public opB
+  input public opR
+  input public opW
+  input public rain
+  input public rbin
+  input public rcin
+  input public rdin
+  input public rai1
+  input public rbi1
+  input public rci1
+  input public rdi1
+  input public rai2
+  input public rbi2
+  input public rci2
+  input public rdi2
+  input public r3
+  input public r4
+  input public r5
+  input public r6
+  input public r7
+  input public rao
+  input public rbo
+  input public rco
+  input public rdo
   output sharing ao
   output sharing bo
   output sharing co
@@ -100,17 +124,6 @@ annotate present
   ;
 
 ---
-verbosity:
-  verbosity: 1;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-addleakage:
-  target: present;
-
 inlinecall:
   target: present;
 
@@ -124,21 +137,19 @@ partialeval:
 
 rewriteformv:
   target: present
-  inferinput: true
+  inferinput: false
   inferoutput: true;
-
-/* remove all ...OperandA and ...OperandB leakages
-filterleak:
-  target: present
-  inverse: false
-  leaks: "*Operand?";*/
 
 print:
   kind: maskverif
   target: present
-  verbosity: 1;
+  verbosity: 0;
 
 check:
   target: present
-  kind: NI;
+  kind: "Stateful NI";
 ...
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "../..") compile-command (concat "scverif --il " buffer-file-name))
+// End:

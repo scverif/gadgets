@@ -1,6 +1,6 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 
-include il "final_gadgets/present/first_order/basic_gadgets.il"
+include il "present/first_order/basic_gadgets.il"
 
 macro calcG (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)int indx
 {

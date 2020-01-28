@@ -1,12 +1,7 @@
-/*
-printf "include il \"present/first_order/present.il\"\n" | ./main.native | ../maskverif/tool2/main_input.native
-printf "include il \"present/first_order/present.il\"\n" | ./main.native | sed -e 's/NI/Probing/g'  | ../maskverif/tool2/main_input.native
-*/
-
-include il "isa/pseudoisa.il"
+include il "models/pseudoisa.il"
 include il "present/second_order/sbox_gadgets.il"
 
-//helper register for intermediate outputs between calculations 
+//helper register for intermediate outputs between calculations
 w32 rai1;
 w32 rbi1;
 w32 rci1;
@@ -26,17 +21,15 @@ w32 rbo;
 w32 rco;
 w32 rdo;
 
-
-
 macro present ()
-{ 
-  /*present with optimzed gadgets */  
-  
+{
+  /*present with optimzed gadgets */
+
   calcB_opt(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3, 0);
   calcG_paraMult(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 8);
   calcG_paraMult(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 17);
   calcA_opt(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 26);
-  
+
 
   //compostion of first order gadgets
   /*
@@ -45,8 +38,8 @@ macro present ()
   calcG(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 17);
   calcA(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 26);*/
 
- 
-  
+
+
 }
 
 annotate present
@@ -89,6 +82,32 @@ annotate present
   input sharing c
   input sharing d
   input urandom rnd
+  input public pub
+  input public opA
+  input public opB
+  input public opR
+  input public opW
+  input public rain
+  input public rbin
+  input public rcin
+  input public rdin
+  input public rai1
+  input public rbi1
+  input public rci1
+  input public rdi1
+  input public rai2
+  input public rbi2
+  input public rci2
+  input public rdi2
+//  input public r3
+//  input public r4
+//  input public r5
+//  input public r6
+//  input public r7
+  input public rao
+  input public rbo
+  input public rco
+  input public rdo
   output sharing ao
   output sharing bo
   output sharing co
@@ -105,29 +124,6 @@ annotate present
   ;
 
 ---
-verbosity:
-  verbosity: 1;
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-/* put all leakages of a macro in a single leak statement at the beginning.
-accumulate:
-  target: [load,store,xor,and]
-  leaks: any
-  keep: false; // remove the old leakages
-*/
-
-print:
-  kind: macrodef
-  target: load
-  verbosity: 0;
-
-addleakage:
-  target: present;
-
 inlinecall:
   target: present;
 
@@ -142,14 +138,18 @@ partialeval:
 print:
   kind: evaltrace
   target: present
-  verbosity: 1;
+  verbosity: 0;
 
 rewriteformv:
-target: present
-inferinput: true
-inferoutput: true;
+  target: present
+  inferinput: true
+  inferoutput: true;
 
 check:
   target: present
-  kind: NI;
+  kind: "Stateful NI";
 ...
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "../..") compile-command (concat "scverif --il " buffer-file-name))
+// End:

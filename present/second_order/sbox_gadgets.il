@@ -13,7 +13,7 @@ macro calcG (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c
 
   /*calc d'*/
   secxor(c_in, d_out, d_out);
-  
+
   /*calc b'*/
   secmult(a_in, b_in, rnd_loc, indx, b_out);
   indx <- indx +3;
@@ -36,7 +36,7 @@ macro calcB (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c
   secxor(a_in, b_in, a_out);
   secref(a_out, r3, rnd_index + 4, a_out);
 
- 
+
 }
 
 macro calcA (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)int indx
@@ -82,7 +82,7 @@ clear_opA();
 clear_opB();
 clear_opR();
 clear_opW();
-  
+
   /*second share*/
 
   load(r4, b_in, 1);
@@ -169,7 +169,7 @@ clear_opB();
   xor(r5, r6);
   store(r5, c_out, 2);
 
-  
+
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
@@ -181,14 +181,14 @@ clear_opW();
 }
 
 macro calcA_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out, w32 rnd_loc, int rnd_index)
-{ 
+{
   load(r4, a_in, 0);
   store(r4,c_out,0);
 
   load(r5, c_in, 0);
   xor(r5, r4);
   store(r5, a_out, 0);
-  
+
   xor(r5, (w32) 255);
   load(r6, d_in, 0);
   xor(r5, r6);
@@ -197,8 +197,8 @@ macro calcA_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w
   load(r5, b_in, 0);
   xor(r5, (w32) 255);
   store(r5, b_out, 0);
-  
-  /*second share*/ 
+
+  /*second share*/
 
   load(r5, a_in, 1);
   store(r5,c_out,1);
@@ -206,7 +206,7 @@ clear_opB();
   load(r4, c_in, 1);
   xor(r4, r4);
   store(r4, a_out, 1);
-  
+
   load(r5, d_in, 1);
   xor(r4, r5);
   store(r4, d_out, 1);
@@ -214,7 +214,7 @@ clear_opB();
   load(r5, b_in, 1);
   store(r5, b_out, 1);
 
-  /*third share*/ 
+  /*third share*/
 
   load(r5, a_in, 2);
   store(r5,c_out,2);
@@ -222,14 +222,14 @@ clear_opB();
   load(r4, c_in, 2);
   xor(r4, r4);
   store(r4, a_out, 2);
-  
+
   load(r5, d_in, 2);
   xor(r4, r5);
   store(r4, d_out, 2);
 
   load(r5, b_in, 2);
   store(r5, b_out, 2);
-  
+
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
@@ -280,7 +280,7 @@ macro calcG_paraMult (w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_o
   xor(r6,r0);
 
 load_pub(r0);
-clear_opR();	
+clear_opR();
   load(r0, rnd_loc, rnd_index + 1);
 clear_opA();
 clear_opB();
@@ -356,7 +356,7 @@ clear_opB();
   xor(r6,r0);
 
 load_pub(r0);
-clear_opR();	
+clear_opR();
   load(r0, rnd_loc, rnd_index + 2);
 clear_opB();
 clear_opA();
@@ -434,7 +434,7 @@ clear_opB();
   xor(r6,r0);
 
 load_pub(r0);
-clear_opR();	
+clear_opR();
   load(r0, rnd_loc, rnd_index + 0);
 clear_opB();
 clear_opA();
