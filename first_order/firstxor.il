@@ -57,9 +57,6 @@ annotate firstxor
   ;
 
 ---
-addleakage:
-  target: "*";
-
 inlinecall:
   target: firstxor;
 

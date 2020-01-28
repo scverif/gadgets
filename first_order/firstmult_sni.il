@@ -1,4 +1,4 @@
-// Copyright 2019 - TU Darmstadt, NXP
+// Copyright 2019-2020 - TU Darmstadt, NXP
 
 include il "models/pseudoisa.il"
 
@@ -82,9 +82,6 @@ annotate firstmult
   ;
 
 ---
-addleakage:
-  target: "*";
-
 inlinecall:
   target: firstmult;
 
