@@ -6,7 +6,7 @@
 	// xorOrder1(uint32_t *entropy, uint32_t output[2], uint32_t input1[2], uint32_t input2[2])
 	// r0 entropy ptr, r1 *output ptr, r2 *input1 ptr, r3 *input2
 xorOrder1:
-	PUSH    {r0, r4, r5}
+	PUSH    {r4, r5}
 	LDR     r0, [r2, #0]
 	LDR     r4, [r3, #0]
 	EORS    r0, r4
@@ -16,7 +16,7 @@ xorOrder1:
 	EORS    r4, r5
 	STR     r0, [r1, #4]
 	STR     r4, [r1, #4]
-	POP     {r0, r4, r5}
+	POP     {r4, r5}
 	BX      lr
 
 	.global andOrder1
@@ -74,6 +74,7 @@ notOrder1:
 	LDR     r2, [r1, #0]
 	MVNS    r2, r2
 	STR     r2, [r1, #0]
+        STR     r1, [sp, #-4]
 	BX      lr
 
 	.global leakage

@@ -1,14 +1,14 @@
 // Copyright 2020 - NXP, TU Darmstadt
 
-include il "isa/isa-cortex-m0plus-metrics.il"
-include il "isa/leakyisa-cortex-m0plus.il"
-include gas "gadgets/asmgadgets_order1.s"
+include il "models/isa-cortex-m0plus-metrics.il"
+include il "models/leakyisa-cortex-m0plus.il"
+include gas "asmgadgets_order1.s"
 
 annotate xorOrder1
   region mem w32 a[0:1]
   region mem w32 b[0:1]
   region mem w32 c[0:1]
-  region mem w32 stack[-3:-1]
+  region mem w32 stack[-2:-1]
   init r1 [c 0]
   init r2 [a 0]
   init r3 [b 0]
@@ -153,3 +153,8 @@ check:
   kind: "Stateful SNI"
   target: [xorOrder1];
 ...
+
+
+// Local Variables:
+// eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))
+// End:
