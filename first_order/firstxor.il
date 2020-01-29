@@ -30,6 +30,15 @@ clear_opW();
   xor(r5, r6);
 
 /*store value of r5 = a1+b1 as output value c1*/
+/*load a1 into register r5*/
+  load(r5, r1, 1);
+/*load b1 into register r6*/
+  load(r6, r2, 1);
+
+/*xor r5 and r6 s.t. r5 contains a1+b1*/
+  xor(r5, r6);
+
+/*store value of r5 = a1+b1 as output value c1*/
   store(r5, r0, 1);
 
   scrub(r4);

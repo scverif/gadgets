@@ -2,13 +2,15 @@
 
 include il "models/isa-cortex-m0plus-metrics.il"
 include il "models/leakyisa-cortex-m0plus.il"
-include gas "asmgadgets_order1.s"
+include gas "first_order/asmgadgets_order1.s"
 
 annotate xorOrder1
   region mem w32 a[0:1]
   region mem w32 b[0:1]
   region mem w32 c[0:1]
-  region mem w32 stack[-2:-1]
+  region mem w32 rnd[0:0]
+  region mem w32 stack[-3:-1]
+  init r0 [rnd 0]
   init r1 [c 0]
   init r2 [a 0]
   init r3 [b 0]
@@ -145,15 +147,14 @@ rewriteformv:
 
 print:
   kind: variables
-  variables: [cyclecount, r0]
+  variables: [cyclecount, r0, sp]
   target: [xorOrder1, andOrder1, refOrder1, notOrder1]
   verbosity: 1;
 
 check:
-  kind: "Stateful SNI"
+  kind: "Stateful NI"
   target: [xorOrder1];
 ...
-
 
 // Local Variables:
 // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))

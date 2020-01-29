@@ -7,16 +7,19 @@
 	// r0 entropy ptr, r1 *output ptr, r2 *input1 ptr, r3 *input2
 xorOrder1:
 	PUSH    {r4, r5}
-	LDR     r0, [r2, #0]
-	LDR     r4, [r3, #0]
-	EORS    r0, r4
-	STR     r0, [r1, #0]
-	LDR     r4, [r2, #4]
-	LDR     r5, [r3, #4]
+	LDR     r4, [r2, #0]
+	LDR     r5, [r3, #0]
 	EORS    r4, r5
-	STR     r0, [r1, #4]
+	STR     r4, [r1, #0]
+        PUSH    {r0}                    // clear_opW()
+	LDR     r5, [r2, #4]
+        POP     {r4}                    // scrub(r4), clear_opR()
+	LDR     r4, [r3, #4]
+	EORS    r4, r5
 	STR     r4, [r1, #4]
-	POP     {r4, r5}
+        PUSH    {r0}                    // clear_opW()
+        CMP     r0, #0
+	POP     {r0, r4, r5}
 	BX      lr
 
 	.global andOrder1
@@ -46,7 +49,7 @@ andOrder1:
 	STR     r7, [r1, #4]
 	POP     {r4, r5, r6, r7}
 	ADDS    r0, r0, #4
-	STR     r4, [sp, #-4]
+//	STR     r4, [sp, #-4]
 	BX      lr
 
 	.global refOrder1
@@ -74,7 +77,7 @@ notOrder1:
 	LDR     r2, [r1, #0]
 	MVNS    r2, r2
 	STR     r2, [r1, #0]
-        STR     r1, [sp, #-4]
+ //       STR     r1, [sp, #-4]
 	BX      lr
 
 	.global leakage
