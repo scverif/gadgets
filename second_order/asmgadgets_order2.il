@@ -2,40 +2,9 @@
 
 include il "models/isa-cortex-m0plus-metrics.il"
 include il "models/leakyisa-cortex-m0plus.il"
-include gas "asmgadgets_order2.s"
+include gas "second_order/asmgadgets_order2.s"
 
 annotate xorOrder2
-  region mem w32 a[0:2]
-  region mem w32 b[0:2]
-  region mem w32 c[0:2]
-  region mem w32 stack[-2:-1]
-  init r1 [c 0]
-  init r2 [a 0]
-  init r3 [b 0]
-  init sp [stack 0]
-  init lr exit
-  init cyclecount 0
-  input sharing a
-  input sharing b
-  input public opA
-  input public opB
-  input public opR
-  input public opW
-  input public r0
-  input public r1
-  input public r2
-  input public r3
-  input public r4
-  input public r5
-  input public r6
-  input public r7
-  input public stack
-  input public sp
-  input public lr
-  input public c
-  output sharing c;
-
-annotate andOrder2
   region mem w32 a[0:2]
   region mem w32 b[0:2]
   region mem w32 c[0:2]
@@ -65,15 +34,49 @@ annotate andOrder2
   input public stack
   input public sp
   input public lr
-  input urandom rnd
   input public c
+  input public rnd
+  output sharing c;
+
+annotate andOrder2
+  region mem w32 a[0:2]
+  region mem w32 b[0:2]
+  region mem w32 c[0:2]
+  region mem w32 rnd[0:2]
+  region mem w32 stack[-4:-1]
+  init r0 [rnd 0]
+  init r1 [c 0]
+  init r2 [a 0]
+  init r3 [b 0]
+  init sp [stack 0]
+  init lr exit
+  init cyclecount 0
+  input sharing a
+  input sharing b
+  input public opA
+  input public opB
+  input public opR
+  input public opW
+  input public r0
+  input public r1
+  input public r2
+  input public r3
+  input public r4
+  input public r5
+  input public r6
+  input public r7
+  input public stack
+  input public sp
+  input public lr
+  input public c
+  input public rnd
   output sharing c;
 
 annotate refOrder2
   region mem w32 a[0:2]
   region mem w32 c[0:2]
   region mem w32 rnd[0:0]
-  region mem w32 stack[-2:-1]
+  region mem w32 stack[-4:-1]
   init r0 [rnd 0]
   init r1 [c 0]
   init r2 [a 0]
@@ -96,8 +99,8 @@ annotate refOrder2
   input public stack
   input public sp
   input public lr
-  input urandom rnd
   input public c
+  input public rnd
   output sharing c;
 
 annotate notOrder2
@@ -105,7 +108,7 @@ annotate notOrder2
   region mem w32 rnd[0:0]
   region mem w32 stack[-2:-1]
   init r0 [rnd 0]
-  init r1 [a 0]
+  init r2 [a 0]
   init sp [stack 0]
   init lr exit
   init cyclecount 0
@@ -125,7 +128,7 @@ annotate notOrder2
   input public stack
   input public sp
   input public lr
-  input urandom rnd
+  input public rnd
   output sharing a;
 
 ---
@@ -149,9 +152,16 @@ print:
   target: [xorOrder2, andOrder2, refOrder2, notOrder2]
   verbosity: 1;
 
+/*
+check:
+  kind: "Stateful NI"
+  target: [xorOrder2];
+*/
+
 check:
   kind: "Stateful SNI"
-  target: [xorOrder2];
+  target: [andOrder2];
+
 ...
 
 

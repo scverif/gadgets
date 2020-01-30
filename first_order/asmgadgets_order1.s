@@ -107,14 +107,14 @@ notOrder1:
         ANDS    r0, r0          // clear flags, clear_opA, clear_opB
 	BX      lr
 
-	.global leakage
+	.global leakOrder1
         .align  2
         .thumb
         .thumb_func
-        .type leakage STT_FUNC
-	// leakage(uint32_t *entropy, uint32_t input[2])
+        .type leakOrder1 STT_FUNC
+	// leakOrder1(uint32_t *entropy, uint32_t input[2])
 	// r0 entropy ptr, r1 *input1 ptr
-leakage:
+leakOrder1:
 	LDR     r2, [r1, #0]
 	LDMIA   r0!, {r1}
 	LDR     r1, [r1, #4]
