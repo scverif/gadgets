@@ -2,15 +2,13 @@
 
 include il "models/isa-cortex-m0plus-metrics.il"
 include il "models/leakyisa-cortex-m0plus.il"
-include gas "first_order/asmgadgets_order1.s"
+include gas "asmgadgets_order2.s"
 
-annotate xorOrder1
-  region mem w32 a[0:1]
-  region mem w32 b[0:1]
-  region mem w32 c[0:1]
-  region mem w32 rnd[0:0]
+annotate xorOrder2
+  region mem w32 a[0:2]
+  region mem w32 b[0:2]
+  region mem w32 c[0:2]
   region mem w32 stack[-2:-1]
-  init r0 [rnd 0]
   init r1 [c 0]
   init r2 [a 0]
   init r3 [b 0]
@@ -35,14 +33,13 @@ annotate xorOrder1
   input public sp
   input public lr
   input public c
-  input public rnd
   output sharing c;
 
-annotate andOrder1
-  region mem w32 a[0:1]
-  region mem w32 b[0:1]
-  region mem w32 c[0:1]
-  region mem w32 rnd[0:1]
+annotate andOrder2
+  region mem w32 a[0:2]
+  region mem w32 b[0:2]
+  region mem w32 c[0:2]
+  region mem w32 rnd[0:0]
   region mem w32 stack[-4:-1]
   init r0 [rnd 0]
   init r1 [c 0]
@@ -72,9 +69,9 @@ annotate andOrder1
   input public c
   output sharing c;
 
-annotate refOrder1
-  region mem w32 a[0:1]
-  region mem w32 c[0:1]
+annotate refOrder2
+  region mem w32 a[0:2]
+  region mem w32 c[0:2]
   region mem w32 rnd[0:0]
   region mem w32 stack[-2:-1]
   init r0 [rnd 0]
@@ -103,8 +100,8 @@ annotate refOrder1
   input public c
   output sharing c;
 
-annotate notOrder1
-  region mem w32 a[0:1]
+annotate notOrder2
+  region mem w32 a[0:2]
   region mem w32 rnd[0:0]
   region mem w32 stack[-2:-1]
   init r0 [rnd 0]
@@ -136,33 +133,27 @@ addleakage:
   target: "*";
 
 inlinecall:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1];
+  target: [xorOrder2, andOrder2, refOrder2, notOrder2];
 
 partialeval:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1];
+  target: [xorOrder2, andOrder2, refOrder2, notOrder2];
 
 rewriteformv:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  target: [xorOrder2, andOrder2, refOrder2, notOrder2]
   inferinput: false
   inferoutput: true;
 
 print:
   kind: variables
-  variables: [cyclecount, r0, sp, rnd]
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  variables: [cyclecount, r0]
+  target: [xorOrder2, andOrder2, refOrder2, notOrder2]
   verbosity: 1;
-
-/*
-check:
-  kind: "Stateful NI"
-  target: [xorOrder1];
-*/
 
 check:
   kind: "Stateful SNI"
-  target: [andOrder1];
-
+  target: [xorOrder2];
 ...
+
 
 // Local Variables:
 // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))

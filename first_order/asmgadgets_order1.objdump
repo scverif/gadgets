@@ -1,0 +1,22 @@
+; Copyright 2020 - NXP
+
+; gadgets/first_order/asmgadgets_order1.o:     file format elf32-littlearm
+
+; Disassembly of section .text:
+
+00000000 <xorOrder1>:
+   0:	b430      	push	{r4, r5}
+   2:	6814      	ldr	r4, [r2, #0]
+   4:	681d      	ldr	r5, [r3, #0]
+   6:	406c      	eors	r4, r5
+   8:	600c      	str	r4, [r1, #0]
+   a:	b401      	push	{r0}
+   c:	6855      	ldr	r5, [r2, #4]
+   e:	bc10      	pop	{r4}
+  10:	685c      	ldr	r4, [r3, #4]
+  12:	406c      	eors	r4, r5
+  14:	604c      	str	r4, [r1, #4]
+  16:	b401      	push	{r0}
+  18:	2800      	cmp	r0, #0
+  1a:	bc31      	pop	{r0, r4, r5}
+  1c:	4770      	bx	lr
