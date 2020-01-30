@@ -119,7 +119,9 @@ leakage:
 	LDMIA   r0!, {r1}
 	LDR     r1, [r1, #4]
 	EORS    r2, r1
-	MOVS    r2, #0
+        LDR     r2, [r0, #0]    // scrub(r2), clear_opR
+        STR     r0, [r0, #0]    // clear_opW
+        ANDS    r0, r0          // clear flags, clear_opA, clear_opB
 	BX      lr
 
         // Local Variables:
