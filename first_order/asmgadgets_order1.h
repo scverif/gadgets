@@ -28,7 +28,7 @@ uint32_t* refOrder1( uint32_t*      entropy   ,  // advances by 1 position
 uint32_t* notOrder1( uint32_t*      entropy   ,  // advances by 0 positions
                      uint32_t       inplacedata[2]);
 
-uint32_t* notOrder1( uint32_t*      entropy   ,  // advances by 0 positions
+uint32_t* leakage  ( uint32_t*      entropy   ,  // advances by 0 positions
                      uint32_t       inplacedata[2]);
 
 #endif
