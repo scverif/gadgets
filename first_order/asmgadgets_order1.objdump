@@ -10,13 +10,76 @@
    4:	681d      	ldr	r5, [r3, #0]
    6:	406c      	eors	r4, r5
    8:	600c      	str	r4, [r1, #0]
-   a:	b401      	push	{r0}
+   a:	6048      	str	r0, [r1, #4]
    c:	6855      	ldr	r5, [r2, #4]
-   e:	bc10      	pop	{r4}
+   e:	684c      	ldr	r4, [r1, #4]
   10:	685c      	ldr	r4, [r3, #4]
   12:	406c      	eors	r4, r5
   14:	604c      	str	r4, [r1, #4]
-  16:	b401      	push	{r0}
-  18:	2800      	cmp	r0, #0
-  1a:	bc31      	pop	{r0, r4, r5}
+  16:	4000      	ands	r0, r0
+  18:	6000      	str	r0, [r0, #0]
+  1a:	bc30      	pop	{r4, r5}
   1c:	4770      	bx	lr
+  1e:	46c0      	nop			; (mov r8, r8)
+
+00000020 <andOrder1>:
+  20:	b4f0      	push	{r4, r5, r6, r7}
+  22:	681c      	ldr	r4, [r3, #0]
+  24:	6815      	ldr	r5, [r2, #0]
+  26:	402c      	ands	r4, r5
+  28:	6846      	ldr	r6, [r0, #4]
+  2a:	4066      	eors	r6, r4
+  2c:	685f      	ldr	r7, [r3, #4]
+  2e:	403d      	ands	r5, r7
+  30:	4075      	eors	r5, r6
+  32:	600d      	str	r5, [r1, #0]
+  34:	6048      	str	r0, [r1, #4]
+  36:	4064      	eors	r4, r4
+  38:	4076      	eors	r6, r6
+  3a:	6854      	ldr	r4, [r2, #4]
+  3c:	4027      	ands	r7, r4
+  3e:	6846      	ldr	r6, [r0, #4]
+  40:	407e      	eors	r6, r7
+  42:	681d      	ldr	r5, [r3, #0]
+  44:	4025      	ands	r5, r4
+  46:	406e      	eors	r6, r5
+  48:	604e      	str	r6, [r1, #4]
+  4a:	bcf0      	pop	{r4, r5, r6, r7}
+  4c:	3004      	adds	r0, #4
+  4e:	6000      	str	r0, [r0, #0]
+  50:	4770      	bx	lr
+  52:	46c0      	nop			; (mov r8, r8)
+
+00000054 <refOrder1>:
+  54:	b430      	push	{r4, r5}
+  56:	6813      	ldr	r3, [r2, #0]
+  58:	6844      	ldr	r4, [r0, #4]
+  5a:	4063      	eors	r3, r4
+  5c:	600b      	str	r3, [r1, #0]
+  5e:	6000      	str	r0, [r0, #0]
+  60:	6855      	ldr	r5, [r2, #4]
+  62:	4065      	eors	r5, r4
+  64:	604d      	str	r5, [r1, #4]
+  66:	bc30      	pop	{r4, r5}
+  68:	405b      	eors	r3, r3
+  6a:	3004      	adds	r0, #4
+  6c:	6000      	str	r0, [r0, #0]
+  6e:	4770      	bx	lr
+
+00000070 <notOrder1>:
+  70:	680a      	ldr	r2, [r1, #0]
+  72:	43d2      	mvns	r2, r2
+  74:	600a      	str	r2, [r1, #0]
+  76:	6802      	ldr	r2, [r0, #0]
+  78:	6000      	str	r0, [r0, #0]
+  7a:	4000      	ands	r0, r0
+  7c:	4770      	bx	lr
+  7e:	46c0      	nop			; (mov r8, r8)
+
+00000080 <leakage>:
+  80:	680a      	ldr	r2, [r1, #0]
+  82:	c802      	ldmia	r0!, {r1}
+  84:	6849      	ldr	r1, [r1, #4]
+  86:	404a      	eors	r2, r1
+  88:	2200      	movs	r2, #0
+  8a:	4770      	bx	lr

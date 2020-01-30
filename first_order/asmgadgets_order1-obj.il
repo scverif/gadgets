@@ -2,7 +2,7 @@
 
 include il "models/isa-cortex-m0plus-metrics.il"
 include il "models/leakyisa-cortex-m0plus.il"
-include gas "first_order/asmgadgets_order1.s"
+include asm "first_order/asmgadgets_order1.objdump"
 
 annotate xorOrder1
   region mem w32 a[0:1]
@@ -161,8 +161,8 @@ check:
   kind: "Stateful SNI"
   target: [andOrder1, refOrder1, notOrder1];  // FIXME fails due to scVerif bug
 */
-
 ...
+
 
 // Local Variables:
 // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))

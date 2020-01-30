@@ -44,53 +44,38 @@ macro firstmult (w32 op1, w32 op2, w32 rnd_loc, int rnd_index,w32 str)
 {
 /*calculation of the first outputshare: c0 = a0*b0 + rnd0 +a0*b1*/
 
-/*load b0 into register r4*/
-  load(r4, op2, 0);
-/*load a0 into register r5*/
-  load(r5, op1, 0);
+  load(r4, op2, 0);                 /*load b0 into register r4*/
+  load(r5, op1, 0);                 /*load a0 into register r5*/
 
-/*perform AND r4 and r5 s.t. r4 contains b0*a0*/
-  and(r4, r5);
+and(r4, r5);                        /*perform AND r4 and r5 s.t. r4 contains b0*a0*/
 
-/*load rnd0 into register r6*/
-  load(r6,rnd_loc,0 + rnd_index);
+  load(r6,rnd_loc,0 + rnd_index);   /*load rnd0 into register r6*/
 
-/*perform XOR r6 and r4 s.t r6 contains b0*a0 + rnd0*/
-  xor(r6,r4);
+  xor(r6,r4);                       /*perform XOR r6 and r4 s.t r6 contains b0*a0 + rnd0*/
 
-/*load b1 into register r7*/
-  load(r7, op2, 1);
+  load(r7, op2, 1);                 /*load b1 into register r7*/
 
-/*perform AND with registers r5 and r7 s.t. r5 contains a0*b1*/
-  and(r5, r7);
-/*perform XOR with registers r5 and r4 s.t.t r5 contains a0*b1 + b0*a0 +rnd0*/
-  xor(r5, r6);
+  and(r5, r7);                      /*perform AND with registers r5 and r7 s.t. r5 contains a0*b1*/
+  xor(r5, r6);                      /*perform XOR with registers r5 and r4 s.t.t r5 contains a0*b1 + b0*a0 +rnd0*/
 
-/*store value of r5 = a0*b1 + b0*a0 +rnd0 as output value c0 */
-  store(r5, str, 0);
+  store(r5, str, 0);                /*store value of r5 = a0*b1 + b0*a0 +rnd0 as output value c0 */
 
 clear_opW();
 load_pub(r4);
 load_pub(r6);
 
-/*load a1 into register r4*/
-  load(r4, op1, 1);
+  load(r4, op1, 1);                 /*load a1 into register r4*/
 
-/*perform AND with registers r7 and r4 s.t. r7 contains b1*a1*/
-  and(r7, r4);
+  and(r7, r4);                      /*perform AND with registers r7 and r4 s.t. r7 contains b1*a1*/
 
   load(r6,rnd_loc,0 + rnd_index);
-/*perform XOR with registers r6 and r7 s.t. r6 contains b1*a1 + rnd0*/
-  xor(r6,r7);
+  xor(r6,r7);                       /*perform XOR with registers r6 and r7 s.t. r6 contains b1*a1 + rnd0*/
 
-/*load b0 into register r6*/
-  load(r5, op2, 0);
+  load(r5, op2, 0);                 /*load b0 into register r6*/
 
-/*perform AND with registers r6 and r4 s.t. r6 contains b0*a1*/
-  and(r5, r4);
+  and(r5, r4);                      /*perform AND with registers r6 and r4 s.t. r6 contains b0*a1*/
 
-/*perform XOR with registers r6 and r7 s.t. r5 contains b0*a1 + b1*a1 + rnd0  */
-  xor(r6, r5);
+  xor(r6, r5);                      /*perform XOR with registers r6 and r7 s.t. r5 contains b0*a1 + b1*a1 + rnd0  */
 
 /*store value of r6 = b0a1 + b1*a1 +rnd0 as output value c1 */
   store(r6, str, 1);
