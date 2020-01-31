@@ -36,7 +36,7 @@ clear_opW();
 }
 
 // rin1ptr shares[0:2], rin2ptr shares[0:2], rdstptr output[0:2]
-macro secmult (w32 rin1ptr, w32 rin2ptr, w32 rnd_loc, int rnd_index,w32 rdstptr)
+macro secmult (w32 rin1ptr, w32 rin2ptr, w32 rnd_loc, w32 rdstptr)
 {
 /*a0 is loaded into register r5*/
   load(r5, rin1ptr, 0);
@@ -48,7 +48,7 @@ macro secmult (w32 rin1ptr, w32 rin2ptr, w32 rnd_loc, int rnd_index,w32 rdstptr)
   and(r4, r5);
 
 /*rnd0 is loaded into register r6*/
-  load(r6,rnd_loc, rnd_index + 0);
+  load(r6,rnd_loc, 0);
 
 /*in register r6 the result rnd0+b0*a0 is stored*/
   xor(r6,r4);
@@ -85,7 +85,7 @@ clear_opA();/*Xor Oparand A*/
 load_pub(r5);/*Load Transition*/
 
 /*rnd1 is loaded into register r5*/
-  load(r5, rnd_loc, rnd_index +  1);
+  load(r5, rnd_loc,  1);
 
 /*in regsister r6 the result rnd0+b0*a0+b1*a0+a1*b0+rnd1 is stored*/
   xor(r6, r5);
@@ -115,7 +115,7 @@ load_pub(r7);
   and(r4, r5);
 
 /*rnd1 is loaded into register r6*/
-  load(r6,rnd_loc, rnd_index + 1);
+  load(r6,rnd_loc, 1);
 
 /*in register r6 the result rnd1+b1*a1 is stored*/
   xor(r6,r4);
@@ -152,7 +152,7 @@ clear_opA();/*Xor Oparand A*/
 load_pub(r5);/*Load Transition*/
 
 /*rnd2 is loaded into register r5*/
-  load(r5, rnd_loc, rnd_index +  2);
+  load(r5, rnd_loc,  2);
 
 /*in regsister r6 the result rnd1+b1*a1+b2*a1+a2*b1+rnd2 is stored*/
   xor(r6, r5);
@@ -181,7 +181,7 @@ load_pub(r7);
   and(r4, r5);
 
 /*rnd2 is loaded into register r6*/
-  load(r6,rnd_loc, rnd_index + 2);
+  load(r6,rnd_loc, 2);
 
 /*in register r6 the result rnd2+b2*a2 is stored*/
   xor(r6,r4);
@@ -218,7 +218,7 @@ clear_opA();/*Xor Oparand A*/
 load_pub(r5);/*Load Transition*/
 
 /*rnd0 is loaded into register r5*/
-  load(r5, rnd_loc, rnd_index +  0);
+  load(r5, rnd_loc,  0);
 
 /*in regsister r6 the result rnd2+b2*a2+b0*a2+a0*b2+rnd0 is stored*/
   xor(r6, r5);
@@ -234,16 +234,18 @@ clear_opA();
 clear_opB();
 clear_opR();
 clear_opW();
+
+rnd_loc <- (rnd_loc +w32 (w32) (3 * 4));
 }
 
 // rin1ptr shares[0:2], rin2ptr shares[0:2], rdstptr output[0:2]
-macro secref (w32 rin1ptr, w32 rnd_loc, int rnd_index,w32 rdstptr)
+macro secref (w32 rin1ptr, w32 rnd_loc, w32 rdstptr)
 {
-  load(r4, rnd_loc, rnd_index +  0);
+  load(r4, rnd_loc, 0);
 
   load(r6, rin1ptr, 0);
 clear_opR();
-  load(r5, rnd_loc, rnd_index +  1);
+  load(r5, rnd_loc, 1);
 
   xor(r6, r4);
 
@@ -277,6 +279,8 @@ clear_opA();
 clear_opB();
 clear_opR();
 clear_opW();
+
+rnd_loc <- (rnd_loc +w32 (w32) (2 * 4));
 }
 
 // rin1ptr shares[0:2], rin2ptr shares[0:2], rdstptr output[0:2]

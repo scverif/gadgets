@@ -29,19 +29,19 @@ macro present_sbox ()
 
   calcB_opt(rain, rbin, rcin, rdin,
             rai1, rbi1, rci1, rdi1,
-            r3, 0);
-  calcG_paraMult(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 8);
-  calcG_paraMult(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 17);
-  calcA_opt(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 26);
+            r3);
+  calcG_paraMult(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3);
+  calcG_paraMult(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3);
+  calcA_opt(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3);
 }
 
 macro present_sbox_plain ()
 {
   /* present_sbox with standard (non-optimized) gadgets */
-  calcB(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3, 0);
-  calcG(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 8);
-  calcG(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 17);
-  calcA(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 26);
+  calcB(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3);
+  calcG(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3);
+  calcG(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3);
+  calcA(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3);
 }
 
 annotate present_sbox
