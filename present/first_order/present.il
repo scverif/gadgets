@@ -25,20 +25,19 @@ w32 rdo;
 
 macro present ()
 {
-  /*present with optimzed gadgets */
+  /*present with optimzed gadgets*/
 
-  calcB_opt(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3, 0);
-  calcG_paraMult(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 3);
-  calcG_paraMult(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 6);
-  calcA_opt(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 7);
+  calcB_opt(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3);
+  calcG_paraMult(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3);
+  calcG_paraMult(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3);
+  calcA_opt(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3);
 
   /*compostion of first order gadgets
 
-  calcB(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3, 0);
-  firstref(rci1, r3, 1 ,rci1);
-  calcG(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3, 3);
-  calcG(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3, 6);
-  calcA(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3, 7);*/
+  calcB(rain, rbin, rcin, rdin, rai1, rbi1, rci1, rdi1, r3);
+  calcG(rai1, rbi1, rci1, rdi1, rai2, rbi2, rci2, rdi2, r3);
+  calcG(rai2, rbi2, rci2, rdi2, rai1, rbi1, rci1, rdi1, r3);
+  calcA(rai1, rbi1, rci1, rdi1, rao, rbo, rco, rdo, r3);*/
 
 }
 
