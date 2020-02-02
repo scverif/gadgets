@@ -35,7 +35,7 @@ annotate xorOrder1
   input public sp
   input public lr
   input public c
-  input public rnd
+  input public rnd[0:0]
   output sharing c;
 
 annotate andOrder1
@@ -68,7 +68,8 @@ annotate andOrder1
   input public stack
   input public sp
   input public lr
-  input urandom rnd
+  input public rnd[0:0]
+  input urandom rnd[1:1]
   input public c
   output sharing c;
 
@@ -99,7 +100,8 @@ annotate refOrder1
   input public stack
   input public sp
   input public lr
-  input urandom rnd
+  input public rnd[0:0]
+  input urandom rnd[1:1]
   input public c
   output sharing c;
 
@@ -128,7 +130,7 @@ annotate notOrder1
   input public stack
   input public sp
   input public lr
-  input urandom rnd
+  input public rnd[0:0]
   output sharing a;
 
 ---
@@ -152,16 +154,24 @@ print:
   target: [xorOrder1, andOrder1, refOrder1, notOrder1]
   verbosity: 1;
 
-/* FIXME subsequent checking has currently a bug
+print:
+  kind: maskverif
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  verbosity: 0;
+
 check:
   kind: "Stateful NI"
-  target: [xorOrder1];
+  target: [xorOrder1, notOrder1];
 
 check:
   kind: "Stateful SNI"
-  target: [andOrder1, refOrder1, notOrder1];  // FIXME fails due to scVerif bug
-*/
+  target: [andOrder1, refOrder1];
 
+/*
+check:
+  kind: "Stateful SNI"
+  target: [notOrder1];  // FIXME fails due to scVerif bug
+*/
 ...
 
 // Local Variables:
