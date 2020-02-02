@@ -55,73 +55,83 @@ andOrder2:
         ANDS    r4, r5
         LDR     r6, [r0, #4]
         EORS    r6, r4
-        MOVS    r0, r0          // clear_opB
+        ANDS    r0, r0          // clear_opA, clear_opB
         LDR     r7, [r3, #4]
         ANDS    r7, r5
         EORS    r6, r7
+        ANDS    r0, r0
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         LDR     r4, [r2, #4]
         LDR     r5, [r3, #0]
-        MOVS    r0, r0          // clear_opB
+        ANDS    r0, r0          // clear_opA, clear_opB
         ANDS    r4, r5
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA
-        LDR     r5, [r0, #0]
-        LDR     r5, [r0, #4]
+        ANDS    r0, r0          // clear_opA, clear_opB
+        LDR     r5, [r0, #0]    // scrub(r5), clear_opR, clear_opB
+        LDR     r5, [r0, #8]
         EORS    r6, r5
         STR     r6, [r1, #0]
+        ANDS    r0, r0          // clear_opA, clear_opB
         STR     r0, [r0, #0]    // clear_opW
-        LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
-        MOVS    r5, r0          // scrub (r5)
+        LDR     r4, [r0, #0]    // scrub(r4), clear_opR
+        ANDS    r0, r0          // clear_opA, clear_opB
+        MOVS    r5, r0          // scrub(r5)
+        ANDS    r0, r0          // clear_opA, clear_opB
         MOVS    r7, r0          // scrub(r7)
         LDR     r5, [r2, #4]
         LDR     r4, [r3, #4]
         ANDS    r4, r5
         LDR     r6, [r0, #8]
         EORS    r6, r4
-        MOVS    r0, r0
+        ANDS    r0, r0          // clear_opA, clear_opB
         LDR     r7, [r3, #8]
         ANDS    r7, r5
         EORS    r6, r7
+        ANDS    r0, r0          // clear_opA, clear_opB
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         LDR     r4, [r2, #8]
-        LDR     r4, [r3, #4]
-        ANDS    r0, r0          // clear_opA
+        ANDS    r0, r0          // clear_opA, clear_opB
+        LDR     r5, [r3, #4]
+        ANDS    r0, r0          // clear_opA, clear_opB
         ANDS    r4, r5
         EORS    r6, r4
         ANDS    r0, r0          // clear_opA
         LDR     r5, [r0, #0]    // scrub(r4), clear_opR, clear_opB
-        LDR     r5, [r0, #8]
+        LDR     r5, [r0, #12]
         EORS    r6, r5
-        STR     r6, [r1, #8]
+        STR     r6, [r1, #4]
         STR     r0, [r0, #0]    // clear_opW
-        LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
-        MOVS    r5, r0          // scrub (r5)
+        ANDS    r0, r0          // clear_opA, clear_opB
+        LDR     r4, [r0, #0]    // scrub(r4), clear_opR
+        ANDS    r0, r0          // clear_opA, clear_opB
+        MOVS    r5, r0          // scrub(r5)
+        ANDS    r0, r0          // clear_opA, clear_opB
         MOVS    r7, r0          // scrub(r7)
         LDR     r5, [r2, #8]
         LDR     r4, [r3, #8]
         ANDS    r4, r5
-        LDR     r6, [r0, #8]
+        LDR     r6, [r0, #12]
         EORS    r6, r4
-        MOVS    r0, r0          // clear_opB
+        ANDS    r0, r0          // clear_opA, clear_opB
         LDR     r7, [r3, #0]
         ANDS    r7, r5
         EORS    r6, r7
-        LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
+        ANDS    r0, r0          // clear_opA, clear_opB
+        LDR     r4, [r0, #0]    // scrub(r4), clear_opR
         LDR     r4, [r2, #0]
-        LDR     r5, [r2, #8]
-        MOVS    r0, r0          // clear_opB
+        LDR     r5, [r3, #8]
+        ANDS    r0, r0          // clear_opA, clear_opB
         ANDS    r4, r5
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA
-        LDR     r5, [r0, #0]    // scrub(r5), clear_opR, clear_opB
+        ANDS    r0, r0          // clear_opA, clear_opB
+        LDR     r5, [r0, #0]    // scrub(r5), clear_opR
         LDR     r5, [r0, #4]
         EORS    r6, r5
-        STR     r6, [r1, #4]
+        STR     r6, [r1, #8]
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         POP     {r4, r5, r6, r7}
-        STR     r0, [r0, #4]    // FIXME SCVERIF BUG
-        STR     r0, [r0, #8]    // FIXME SCVERIF BUG
+        STR     r0, [r0, #12]   // clear_opW, prepare scratch out
+        ADDS    r0, r0, #12     // clear_opA, clear_opB
 	BX lr
 
 	.global refOrder2

@@ -42,7 +42,7 @@ annotate andOrder2
   region mem w32 a[0:2]
   region mem w32 b[0:2]
   region mem w32 c[0:2]
-  region mem w32 rnd[0:2]
+  region mem w32 rnd[0:3]
   region mem w32 stack[-4:-1]
   init r0 [rnd 0]
   init r1 [c 0]
@@ -69,7 +69,8 @@ annotate andOrder2
   input public sp
   input public lr
   input public c
-  input public rnd
+  input public rnd [0:0]
+  input urandom rnd [1:3]
   output sharing c;
 
 annotate refOrder2
@@ -105,7 +106,7 @@ annotate refOrder2
 
 annotate notOrder2
   region mem w32 a[0:2]
-  region mem w32 rnd[0:0]
+  region mem w32 rnd[0:2]
   region mem w32 stack[-2:-1]
   init r0 [rnd 0]
   init r2 [a 0]
@@ -128,7 +129,8 @@ annotate notOrder2
   input public stack
   input public sp
   input public lr
-  input public rnd
+  input public rnd [0:0]
+  input urandom rnd [1:2]
   output sharing a;
 
 ---
@@ -148,22 +150,19 @@ rewriteformv:
 
 print:
   kind: variables
-  variables: [cyclecount, r0]
+  variables: [cyclecount, r0, rnd]
   target: [xorOrder2, andOrder2, refOrder2, notOrder2]
   verbosity: 1;
 
-/*
 check:
   kind: "Stateful NI"
   target: [xorOrder2];
-*/
 
 check:
   kind: "Stateful SNI"
   target: [andOrder2];
 
 ...
-
 
 // Local Variables:
 // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))
