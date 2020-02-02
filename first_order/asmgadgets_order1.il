@@ -108,10 +108,27 @@ annotate refOrder1
 annotate notOrder1
   region mem w32 a[0:1]
   region mem w32 rnd[0:0]
-  region mem w32 stack[-2:-1]
   init r0 [rnd 0]
   init r1 [a 0]
-  init sp [stack 0]
+  init lr exit
+  init cyclecount 0
+  input sharing a
+  input public opA
+  input public opB
+  input public opR
+  input public opW
+  input public r0
+  input public r1
+  input public r2
+  input public lr
+  input public rnd[0:0]
+  output sharing a;
+
+annotate leakOrder1
+  region mem w32 a[0:1]
+  region mem w32 rnd[0:0]
+  init r0 [rnd 0]
+  init r1 [a 0]
   init lr exit
   init cyclecount 0
   input sharing a
@@ -123,12 +140,6 @@ annotate notOrder1
   input public r1
   input public r2
   input public r3
-  input public r4
-  input public r5
-  input public r6
-  input public r7
-  input public stack
-  input public sp
   input public lr
   input public rnd[0:0]
   output sharing a;
@@ -138,25 +149,25 @@ addleakage:
   target: "*";
 
 inlinecall:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1];
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1, leakOrder1];
 
 partialeval:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1];
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1, leakOrder1];
 
 rewriteformv:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1, leakOrder1]
   inferinput: false
   inferoutput: true;
 
 print:
   kind: variables
-  variables: [cyclecount, r0, sp, rnd]
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  variables: [cyclecount, r0, rnd]
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1, leakOrder1]
   verbosity: 1;
 
 print:
   kind: maskverif
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1, leakOrder1]
   verbosity: 0;
 
 check:

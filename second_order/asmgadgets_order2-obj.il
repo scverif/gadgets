@@ -2,7 +2,7 @@
 
 include il "models/isa-cortex-m0plus-metrics.il"
 include il "models/leakyisa-cortex-m0plus.il"
-include gas "second_order/asmgadgets_order2.s"
+include asm "second_order/asmgadgets_order2.objdump"
 
 annotate xorOrder2
   region mem w32 a[0:2]
@@ -173,7 +173,7 @@ check:
 check:
   kind: "Stateful SNI"
   target: [andOrder2, refOrder2];
- ...
+...
 
 // Local Variables:
 // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))

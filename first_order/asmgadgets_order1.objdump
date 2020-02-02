@@ -1,4 +1,4 @@
-; Copyright 2020 - NXP
+; Copyright 2020 - NXP, TU Darmstadt
 
 ; gadgets/first_order/asmgadgets_order1.o:     file format elf32-littlearm
 
@@ -71,17 +71,21 @@
   72:	43d2      	mvns	r2, r2
   74:	600a      	str	r2, [r1, #0]
   76:	6802      	ldr	r2, [r0, #0]
-  78:	6000      	str	r0, [r0, #0]
-  7a:	4000      	ands	r0, r0
+  78:	6002      	str	r2, [r0, #0]
+  7a:	3000      	adds	r0, #0
   7c:	4770      	bx	lr
   7e:	46c0      	nop			; (mov r8, r8)
 
-00000080 <leakage>:
+00000080 <leakOrder1>:
   80:	680a      	ldr	r2, [r1, #0]
-  82:	c802      	ldmia	r0!, {r1}
+  82:	6803      	ldr	r3, [r0, #0]
   84:	6849      	ldr	r1, [r1, #4]
   86:	404a      	eors	r2, r1
-  88:	6802      	ldr	r2, [r0, #0]
-  8a:	6000      	str	r0, [r0, #0]
-  8c:	4000      	ands	r0, r0
-  8e:	4770      	bx	lr
+  88:	4052      	eors	r2, r2
+  8a:	4000      	ands	r0, r0
+  8c:	6801      	ldr	r1, [r0, #0]
+  8e:	6001      	str	r1, [r0, #0]
+  90:	4000      	ands	r0, r0
+  92:	3000      	adds	r0, #0
+  94:	4770      	bx	lr
+  96:	46c0      	nop			; (mov r8, r8)
