@@ -116,12 +116,15 @@ notOrder1:
         // r0 entropy ptr, r1 *input1 ptr
 leakOrder1:
         LDR     r2, [r1, #0]
-        LDR		r3, [r0, #0]	// clear_opR, clear_opB
+        LDR     r3, [r0, #0]	        // clear_opR
         LDR     r1, [r1, #4]
         EORS    r2, r1			// leakage
-        LDR     r2, [r0, #0]            // scrub(r2), clear_opR, still leakage
-        STR     r2, [r0, #0]            // clear_opW
-        ANDS    r0, r0                  // clear flags, clear_opA, clear_opB
+        EORS    r2, r2                  // scrub(r2), still leakage
+        ANDS    r0, r0                  // clear_opA, clear_opB, still leakage
+        LDR     r1, [r0, #0]            // scrub(r1), clear_opR
+        STR     r1, [r0, #0]            // clear_opW
+        ANDS    r0, r0                  // clear_opA, clear_opB
+        ADDS    r0, r0, #0              // clear flags
         BX      lr
 
         // Local Variables:

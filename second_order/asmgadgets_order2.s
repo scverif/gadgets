@@ -142,8 +142,31 @@ andOrder2:
 	// refOrder2(uint32_t *entropy, uint32_t output[3], uint32_t input[3])
 	// r0 = entropy ptr, r1 = output ptr, r2 = input ptr
 refOrder2:
-	PUSH    {r4, r5, r6, r7}
-        POP     {r4, r5, r6, r7}
+	PUSH    {r4, r5, r6}
+        LDR     r4, [r0, #4]
+        LDR     r6, [r2, #0]
+        LDR     r5, [r0, #0]    // clear_opR
+        LDR     r5, [r0, #8]
+        EORS    r6, r4
+        STR     r6, [r1, #0]
+        STR     r0, [r0, #0]    // clear_opW
+        LDR     r6, [r0, #0]    // scrub(r6), clear_opR
+        LDR     r3, [r2, #4]
+        ANDS    r0, r0          // clear_opA, clear_opB
+        EORS    r3, r5
+        STR     r3, [r1, #4]
+        STR     r0, [r0, #0]    // clear_opW
+        ANDS    r0, r0          // clear_opA, clear_opB
+        EORS    r4, r5
+        LDR     r5, [r0, #0]    // scrub(r5), clear_opR
+        ANDS    r0, r0          // clear_opA, clear_opB
+        LDR     r5, [r2, #8]
+        EORS    r5, r4
+        STR     r5, [r1, #8]
+        POP     {r4, r5, r6}
+        EORS    r3, r3
+        STR     r0, [r0, #8]   // clear_opW, prepare scratch out
+        ADDS    r0, r0, #8     // clear_opA, clear_opB
 	BX lr
 
 	.global notOrder2
@@ -155,7 +178,13 @@ refOrder2:
 	// r0 *entropy, r1 *input1  == * output
         // in-place modification of input
 notOrder2:
-	BX lr
+        LDR     r2, [r1, #0]
+        MVNS    r2, r2
+        STR     r2, [r1, #0]
+        LDR     r2, [r0, #0]            // scrub(r2), clear_opR
+        STR     r2, [r0, #0]            // clear_opW
+        ADDS    r0, r0, #0              // clear flags, clear_opA, clear_opB, scrub(r2)
+        BX      lr
 
         .global leakOrder2
         .align  2
@@ -165,14 +194,19 @@ notOrder2:
 	// leakOrder2(uint32_t *entropy, uint32_t input[3])
 	// r0 entropy ptr, r1 *input1 ptr
 leakOrder2:
-	LDR     r2, [r1, #0]
-	LDMIA   r0!, {r1}
-	LDR     r1, [r1, #4]
-	EORS    r2, r1
-        LDR     r2, [r0, #0]    // scrub(r2), clear_opR
-        STR     r0, [r0, #0]    // clear_opW
-        ANDS    r0, r0          // clear flags, clear_opA, clear_opB
-	BX      lr
+        LDR     r2, [r1, #0]
+        LDR     r3, [r1, #4]
+        EORS    r2, r3
+        ANDS    r0, r0                  // clear_opA, clear_opB
+        LDR     r3, [r1, #8]
+        EORS    r2, r3                  // leakage
+        EORS    r2, r2                  // scrub(r2), still leakage
+        ANDS    r0, r0                  // clear_opA, clear_opB, still leakage
+        LDR     r3, [r0, #0]            // scrub(r3), clear_opR
+        STR     r3, [r0, #0]            // clear_opW
+        ANDS    r0, r0                  // clear_opA, clear_opB
+        ADDS    r0, r0, #0              // clear flags
+        BX      lr
 
 
         // Local Variables:
