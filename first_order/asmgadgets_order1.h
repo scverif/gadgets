@@ -1,4 +1,6 @@
-/* Copyright 2020 - NXP, TU Darmstadt, Ruhr University Bochum */
+/*
+ * Copyright 2020 - NXP, TU Darmstadt, Ruhr University Bochum
+ */
 
 #ifndef ASMGADGETS_ORDER1_H
 #define ASMGADGETS_ORDER1_H
@@ -27,6 +29,10 @@ uint32_t* refOrder1( uint32_t*      entropy   ,  // advances by 1 position
 
 uint32_t* notOrder1( uint32_t*      entropy   ,  // advances by 0 positions
                      uint32_t       inplacedata[2]);
+
+uint32_t* cpyOrder1( uint32_t*      entropy   ,  // advances by 0 positions
+                     uint32_t       output[2] ,
+                     const uint32_t input1[2] );
 
 uint32_t* leakOrder1(uint32_t*      entropy   ,  // advances by 0 positions
                      uint32_t       inplacedata[2]);

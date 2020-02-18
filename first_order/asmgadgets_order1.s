@@ -107,6 +107,25 @@ notOrder1:
     ADDS    r2, r0, r0      // clear flags, clear_opA, clear_opB
     BX      lr
 
+    .global cpyOrder1
+    .align  2
+    .thumb
+    .thumb_func
+    .type cpyOrder1 STT_FUNC
+    // cpyOrder1(uint32_t *entropy, uint32_t output[2], uint32_t input1[2])
+    // r0 entropy ptr, r1 *output ptr, r2 *input1 ptr
+cpyOrder1:
+    LDR     r3, [r2, #0]
+    STR     r3, [r1, #0]
+    LDR     r3, [r0, #0]            // scrub(r3), clear_opR, clear_opA
+    STR     r0, [r0, #0]            // clear_opW, clear_opB
+    LDR     r3, [r2, #4]
+    STR     r3, [r1, #4]
+    LDR     r3, [r0, #0]            // scrub(r3), clear_opR
+    STR     r0, [r0, #0]            // clear_opW
+    ANDS    r0, r0                  // clear_flags, clear_opA, clear_opB
+    BX      lr
+
     .global leakOrder1
     .align  2
     .thumb
