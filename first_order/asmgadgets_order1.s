@@ -104,7 +104,7 @@ notOrder1:
     STR     r2, [r1, #0]
     LDR     r2, [r0, #0]    // scrub(r2), clear_opR
     STR     r2, [r0, #0]    // clear_opW
-    ANDS    r0, r0			// clear flags, clear_opA, clear_opB
+    ADDS    r2, r0, r0      // clear flags, clear_opA, clear_opB
     BX      lr
 
     .global leakOrder1
