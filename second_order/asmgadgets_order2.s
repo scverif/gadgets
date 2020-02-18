@@ -167,7 +167,7 @@ refOrder2:
         EORS    r3, r3
         STR     r0, [r0, #8]   // clear_opW, prepare scratch out
         ADDS    r0, r0, #8     // clear_opA, clear_opB
-	BX lr
+	BX      lr
 
 	.global notOrder2
         .align  2
