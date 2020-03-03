@@ -1,4 +1,5 @@
 ; Copyright 2020 - NXP, TU Darmstadt
+; SPDX-License-Identifier: AGPL-3.0-or-later
 
 ; second_order/asmgadgets_order2.o:     file format elf32-littlearm
 

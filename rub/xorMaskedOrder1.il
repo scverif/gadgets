@@ -1,4 +1,5 @@
 // Copyright 2019 - NXP
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 include il "isa/isa-cortex-m0plus.il"
 include il "isa/leakyisa-cortex-m0plus.il"

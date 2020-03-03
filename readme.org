@@ -1,4 +1,0 @@
-* Setup
-1. install scVerif using "make install"
-2. link the models provided by scVerif in the "isa" directory
- 'ln -s <PATH TO SCVERIF HOME>/isa models'

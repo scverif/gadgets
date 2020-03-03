@@ -1,3 +1,6 @@
+// Copyright 2020 - TU Darmstadt, NXP
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 include il "models/pseudoisa.il"
 
 /*

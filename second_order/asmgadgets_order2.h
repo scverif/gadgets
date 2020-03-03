@@ -1,4 +1,7 @@
-/* Copyright 2020 - NXP, TU Darmstadt, Ruhr University Bochum */
+/*
+ * Copyright 2020 - NXP, TU Darmstadt, Ruhr University Bochum
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 
 #ifndef ASMGADGETS_ORDER2_H
 #define ASMGADGETS_ORDER2_H
