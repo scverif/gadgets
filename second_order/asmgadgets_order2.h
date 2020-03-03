@@ -12,23 +12,27 @@
  */
 
 uint32_t* xorOrder2( uint32_t*      entropy   ,  // advances by 0 positions
-                     uint32_t       output[2] ,
-                     const uint32_t input1[2] ,
-                     const uint32_t input2[2] );
+                     uint32_t       output[3] ,
+                     const uint32_t input1[3] ,
+                     const uint32_t input2[3] );
 
-uint32_t* andOrder2( uint32_t*      entropy   ,  // advances by 1 position
-                     uint32_t       output[2] ,
-                     const uint32_t input1[2] ,
-                     const uint32_t input2[2] );
+uint32_t* andOrder2( uint32_t*      entropy   ,  // advances by TODO position
+                     uint32_t       output[3] ,
+                     const uint32_t input1[3] ,
+                     const uint32_t input2[3] );
 
-uint32_t* refOrder2( uint32_t*      entropy   ,  // advances by 1 position
-                     uint32_t       output[2] ,
-                     const uint32_t input [2] );
+uint32_t* refOrder2( uint32_t*      entropy   ,  // advances by TODO position
+                     uint32_t       output[3] ,
+                     const uint32_t input [3] );
 
 uint32_t* notOrder2( uint32_t*      entropy   ,  // advances by 0 positions
-                     uint32_t       inplacedata[2]);
+                     uint32_t       inplacedata[3]);
+
+uint32_t* cpyOrder2( uint32_t*      entropy   ,  // advances by 0 position
+                     uint32_t       output[3] ,
+                     const uint32_t input [3] );
 
 uint32_t* leakOrder2(uint32_t*      entropy   ,  // advances by 0 positions
-                     uint32_t       inplacedata[2]);
+                     uint32_t       inplacedata[3]);
 
 #endif
