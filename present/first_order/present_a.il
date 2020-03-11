@@ -13,7 +13,7 @@ macro present_plain()
 {
   copy(r8,r1);
   copy(r1,sp);
-  r1 <- r1 + w32 (w32) (2*4); 
+  r1 <- r1 + w32 (w32) (2*4);
   copy (r9, r1);
   store(r2,sp,0);
   store(r1,sp,1);
@@ -22,7 +22,7 @@ macro present_plain()
 
   /* compostion of non-optimized first order gadgets */
   calcB(r2, r1, r0, sp);
-  
+
   copy(r1,r10);
   copy(r2,r9);
   store(r2,sp,0);
@@ -52,7 +52,7 @@ macro present_plain()
   }
 }
 
-macro present ()
+macro present_opt ()
   int i
 {
   copy(r4, r3);
@@ -110,13 +110,52 @@ annotate present_plain
   input public r10
   ;
 
+annotate present_opt
+  region mem w32 in[0:7]
+  region mem w32 out[0:7]
+  region mem w32 stack[0:17]       // intermediates
+  region mem w32 rnd[0:9]
+  init r0 [rnd 0]
+  init r1 [out 0]
+  init r2 [in 0]
+  init sp [stack 0]                // pointer to intermediate's memory
+  input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
+  input sharing b [in[2:3]]
+  input sharing c [in[4:5]]
+  input sharing d [in[6:7]]
+//  input public im
+  input urandom rnd
+  output sharing oa [out[0:1]]  // an output sharing named "oa" is located in a given range of "out"
+  output sharing ob [out[2:3]]
+  output sharing oc [out[4:5]]
+  output sharing od [out[6:7]]
+  input public stack
+  input public sp
+  input public pub
+  input public opA
+  input public opB
+  input public opR
+  input public opW
+  input public r0
+  input public r1
+  input public r2
+  input public r3
+  input public r4
+  input public r5
+  input public r6
+  input public r7
+  input public r8
+  input public r9
+  input public r10
+  ;
+
 ---
 inlinecall:
-  target: [present_plain];
+  target: [present_plain, present_opt];
 
 print:
   kind: macrodef
-  target: [present_plain]
+  target: [present_plain, present_opt]
   verbosity: 0;
 
 partialeval:

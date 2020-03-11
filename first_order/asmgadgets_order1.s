@@ -1,5 +1,5 @@
     // Copyright 2020 - NXP, Ruhr University Bochum, TU Darmstadt
-    // SPDX-License-Identifier: AGPL-3.0-or-later
+    // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
     //
     // the calling convention here is
     // to always get an entropy pointer which has a public scratch memory at offset 0

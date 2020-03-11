@@ -19,7 +19,7 @@
         //   uint32_t outputs[2][4],
         //   uint32_t inputs[2][4]
         // )
-        // r0 entropy ptr, r1 *outputs, r2 *inputs
+        // r0 *entropy, r1 *outputs, r2 *inputs
 presentOrder1:
         PUSH    {r4, r5, r6, r7}
         BL      calcBOrder1
@@ -89,23 +89,23 @@ calcGOrder1:
         POP     {r4, r5, r6, r7}
 
 
-        .global presentoptOrder1
+        .global presentOptOrder1
         .align  2
         .thumb
         .thumb_func
-        .type presentoptOrder1 STT_FUNC
+        .type presentOptOrder1 STT_FUNC
         // presentOrder2(
         //   uint32_t *entropy,
         //   uint32_t outputs[2][4],
         //   uint32_t inputs[2][4]
         // )
         // r0 entropy ptr, r1 *outputs, r2 *inputs
-presentoptOrder1:
+presentOptOrder1:
         PUSH    {r4, r5, r6, r7}
-        BL      calcBoptOrder1
-        BL      calcGoptOrder1
-        BL      calcGoptOrder1
-        BL      calcAoptOrder1
+        BL      calcBOptOrder1
+        BL      calcGOptOrder1
+        BL      calcGOptOrder1
+        BL      calcAOptOrder1
         POP     {r4, r5, r6, r7}
 
         // Local Variables:

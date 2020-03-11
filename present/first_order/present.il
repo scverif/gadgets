@@ -1,10 +1,7 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 include il "present/first_order/sbox_gadgets.il"
-
-w32 r8;
-w32 r9;
 
 macro present_plain()
   int i

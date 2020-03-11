@@ -80,7 +80,7 @@ macro calcB (w32 in, w32 out, w32 rnd_loc, w32 sp)
   r3 <- r3 +w32 (w32) (6*4);
   r1 <- r1 +w32 (w32) (6*4);
   firstxor(b_in, d_in, d_out);
-  
+
   copy(r3,r1);
   firstxorone(d_out, d_out);
 
@@ -89,7 +89,7 @@ macro calcB (w32 in, w32 out, w32 rnd_loc, w32 sp)
   r1 <- r1 -w32 (w32) (2*4);
   firststore(c_in, c_out);
 
-  r1 <- r1 -w32 (w32) (2*4); 
+  r1 <- r1 -w32 (w32) (2*4);
   firstxor(b_in, c_in, b_out);
 
   copy(r3,r1);
@@ -121,26 +121,26 @@ macro calcA (w32 in, w32 out, w32 rnd_loc, w32 sp)
   load(r1,sp,1);
 
   r3 <- r3 +w32 (w32) (4*4);
-  firstxor(a_in, c_in, a_out);
+  firstxor();
 
   r3 <- r3 -w32 (w32) (2*4);
   r1 <- r1 +w32 (w32) (2*4);
-  firstxorone(b_in, b_out);
+  firstxorone();
 
   r3 <- r3 -w32 (w32) (2*4);
   r1 <- r1 +w32 (w32) (2*4);
-  firststore(a_in, c_out);
+  firststore();
 
   r3 <- r3 +w32 (w32) (4*4);
-  r1 <- r1 +w32 (w32) (2*4); 
-  firstxor(a_in, c_in, d_out);
+  r1 <- r1 +w32 (w32) (2*4);
+  firstxor();
 
   copy(r2,r1);
   r3 <- r3 +w32 (w32) (2*4);
-  firstxor(d_out, d_in, d_out);
+  firstxor();
 
   copy(r3,r1);
-  firstxorone(d_out, d_out);
+  firstxorone();
 }
 
 macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, int i)

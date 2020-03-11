@@ -1,10 +1,13 @@
-macro firstxor (w32 op1, w32 op2, w32 str)
+// Copyright 2020 - TU Darmstadt, NXP
+// SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
+
+macro firstxor ()
 {
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
 /*load a0 into register r4*/
   load(r4, r2, 0);
-/*load b0 into register r5*/ 
+/*load b0 into register r5*/
   load(r5, r3, 0);
 
 /*xor r4 and r5 s.t. r4 contains a0+b0*/
@@ -195,4 +198,3 @@ clear_opR();
 clear_opA();
 clear_opB();
 }
-

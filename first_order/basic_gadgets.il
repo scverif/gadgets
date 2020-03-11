@@ -1,9 +1,13 @@
+// Copyright 2020 - TU Darmstadt, NXP
+// SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
+
+// ptr_in1 is a pointer to ....
 macro firstxor (w32 op1, w32 op2, w32 str)
 {
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
 /*load a0 into register r4*/
-  load(r4, op1, 0);
+  load(r4, ptr_in1, 0);
 /*load b0 into register r5*/ 
   load(r5, op2, 0);
 
