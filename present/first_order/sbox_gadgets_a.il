@@ -184,40 +184,40 @@ macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, int i)
   xor(r5, r7);          /*r5 = d0b0 + rnd1 + c0 + d1b0*/
   store(r5, d_out, 0);
 
-  clear_opR();
+  clear(opR);
   load(r5, a_in, 0);
   xor(r6, r5);          /*r6 = c1b0 + d0b0 + rnd0 + c0b0 + a0*/
 
   and(r5, r4);          /*r5 = a0b0*/
-  clear_opA();
+  clear(opA);
   xor(r6, r7);          /*r6 = c1b0 + d0b0 + rnd0 + c0b0 + a0 + d1b0*/
   store(r6, a_out, 0);
 
   load(r6, d_in, 0);
-  //clear_opA();
-  clear_opB();
+  //clear(opA);
+  clear(opB);
   xor(r5, r6);          /*r5 = a0b0 + d0*/
 
   store(r4, c_out, 0);
 
-clear_opR();
+clear(opR);
   load(r7, a_in, 1);
   and(r4, r7);          /*r4 = b0a1*/
 
   load(r7, rnd_loc, 2);
 
-clear_opB();
+clear(opB);
   xor(r5, r7);          /*r4 = b0a1 +rnd2*/
-clear_opB();
-clear_opA();
+clear(opB);
+clear(opA);
 
   xor(r5, r4);          /*r5 = a0b0 + d0 +b0a1 + rnd2*/
   store(r5, b_out, 0);
 
 /*second output share*/
-clear_opB();
+clear(opB);
   load(r7, b_in, 1);
-clear_opB();
+clear(opB);
   load(r5, c_in, 0);
   and(r5, r7);          /*r5 = c0b1*/
 
@@ -226,9 +226,9 @@ clear_opB();
 /*-----------------------------------------*/
 
   xor(r5, r6);          /*r5 = c0b1 + d0b1*/
-clear_opB();
+clear(opB);
   load(r4, rnd_loc, 0);
-  clear_opB();
+  clear(opB);
 
   xor(r5, r4);          /*r5 = c0b1 + d0b1 + rnd0*/
 
@@ -253,30 +253,30 @@ clear_opB();
   xor(r5, r6);          /*r5 = c0b1 + d0b1 + rnd0 + c1b1 + a1*/
 
   and(r6, r7);          /*r6 = a1b1*/
-  clear_opA();
+  clear(opA);
 
   xor(r5, r4);          /*r5 = c0b1 + d0b1 + rnd0 + c1b1 + a1 + d1b1*/
   store(r5, a_out, 1);
 
   load(r5, d_in, 1);
-  //clear_opA();
-  clear_opB();
+  //clear(opA);
+  clear(opB);
   xor(r6, r5);          /*r5 = a1b1 + d1*/
 
   store(r7, c_out, 1);
 
 load_pub(r4);
-clear_opR();
+clear(opR);
   load(r4, a_in, 0);
-clear_opB();
+clear(opB);
   and(r7, r4);          /*r4 = b1a0*/
 
   load(r4, rnd_loc, 2);
 
-clear_opB();
+clear(opB);
   xor(r6, r4);          /*r4 = b1a0 +rnd2*/
-clear_opB();
-clear_opA();
+clear(opB);
+clear(opA);
 
   xor(r5, r4);          /*r6 = a1b1 + d1 +b1a0 + rnd2*/
   store(r5, b_out, 1);
@@ -286,10 +286,10 @@ load_pub(r6);
 load_pub(r4);
 load_pub(r7);
 
-clear_opR();
-clear_opW();
-clear_opA();
-clear_opB();
+clear(opR);
+clear(opW);
+clear(opA);
+clear(opB);
 
 rnd_loc <- (rnd_loc +w32 (w32) (3 * 4));
 }
@@ -345,10 +345,10 @@ macro calcB_opt (w32 in, w32 out, w32 rnd_loc)
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
-clear_opA();
-clear_opB();
-clear_opR();
-clear_opW();
+clear(opA);
+clear(opB);
+clear(opR);
+clear(opW);
 
 rnd_loc <- (rnd_loc +w32 (w32) (1 * 4));
 }
@@ -386,7 +386,7 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc)
 
   load(r5, a_in, 1);
   store(r5, c_out, 1);
-clear_opB();
+clear(opB);
   load(r4, c_in, 1);
   xor(r4, r4);
   store(r4, a_out, 1);
@@ -401,8 +401,8 @@ clear_opB();
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
-clear_opA();
-clear_opB();
-clear_opR();
-clear_opW();
+clear(opA);
+clear(opB);
+clear(opR);
+clear(opW);
 }

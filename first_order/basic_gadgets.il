@@ -17,7 +17,7 @@ macro firstxor (w32 op1, w32 op2, w32 str)
 /*store value of r4 = a0+b0 as output value c0*/
   store(r4, str, 0);
 
-clear_opW();
+clear(opW);
 
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
@@ -35,10 +35,10 @@ clear_opW();
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }
 
 macro firstmult (w32 op1, w32 op2, w32 rnd_loc, w32 str)
@@ -70,7 +70,7 @@ macro firstmult (w32 op1, w32 op2, w32 rnd_loc, w32 str)
 /*store value of r5 = a0*b1 + b0*a0 +rnd0 as output value c0 */
   store(r5, str, 0);
 
-clear_opW();
+clear(opW);
 load_pub(r4);
 load_pub(r6);
 
@@ -99,10 +99,10 @@ load_pub(r4);
 load_pub(r5);
 load_pub(r6);
 load_pub(r7);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 rnd_loc <- (rnd_loc +w32 (w32) (1 * 4));
 }
@@ -122,7 +122,7 @@ macro firstref (w32 op1, w32 rnd_loc, w32 str)
 /*store value of r4 = a0+rnd0 as output share c0 */
   store(r4, str, 0);
 
-clear_opW();
+clear(opW);
 
 /*calculation of the second output share: c0 = a1 + rnd0*/
 
@@ -137,10 +137,10 @@ clear_opW();
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 rnd_loc <- (rnd_loc +w32 (w32) (1 * 4));
 }
@@ -150,19 +150,19 @@ macro firststore (w32 op1, w32 str)
   load(r4, op1, 0);
   store(r4, str, 0);
 
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
   load(r5, op1, 1);
   store(r5, str, 1);
 load_pub(r4);
 load_pub(r5);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }
 
 macro firstxorone (w32 op1, w32 str)
@@ -179,10 +179,10 @@ macro firstxorone (w32 op1, w32 str)
   store(r4, str, 0);
 
 load_pub(r4);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
@@ -194,9 +194,9 @@ clear_opB();
   store(r5, str, 1);
 
 load_pub(r5);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }
 

@@ -1,7 +1,7 @@
 // Copyright 2019-2020 - TU Darmstadt, NXP
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 
 macro firstref ()
 {
@@ -18,7 +18,7 @@ macro firstref ()
 /*store value of r4 = a0+rnd0 as output share c0 */
   store(r4, r0, 0);
 
-clear_opW();
+clear(opW);
 
 /*calculation of the second output share: c0 = a1 + rnd0*/
 
@@ -31,10 +31,10 @@ clear_opW();
 /*store value of r6 = a1+rnd0 as output share c1 */
   store(r4, r0, 1);
 
-  clear_opA();
-  clear_opB();
-  clear_opR();
-  clear_opW();
+  clear(opA);
+  clear(opB);
+  clear(opR);
+  clear(opW);
   scrub(r4);
   scrub(r5);
   scrub(r6);
@@ -50,6 +50,17 @@ annotate firstref
   input sharing a
   input urandom rnd
   output sharing c
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -73,6 +84,12 @@ print:
   kind: evaltrace
   target: firstref
   verbosity: 0;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: firstref
+  verbosity: 1;
 
 check:
   target: firstref

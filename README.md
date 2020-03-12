@@ -11,8 +11,8 @@ executable files.
 
 ## Setup ##
 1. install scVerif using `make install`
-2. link the models provided by scVerif in the `isa` directory
-   For example using the command `ln -s <PATH TO SCVERIF HOME>/isa models`
+2. link the models provided by scVerif in the `models` directory
+   For example using the command `ln -s <PATH TO SCVERIF HOME>/models models`
 
 ## Contributors ##
 The software tool scVerif has been developed by the following

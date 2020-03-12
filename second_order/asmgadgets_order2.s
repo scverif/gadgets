@@ -57,7 +57,7 @@ andOrder2:
         ANDS    r4, r5
         LDR     r6, [r0, #4]
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r7, [r3, #4]
         ANDS    r7, r5
         EORS    r6, r7
@@ -65,67 +65,67 @@ andOrder2:
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         LDR     r4, [r2, #4]
         LDR     r5, [r3, #0]
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         ANDS    r4, r5
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r5, [r0, #0]    // scrub(r5), clear_opR, clear_opB
         LDR     r5, [r0, #8]
         EORS    r6, r5
         STR     r6, [r1, #0]
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         STR     r0, [r0, #0]    // clear_opW
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         MOVS    r5, r0          // scrub(r5)
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         MOVS    r7, r0          // scrub(r7)
         LDR     r5, [r2, #4]
         LDR     r4, [r3, #4]
         ANDS    r4, r5
         LDR     r6, [r0, #8]
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r7, [r3, #8]
         ANDS    r7, r5
         EORS    r6, r7
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         LDR     r4, [r2, #8]
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r5, [r3, #4]
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         ANDS    r4, r5
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA
+        ANDS    r0, r0          // clear(opA)
         LDR     r5, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         LDR     r5, [r0, #12]
         EORS    r6, r5
         STR     r6, [r1, #4]
         STR     r0, [r0, #0]    // clear_opW
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         MOVS    r5, r0          // scrub(r5)
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         MOVS    r7, r0          // scrub(r7)
         LDR     r5, [r2, #8]
         LDR     r4, [r3, #8]
         ANDS    r4, r5
         LDR     r6, [r0, #12]
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r7, [r3, #0]
         ANDS    r7, r5
         EORS    r6, r7
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR
         LDR     r4, [r2, #0]
         LDR     r5, [r3, #8]
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         ANDS    r4, r5
         EORS    r6, r4
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r5, [r0, #0]    // scrub(r5), clear_opR
         LDR     r5, [r0, #4]
         EORS    r6, r5
@@ -133,7 +133,7 @@ andOrder2:
         LDR     r4, [r0, #0]    // scrub(r4), clear_opR, clear_opB
         POP     {r4, r5, r6, r7}
         STR     r0, [r0, #12]   // clear_opW, prepare scratch out
-        ADDS    r0, r0, #12     // clear_opA, clear_opB
+        ADDS    r0, r0, #12     // clear(opA), clear_opB
 	BX lr
 
 	.global refOrder2
@@ -154,21 +154,21 @@ refOrder2:
         STR     r0, [r0, #0]    // clear_opW
         LDR     r6, [r0, #0]    // scrub(r6), clear_opR
         LDR     r3, [r2, #4]
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         EORS    r3, r5
         STR     r3, [r1, #4]
         STR     r0, [r0, #0]    // clear_opW
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         EORS    r4, r5
         LDR     r5, [r0, #0]    // scrub(r5), clear_opR
-        ANDS    r0, r0          // clear_opA, clear_opB
+        ANDS    r0, r0          // clear(opA), clear_opB
         LDR     r5, [r2, #8]
         EORS    r5, r4
         STR     r5, [r1, #8]
         POP     {r4, r5, r6}
         EORS    r3, r3
         STR     r0, [r0, #8]   // clear_opW, prepare scratch out
-        ADDS    r0, r0, #8     // clear_opA, clear_opB
+        ADDS    r0, r0, #8     // clear(opA), clear_opB
 	BX      lr
 
 	.global notOrder2
@@ -185,7 +185,7 @@ notOrder2:
         STR     r2, [r1, #0]
         LDR     r2, [r0, #0]            // scrub(r2), clear_opR
         STR     r2, [r0, #0]            // clear_opW
-        ADDS    r0, r0, #0              // clear flags, clear_opA, clear_opB, scrub(r2)
+        ADDS    r0, r0, #0              // clear flags, clear(opA), clear_opB, scrub(r2)
         BX      lr
 
         .global cpyOrder2
@@ -198,17 +198,17 @@ notOrder2:
 cpyOrder2:
         LDR     r3, [r2, #0]
         STR     r3, [r1, #0]
-        ANDS    r0, r0                  // clear_opA, clear_opB
+        ANDS    r0, r0                  // clear(opA), clear_opB
         STR     r0, [r0, #0]            // clear_opW
         LDR     r0, [r0, #0]            // scrub(r3), clear_opR
         LDR     r3, [r2, #4]
         STR     r3, [r1, #4]
-        ANDS    r0, r0                  // clear_opA, clear_opB
+        ANDS    r0, r0                  // clear(opA), clear_opB
         STR     r0, [r0, #0]            // clear_opW
         LDR     r0, [r0, #0]            // scrub(r3), clear_opR
         LDR     r3, [r2, #8]
         STR     r3, [r1, #8]
-        ANDS    r0, r0                  // clear_opA, clear_opB
+        ANDS    r0, r0                  // clear(opA), clear_opB
         STR     r0, [r0, #0]            // clear_opW
         LDR     r0, [r0, #0]            // scrub(r3), clear_opR
         BX      lr
@@ -224,14 +224,14 @@ leakOrder2:
         LDR     r2, [r1, #0]
         LDR     r3, [r1, #4]
         EORS    r2, r3
-        ANDS    r0, r0                  // clear_opA, clear_opB
+        ANDS    r0, r0                  // clear(opA), clear_opB
         LDR     r3, [r1, #8]
         EORS    r2, r3                  // leakage
         EORS    r2, r2                  // scrub(r2), still leakage
-        ANDS    r0, r0                  // clear_opA, clear_opB, still leakage
+        ANDS    r0, r0                  // clear(opA), clear_opB, still leakage
         LDR     r3, [r0, #0]            // scrub(r3), clear_opR
         STR     r3, [r0, #0]            // clear_opW
-        ANDS    r0, r0                  // clear_opA, clear_opB
+        ANDS    r0, r0                  // clear(opA), clear_opB
         ADDS    r0, r0, #0              // clear flags
         BX      lr
 

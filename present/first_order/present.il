@@ -87,6 +87,17 @@ annotate present
   input public r5
   input public r6
   input public r7
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -110,6 +121,12 @@ print:
   kind: maskverif
   target: [present]
   verbosity: 0;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: [present]
+  verbosity: 1;
 
 check:
   target: [present]

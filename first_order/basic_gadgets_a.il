@@ -16,7 +16,7 @@ macro firstxor ()
 /*store value of r4 = a0+b0 as output value c0*/
   store(r4, r1, 0);
 
-clear_opW();
+clear(opW);
 
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
@@ -34,10 +34,10 @@ clear_opW();
 scrub(r4);
 scrub(r5);
 scrub(r6);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }
 
 macro firstmult (w32 op1, w32 op2, w32 rnd_loc, w32 str)
@@ -69,7 +69,7 @@ macro firstmult (w32 op1, w32 op2, w32 rnd_loc, w32 str)
 /*store value of r5 = a0*b1 + b0*a0 +rnd0 as output value c0 */
   store(r5, r1, 0);
 
-clear_opW();
+clear(opW);
 scrub(r4);
 scrub(r6);
 
@@ -98,10 +98,10 @@ scrub(r4);
 scrub(r5);
 scrub(r6);
 scrub(r7);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 r0 <- (r0 +w32 (w32) (1 * 4));
 }
@@ -121,7 +121,7 @@ macro firstref (w32 op1, w32 rnd_loc, w32 str)
 /*store value of r4 = a0+rnd0 as output share c0 */
   store(r4, r1, 0);
 
-clear_opW();
+clear(opW);
 
 /*calculation of the second output share: c0 = a1 + rnd0*/
 
@@ -136,10 +136,10 @@ clear_opW();
 scrub(r4);
 scrub(r5);
 scrub(r6);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 r0 <- (r0 +w32 (w32) (1 * 4));
 }
@@ -149,19 +149,19 @@ macro firststore (w32 op1, w32 str)
   load(r4, r3, 0);
   store(r4, r1, 0);
 
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
   load(r5, r3, 1);
   store(r5, r1, 1);
 scrub(r4);
 scrub(r5);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }
 
 macro firstxorone (w32 op1, w32 str)
@@ -178,10 +178,10 @@ macro firstxorone (w32 op1, w32 str)
   store(r4, r1, 0);
 
 scrub(r4);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
@@ -193,8 +193,8 @@ clear_opB();
   store(r5, r1, 1);
 
 scrub(r5);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }

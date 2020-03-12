@@ -17,7 +17,6 @@ annotate xorOrder1
   init r3 [b 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input sharing b
   input public opA
@@ -37,7 +36,9 @@ annotate xorOrder1
   input public lr
   input public c
   input public rnd
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate andOrder1
   region mem w32 a[0:1]
@@ -51,7 +52,6 @@ annotate andOrder1
   init r3 [b 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input sharing b
   input public opA
@@ -71,7 +71,9 @@ annotate andOrder1
   input public lr
   input urandom rnd
   input public c
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate refOrder1
   region mem w32 a[0:1]
@@ -83,7 +85,6 @@ annotate refOrder1
   init r2 [a 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -102,7 +103,9 @@ annotate refOrder1
   input public lr
   input urandom rnd
   input public c
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+;
 
 annotate notOrder1
   region mem w32 a[0:1]
@@ -112,7 +115,6 @@ annotate notOrder1
   init r1 [a 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -130,7 +132,9 @@ annotate notOrder1
   input public sp
   input public lr
   input urandom rnd
-  output sharing a;
+  output sharing a
+  init metric_cyclecount 0
+;
 
 ---
 addleakage:
@@ -149,21 +153,24 @@ rewriteformv:
 
 print:
   kind: variables
-  variables: [cyclecount, r0, sp, rnd]
+  variables: [metric_cyclecount, r0, sp, rnd]
   target: [xorOrder1, andOrder1, refOrder1, notOrder1]
   verbosity: 1;
 
-/* FIXME subsequent checking has currently a bug
+print:
+  kind: variables
+  variables: "metric_*"
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
+  verbosity: 1;
+
 check:
   kind: "Stateful NI"
   target: [xorOrder1];
 
 check:
   kind: "Stateful SNI"
-  target: [andOrder1, refOrder1, notOrder1];  // FIXME fails due to scVerif bug
-*/
+  target: [andOrder1, refOrder1, notOrder1];
 ...
-
 
 // Local Variables:
 // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " buffer-file-name))

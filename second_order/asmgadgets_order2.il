@@ -17,7 +17,6 @@ annotate xorOrder2
   init r3 [b 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input sharing b
   input public opA
@@ -37,7 +36,9 @@ annotate xorOrder2
   input public lr
   input public c
   input public rnd
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate andOrder2
   region mem w32 a[0:2]
@@ -51,7 +52,6 @@ annotate andOrder2
   init r3 [b 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input sharing b
   input public opA
@@ -72,7 +72,9 @@ annotate andOrder2
   input public c
   input public rnd [0:0]
   input urandom rnd [1:3]
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate refOrder2
   region mem w32 a[0:2]
@@ -84,7 +86,6 @@ annotate refOrder2
   init r2 [a 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -104,7 +105,9 @@ annotate refOrder2
   input public c
   input public rnd [0:0]
   input urandom rnd [1:2]
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate notOrder2
   region mem w32 a[0:2]
@@ -112,7 +115,6 @@ annotate notOrder2
   init r0 [rnd 0]
   init r1 [a 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -124,7 +126,9 @@ annotate notOrder2
   input public r3
   input public lr
   input public rnd [0:0]
-  output sharing a;
+  output sharing a
+  init metric_cyclecount 0
+  ;
 
 annotate leakOrder2
   region mem w32 a[0:2]
@@ -132,7 +136,6 @@ annotate leakOrder2
   init r0 [rnd 0]
   init r1 [a 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -144,7 +147,9 @@ annotate leakOrder2
   input public r3
   input public lr
   input public rnd [0:0]
-  output sharing a;
+  output sharing a
+  init metric_cyclecount 0
+  ;
 
 ---
 addleakage:
@@ -163,7 +168,13 @@ rewriteformv:
 
 print:
   kind: variables
-  variables: [cyclecount, r0, rnd]
+  variables: [metric_cyclecount, r0, rnd]
+  target: [xorOrder2, andOrder2, refOrder2, notOrder2, leakOrder2]
+  verbosity: 1;
+
+print:
+  kind: variables
+  variables: "metric_*"
   target: [xorOrder2, andOrder2, refOrder2, notOrder2, leakOrder2]
   verbosity: 1;
 

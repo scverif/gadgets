@@ -1,6 +1,6 @@
 /* Copyright 2020 - TU Darmstadt, NXP */
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 include il "present/second_order/sbox_gadgets.il"
 
 // helper register pointing to memory holding intermediate outputs between calculations
@@ -118,6 +118,17 @@ annotate present_sbox
   output sharing bi2
   output sharing ci2
   output sharing di2
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate present_sbox_plain
@@ -194,6 +205,17 @@ annotate present_sbox_plain
   output sharing bi2
   output sharing ci2
   output sharing di2
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 
@@ -218,6 +240,12 @@ rewriteformv:
   target: present_sbox
   inferinput: true
   inferoutput: true;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: present_sbox
+  verbosity: 1;
 
 check:
   target: [present_sbox]

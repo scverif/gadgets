@@ -106,7 +106,7 @@ notOrder1:
     STR     r2, [r1, #0]
     LDR     r2, [r0, #0]    // scrub(r2), clear_opR
     STR     r2, [r0, #0]    // clear_opW
-    ADDS    r2, r0, r0      // clear flags, clear_opA, clear_opB
+    ADDS    r2, r0, r0      // clear flags, clear(opA), clear_opB
     BX      lr
 
     .global cpyOrder1
@@ -119,13 +119,13 @@ notOrder1:
 cpyOrder1:
     LDR     r3, [r2, #0]
     STR     r3, [r1, #0]
-    LDR     r3, [r0, #0]            // scrub(r3), clear_opR, clear_opA
+    LDR     r3, [r0, #0]            // scrub(r3), clear_opR, clear(opA)
     STR     r0, [r0, #0]            // clear_opW, clear_opB
     LDR     r3, [r2, #4]
     STR     r3, [r1, #4]
     LDR     r3, [r0, #0]            // scrub(r3), clear_opR
     STR     r0, [r0, #0]            // clear_opW
-    ANDS    r0, r0                  // clear_flags, clear_opA, clear_opB
+    ANDS    r0, r0                  // clear_flags, clear(opA), clear_opB
     BX      lr
 
     .global leakOrder1
@@ -141,10 +141,10 @@ leakOrder1:
     LDR     r1, [r1, #4]
     EORS    r2, r1                  // leakage
     EORS    r2, r2                  // scrub(r2), still leakage
-    ANDS    r0, r0                  // clear_opA, clear_opB, still leakage
+    ANDS    r0, r0                  // clear(opA), clear_opB, still leakage
     LDR     r1, [r0, #0]            // scrub(r1), clear_opR
     STR     r1, [r0, #0]            // clear_opW
-    ANDS    r0, r0                  // clear_opA, clear_opB
+    ANDS    r0, r0                  // clear(opA), clear_opB
     ADDS    r0, r0, #0              // clear flags
     BX      lr
 

@@ -1,6 +1,6 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 include il "present/first_order/sbox_gadgets.il"
 
 macro calcA_inst() {
@@ -36,6 +36,17 @@ annotate calcA_inst
   input public r5
   input public r6
   input public r7
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 macro calcB_inst() {
@@ -71,6 +82,17 @@ annotate calcB_inst
   input public r5
   input public r6
   input public r7
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 macro calcG_inst() {
@@ -106,6 +128,17 @@ annotate calcG_inst
   input public r5
   input public r6
   input public r7
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -124,6 +157,12 @@ print:
   kind: maskverif
   target: [calcA_inst, calcB_inst, calcG_inst]
   verbosity: 0;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: [calcA_inst, calcB_inst, calcG_inst]
+  verbosity: 1;
 
 check:
   target: [calcA_inst, calcB_inst, calcG_inst]

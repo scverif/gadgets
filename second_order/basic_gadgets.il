@@ -9,7 +9,7 @@ macro secxor (w32 rin1ptr, w32 rin2ptr, w32 rdstptr)
   xor(r4, r5);
   store(r4, rdstptr, 0);
 
-clear_opW();
+clear(opW);
 
   load(r6, rin1ptr, 1);
   load(r7, rin2ptr, 1);
@@ -17,8 +17,8 @@ clear_opW();
   store(r7, rdstptr, 1);
 
 load_pub(r6);
-clear_opB();
-clear_opW();
+clear(opB);
+clear(opW);
 
   load(r5, rin1ptr, 2);
   load(r6, rin2ptr, 2);
@@ -29,10 +29,10 @@ load_pub(r4);
 load_pub(r5);
 load_pub(r6);
 load_pub(r7);
-clear_opA();
-clear_opB();
-clear_opR();
-clear_opW();
+clear(opA);
+clear(opB);
+clear(opR);
+clear(opW);
 }
 
 // rin1ptr shares[0:2], rin2ptr shares[0:2], rdstptr output[0:2]
@@ -53,7 +53,7 @@ macro secmult (w32 rin1ptr, w32 rin2ptr, w32 rnd_loc, w32 rdstptr)
 /*in register r6 the result rnd0+b0*a0 is stored*/
   xor(r6,r4);
 
-clear_opB();/*This clearing is needed to remove b0*a0 from opB otherwise (Load Operand) would leak*/
+clear(opB);/*This clearing is needed to remove b0*a0 from opB otherwise (Load Operand) would leak*/
 
 /*In register r7 b1 is loaded and a0 still is in register r5*/
   load(r7, rin2ptr, 1);
@@ -73,7 +73,7 @@ load_pub(r4);/*Load Transition*/
 /*b0 is loaded to register r5*/
   load(r5, rin2ptr, 0);
 
-clear_opB();/*load opA*/
+clear(opB);/*load opA*/
 /*in register r4 the result a1*b0 is stored*/
   and(r4, r5);
 
@@ -81,7 +81,7 @@ clear_opB();/*load opA*/
   xor(r6, r4);
 
 /* To achieve SNI security the randomness is not allowed to be leaked with much other values therefore the following clearings are needed */
-clear_opA();/*Xor Oparand A*/
+clear(opA);/*Xor Oparand A*/
 load_pub(r5);/*Load Transition*/
 
 /*rnd1 is loaded into register r5*/
@@ -96,7 +96,7 @@ load_pub(r5);/*Load Transition*/
 /*After the calculation of the first output-share these clearings are used to reset the hardware to make the calculation of the output-shares independent*/
 
 /*opW needs to be cleared because of StoreTranistion-Leakages*/
-clear_opW();
+clear(opW);
 
 /*Register r4, r5 and r7 need to be cleared*/
 load_pub(r4);
@@ -120,7 +120,7 @@ load_pub(r7);
 /*in register r6 the result rnd1+b1*a1 is stored*/
   xor(r6,r4);
 
-clear_opB();/*This clearing is needed to remove b1*a1 from opB otherwise (Load Operand) would leak*/
+clear(opB);/*This clearing is needed to remove b1*a1 from opB otherwise (Load Operand) would leak*/
 
 /*In register r7 b2 is loaded and a1 still is in register r5*/
   load(r7, rin2ptr, 2);
@@ -140,7 +140,7 @@ load_pub(r4);/*Load Transition*/
 /*b1 is loaded to register r5*/
   load(r5, rin2ptr, 1);
 
-clear_opB();/*load opA*/
+clear(opB);/*load opA*/
 /*in register r4 the result a2*b1 is stored*/
   and(r4, r5);
 
@@ -148,7 +148,7 @@ clear_opB();/*load opA*/
   xor(r6,r4);
 
 /*To achieve SNI security the randomness is not allowed to be leaked with much other values therefore the following clearings are needed*/
-clear_opA();/*Xor Oparand A*/
+clear(opA);/*Xor Oparand A*/
 load_pub(r5);/*Load Transition*/
 
 /*rnd2 is loaded into register r5*/
@@ -163,7 +163,7 @@ load_pub(r5);/*Load Transition*/
 /*After the calculation of the second output-share these clearings are used to reset the hardware to make the calculation of the output-shares independent*/
 
 /*opW needs to be cleared because of StoreTranistion-Leakages*/
-clear_opW();
+clear(opW);
 
 /*Register r4, r5 and r7 need to be cleared*/
 load_pub(r4);
@@ -186,7 +186,7 @@ load_pub(r7);
 /*in register r6 the result rnd2+b2*a2 is stored*/
   xor(r6,r4);
 
-clear_opB();/*This clearing is needed to remove b2*a2 from opB otherwise (Load Operand) would leak*/
+clear(opB);/*This clearing is needed to remove b2*a2 from opB otherwise (Load Operand) would leak*/
 
 /*In register r7 b0 is loaded and a1 still is in register r5*/
   load(r7, rin2ptr, 0);
@@ -206,7 +206,7 @@ load_pub(r4);/*Load Transition*/
 /*b2 is loaded to register r5*/
   load(r5, rin2ptr, 2);
 
-clear_opB();/*load opA*/
+clear(opB);/*load opA*/
 /*in register r4 the result a0*b2 is stored*/
   and(r4, r5);
 
@@ -214,7 +214,7 @@ clear_opB();/*load opA*/
   xor(r6,r4);
 
 /*To achieve SNI security the randomness is not allowed to be leaked with much other values therefore the following clearings are needed*/
-clear_opA();/*Xor Oparand A*/
+clear(opA);/*Xor Oparand A*/
 load_pub(r5);/*Load Transition*/
 
 /*rnd0 is loaded into register r5*/
@@ -230,10 +230,10 @@ load_pub(r4);
 load_pub(r5);
 load_pub(r6);
 load_pub(r7);
-clear_opA();
-clear_opB();
-clear_opR();
-clear_opW();
+clear(opA);
+clear(opB);
+clear(opR);
+clear(opW);
 
 rnd_loc <- (rnd_loc +w32 (w32) (3 * 4));
 }
@@ -244,28 +244,28 @@ macro secref (w32 rin1ptr, w32 rnd_loc, w32 rdstptr)
   load(r4, rnd_loc, 0);
 
   load(r6, rin1ptr, 0);
-clear_opR();
+clear(opR);
   load(r5, rnd_loc, 1);
 
   xor(r6, r4);
 
   store(r6, rdstptr, 0);
 
-clear_opW();
+clear(opW);
 load_pub(r6);
 
   load(r7, rin1ptr, 1);
-clear_opA();
+clear(opA);
   xor(r7, r5);
 
   store(r7, rdstptr, 1);
 
-clear_opW();
-clear_opB();
+clear(opW);
+clear(opB);
 
   xor(r4, r5);
 load_pub(r5);
-clear_opB();
+clear(opB);
   load(r5, rin1ptr, 2);
   xor(r5, r4);
 
@@ -275,10 +275,10 @@ load_pub(r4);
 load_pub(r5);
 load_pub(r6);
 load_pub(r7);
-clear_opA();
-clear_opB();
-clear_opR();
-clear_opW();
+clear(opA);
+clear(opB);
+clear(opR);
+clear(opW);
 
 rnd_loc <- (rnd_loc +w32 (w32) (2 * 4));
 }
@@ -289,18 +289,18 @@ macro secstore (w32 rin1ptr, w32 rdstptr)
   load(r4, rin1ptr, 0);
   store(r4, rdstptr, 0);
 
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
   load(r5, rin1ptr, 1);
   store(r5, rdstptr, 1);
 
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
   load(r6, rin1ptr, 2);
   store(r5, rdstptr, 2);
@@ -308,10 +308,10 @@ clear_opB();
 load_pub(r4);
 load_pub(r5);
 load_pub(r6);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }
 
 // rin1ptr shares[0:2], rdstptr output[0:2]
@@ -329,10 +329,10 @@ macro secnot (w32 rin1ptr, w32 rdstptr)
   store(r4, rdstptr, 0);
 
 load_pub(r4);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
 /*calculation of thefirst outputshare c0 = a0+b0*/
 
@@ -341,18 +341,18 @@ clear_opB();
   store(r5, rdstptr, 1);
 
 load_pub(r5);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 
   load(r6, rin1ptr, 2);
 
   store(r6, rdstptr, 2);
 
 load_pub(r6);
-clear_opW();
-clear_opR();
-clear_opA();
-clear_opB();
+clear(opW);
+clear(opR);
+clear(opA);
+clear(opB);
 }

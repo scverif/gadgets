@@ -1,7 +1,7 @@
 // Copyright 2020 - TU Darmstadt, NXP
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 
 /*
  * This gadget is a SNI-multiplication in the leakage-model defined by pseudoisa.il
@@ -18,7 +18,7 @@ macro secmult ()
   and(r4, r5);          /*in r4 the result b0*a0 is stored*/
   load(r6, r3, 0);        /*rnd0 is loaded into register r6*/
   xor(r6, r4);           /*in register r6 the result rnd0+b0*a0 is stored*/
-clear_opB();            /*This clearing is needed to remove b0*a0 from opB otherwise (Load Operand) would leak*/
+clear(opB);            /*This clearing is needed to remove b0*a0 from opB otherwise (Load Operand) would leak*/
   load(r7, r2, 1);      /*In register r7 b1 is loaded and a0 still is in register r5*/
   and(r7, r5);          /*in r7 the result b1*a0 is stored*/
   xor(r6, r7);           /*in register r6 the result rnd0+b0*a0+b1*a0 is stored*/
@@ -27,19 +27,19 @@ clear_opB();            /*This clearing is needed to remove b0*a0 from opB other
 load_pub(r4);           /*Load Transition*/
   load(r4, r1, 1);      /*a1 is loaded to register r4*/
   load(r5, r2, 0);      /*b0 is loaded to register r5*/
-clear_opB();
+clear(opB);
   and(r4, r5);          /*in register r4 the result a1*b0 is stored*/
   xor(r6, r4);           /*in register r6 the result rnd0+b0*a0+b1*a0+a1*b0 is stored*/
 
 /* To achieve SNI security the randomness is not allowed to be leaked with much other values therefore the following clearings are needed*/
-clear_opA();            /*Xor Oparand A*/
+clear(opA);            /*Xor Oparand A*/
 load_pub(r5);           /*Load Transition*/
   load(r5, r3, 1);      /*rnd1 is loaded into register r5*/
   xor(r6, r5);          /*in register r6 the result rnd0+b0*a0+b1*a0+a1*b0+rnd1 is stored*/
   store(r6, r0, 0);     /*The first outputvalue c0 = rnd0+b0*a0+b1*a0+a1*b0+rnd1 is stored to memory*/
 
 /*After the calculation of the first output-share these clearings are used to reset the hardware to make the calculation of the output-shares independent*/
-clear_opW();            /*opW needs to be cleared because of StoreTranistion-Leakages*/
+clear(opW);            /*opW needs to be cleared because of StoreTranistion-Leakages*/
 load_pub(r4);           /*Register r4, r5 and r7 need to be cleared*/
 load_pub(r5);
 load_pub(r7);
@@ -48,7 +48,7 @@ load_pub(r7);
   and(r4, r5);          /*in r4 the result b1*a1 is stored*/
   load(r6, r3, 1);      /*rnd1 is loaded into register r6*/
   xor(r6, r4);          /*in register r6 the result rnd1+b1*a1 is stored*/
-clear_opB();            /*This clearing is needed to remove b1*a1 from opB otherwise (Load Operand) would leak*/
+clear(opB);            /*This clearing is needed to remove b1*a1 from opB otherwise (Load Operand) would leak*/
   load(r7, r2, 2);      /*In register r7 b2 is loaded and a1 still is in register r5*/
   and(r7, r5);          /*in r7 the result b2*a1 is stored*/
   xor(r6, r7);          /*in register r6 the result rnd1+b1*a1+b2*a1 is stored*/
@@ -58,19 +58,19 @@ load_pub(r4);           /*Load Transition*/
   load(r4, r1, 2);      /*a2 is loaded to register r4*/
   load(r5, r2, 1);      /*b1 is loaded to register r5*/
 
-clear_opB();            /*load opA*/
+clear(opB);            /*load opA*/
   and(r4, r5);          /*in register r4 the result a2*b1 is stored*/
   xor(r6, r4);          /*in register r6 the result rnd1+b1*a1+b2*a1+a2*b1 is stored*/
 
 /*To achieve SNI security the randomness is not allowed to be leaked with much other values therefore the following clearings are needed*/
-clear_opA();            /*Xor Oparand A*/
+clear(opA);            /*Xor Oparand A*/
 load_pub(r5);           /*Load Transition*/
   load(r5, r3, 2);      /*rnd2 is loaded into register r5*/
   xor(r6, r5);          /*in regsister r6 the result rnd1+b1*a1+b2*a1+a2*b1+rnd2 is stored*/
   store(r6, r0, 1);     /*The second outputvalue c1 = rnd1+b1*a1+b2*a1+a2*b1+rnd2 is stored to memory*/
 
 /*After the calculation of the second output-share these clearings are used to reset the hardware to make the calculation of the output-shares independent*/
-clear_opW();            /*opW needs to be cleared because of StoreTranistion-Leakages*/
+clear(opW);            /*opW needs to be cleared because of StoreTranistion-Leakages*/
 load_pub(r4);           /*Register r4, r5 and r7 need to be cleared*/
 load_pub(r5);
 load_pub(r7);
@@ -79,7 +79,7 @@ load_pub(r7);
   and(r4, r5);          /*in r4 the result b2*a2 is stored*/
   load(r6, r3, 2);      /*rnd2 is loaded into register r6*/
   xor(r6, r4);          /*in register r6 the result rnd2+b2*a2 is stored*/
-clear_opB();            /*This clearing is needed to remove b2*a2 from opB otherwise (Load Operand) would leak*/
+clear(opB);            /*This clearing is needed to remove b2*a2 from opB otherwise (Load Operand) would leak*/
   load(r7, r2, 0);      /*In register r7 b0 is loaded and a1 still is in register r5*/
   and(r7, r5);          /*in r7 the result b0*a2 is stored*/
   xor(r6, r7);          /*in register r6 the result rnd2+b2*a2+b0*a2 is stored*/
@@ -88,12 +88,12 @@ clear_opB();            /*This clearing is needed to remove b2*a2 from opB other
 load_pub(r4);           /*Load Transition*/
   load(r4, r1, 0);      /*a0 is loaded to register r4*/
   load(r5, r2, 2);      /*b2 is loaded to register r5*/
-clear_opB();            /*load opA*/
+clear(opB);            /*load opA*/
   and(r4, r5);          /*in register r4 the result a0*b2 is stored*/
   xor(r6, r4);          /*in register r6 the result rnd2+b2*a2+b0*a2+a0*b2 is stored*/
 
 /*To achieve SNI security the randomness is not allowed to be leaked with much other values therefore the following clearings are needed*/
-clear_opA();            /*Xor Oparand A*/
+clear(opA);            /*Xor Oparand A*/
 load_pub(r5);           /*Load Transition*/
   load(r5, r3, 0);      /*rnd0 is loaded into register r5*/
   xor(r6, r5);          /*in regsister r6 the result rnd2+b2*a2+b0*a2+a0*b2+rnd0 is stored*/
@@ -103,10 +103,10 @@ load_pub(r4);
 load_pub(r5);
 load_pub(r6);
 load_pub(r7);
-clear_opA();
-clear_opB();
-clear_opR();
-clear_opW();
+clear(opA);
+clear(opB);
+clear(opR);
+clear(opW);
 }
 
 
@@ -123,6 +123,17 @@ annotate secmult
   input sharing b
   input urandom rnd
   output sharing c
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -169,6 +180,12 @@ print:
   kind: evaltrace
   target: secmult
   verbosity: 0;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: secmult
+  verbosity: 1;
 
 check:
   target: secmult

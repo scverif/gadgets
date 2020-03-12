@@ -1,7 +1,7 @@
 // Copyright 2019-2020 - TU Darmstadt, NXP
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 
 macro firstmult ()
 {
@@ -23,7 +23,7 @@ macro firstmult ()
 
   store(r5, r0, 0);        /*store value of r5 = a0*b1 + b0*a0 +rnd0 as output value c0 */
 
-clear_opW();
+clear(opW);
 load_pub(r4);
 load_pub(r6);
 
@@ -46,9 +46,9 @@ load_pub(r6);
   scrub(r5);
   scrub(r6);
   scrub(r7);
-  clear_opB();
-  clear_opR();
-  clear_opW();
+  clear(opB);
+  clear(opR);
+  clear(opW);
 }
 
 annotate firstmult
@@ -64,6 +64,17 @@ annotate firstmult
   input sharing b
   input urandom rnd
   output sharing c
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -87,6 +98,12 @@ print:
   kind: maskverif
   target: firstmult
   verbosity: 0;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: firstmult
+  verbosity: 1;
 
 check:
   target: firstmult

@@ -17,7 +17,6 @@ annotate xorOrder1
   init r3 [b 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input sharing b
   input public opA
@@ -37,7 +36,9 @@ annotate xorOrder1
   input public lr
   input public c
   input public rnd[0:0]
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate andOrder1
   region mem w32 a[0:1]
@@ -51,7 +52,6 @@ annotate andOrder1
   init r3 [b 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input sharing b
   input public opA
@@ -72,7 +72,9 @@ annotate andOrder1
   input public rnd[0:0]
   input urandom rnd[1:1]
   input public c
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate refOrder1
   region mem w32 a[0:1]
@@ -84,7 +86,6 @@ annotate refOrder1
   init r2 [a 0]
   init sp [stack 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -104,7 +105,9 @@ annotate refOrder1
   input public rnd[0:0]
   input urandom rnd[1:1]
   input public c
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate notOrder1
   region mem w32 a[0:1]
@@ -112,7 +115,6 @@ annotate notOrder1
   init r0 [rnd 0]
   init r1 [a 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -123,7 +125,9 @@ annotate notOrder1
   input public r2
   input public lr
   input public rnd[0:0]
-  output sharing a;
+  output sharing a
+  init metric_cyclecount 0
+  ;
 
 annotate cpyOrder1
   region mem w32 a[0:1]
@@ -133,7 +137,6 @@ annotate cpyOrder1
   init r1 [c 0]
   init r2 [a 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -151,7 +154,9 @@ annotate cpyOrder1
   input public lr
   input public rnd[0:0]
   input public c
-  output sharing c;
+  output sharing c
+  init metric_cyclecount 0
+  ;
 
 annotate leakOrder1
   region mem w32 a[0:1]
@@ -159,7 +164,6 @@ annotate leakOrder1
   init r0 [rnd 0]
   init r1 [a 0]
   init lr exit
-  init cyclecount 0
   input sharing a
   input public opA
   input public opB
@@ -171,7 +175,9 @@ annotate leakOrder1
   input public r3
   input public lr
   input public rnd[0:0]
-  output sharing a;
+  output sharing a
+  init metric_cyclecount 0
+  ;
 
 ---
 addleakage:
@@ -190,7 +196,7 @@ rewriteformv:
 
 print:
   kind: variables
-  variables: [cyclecount, r0, rnd]
+  variables: [metric_cyclecount, r0, rnd]
   target: [xorOrder1, andOrder1, refOrder1, notOrder1, cpyOrder1, leakOrder1]
   verbosity: 1;
 

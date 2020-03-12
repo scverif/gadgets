@@ -1,6 +1,6 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 
-include il "models/pseudoisa.il"
+include il "models/pseudoisa-clearings.il"
 include il "present/first_order/sbox_gadgets_a.il"
 
 w32 r8;
@@ -108,6 +108,17 @@ annotate present_plain
   input public r8
   input public r9
   input public r10
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate present_opt
@@ -147,6 +158,17 @@ annotate present_opt
   input public r8
   input public r9
   input public r10
+  init metric_cyclecount 0
+  init metric_scrubcount 0
+  init metric_clearcount_opA 0
+  init metric_clearcount_opB 0
+  init metric_clearcount_opR 0
+  init metric_clearcount_opW 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_copy 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -170,6 +192,12 @@ print:
   kind: maskverif
   target: [present_plain]
   verbosity: 0;
+
+print:
+  kind: variables
+  variables: "metric_*"
+  target: [present_plain]
+  verbosity: 1;
 
 check:
   target: [present_plain]
