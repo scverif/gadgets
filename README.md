@@ -1,3 +1,6 @@
+[//1]: # (Copyright 2020 - NXP)
+[//2]: # (SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications)
+
 ## Introduction ##
 This repository contains masked implementations for Arm Cortex-M
 micro-controllers and code to guide their analysis using "scVerif" and

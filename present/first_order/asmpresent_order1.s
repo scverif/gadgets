@@ -1,4 +1,6 @@
         // Copyright 2020 - NXP, TU Darmstadt
+        // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
+	//
         // the calling convention here is
         // to always get an entropy pointer which has a public scratch memory at offset 0
         // it is incremented to provide a scratch position followed by unused entropy

@@ -1,4 +1,5 @@
 /* Copyright 2020 - TU Darmstadt, NXP */
+/* SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications */
 
 include il "second_order/basic_gadgets.il"
 

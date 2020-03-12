@@ -1,4 +1,5 @@
 /* Copyright 2020 - TU Darmstadt, NXP */
+/* SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications */
 
 include il "models/pseudoisa-clearings.il"
 include il "present/second_order/sbox_gadgets.il"
