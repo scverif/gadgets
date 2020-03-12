@@ -52,7 +52,7 @@ macro calcB (w32 in, w32 out, w32 rnd_loc)
   firstxorone(d_out, d_out);
   firststore(c_in, c_out);
   firstxor(b_in, c_in, b_out);
-  firstref(b_out, r3, b_out);
+  firstref(b_out, rnd_loc, b_out);
   firstxor(a_in, b_in, a_out);
 
 }

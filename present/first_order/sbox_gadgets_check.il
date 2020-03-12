@@ -1,7 +1,6 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
-include il "models/pseudoisa-clearings.il"
 include il "present/first_order/sbox_gadgets.il"
 
 macro calcA_inst() {
@@ -147,7 +146,7 @@ inlinecall:
   target: [calcA_inst, calcB_inst, calcG_inst];
 
 partialeval:
-  target: [calcA_inst, calcB_inst];
+  target: [calcA_inst, calcB_inst, calcG_inst];
 
 rewriteformv:
   target: [calcA_inst, calcB_inst, calcG_inst]

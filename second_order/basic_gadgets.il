@@ -1,6 +1,8 @@
 // Copyright 2020 - TU Darmstadt, NXP
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
+include il "models/pseudoisa-clearings.il"
+
 // rin1ptr shares[0:2], rin2ptr shares[0:2], rdstptr output[0:2]
 macro secxor (w32 rin1ptr, w32 rin2ptr, w32 rdstptr)
 {

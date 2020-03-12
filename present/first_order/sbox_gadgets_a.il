@@ -3,123 +3,89 @@
 
 include il "first_order/basic_gadgets_a.il"
 
-macro calcG (w32 in, w32 out, w32 rnd_loc, w32 sp)
-  w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out
+macro calcG ()
 {
-/*  a_in <- in;
-  b_in <- in +w32 (w32) 8;
-  c_in <- in +w32 (w32) 16;
-  d_in <- in +w32 (w32) 24;
-
-  a_out <- out;
-  b_out <- out +w32 (w32) 8;
-  c_out <- out +w32 (w32) 16;
-  d_out <- out +w32 (w32) 24;*/
-
-  load(r2,sp,0);
-  load(r3,sp,0);
-  load(r1,sp,1);
+  load(r2, sp, 0);
+  load(r3, sp, 0);
+  load(r1, sp, 1);
   r2 <- r2 +w32 (w32) (2*4);
   r3 <- r3 +w32 (w32) (6*4);
   r1 <- r1 +w32 (w32) (6*4);
-  firstmult(r2, r3, r0, r1);
+  firstmult();
 
   r3 <- r3 -w32 (w32) (2*4);
   r1 <- r1 -w32 (w32) (6*4);
-  firstmult(b_in, c_in, rnd_loc, a_out);
+  firstmult();
 
-  copy(r2,r1);
+  copy(r2, r1);
   r3 <- r3 -w32 (w32) (4*4);
-  firstxor(a_out, a_in, a_out);
+  firstxor();
 
   /*calc a'*/
-  copy(r3,r1);
+  copy(r3, r1);
   r3 <- r3 +w32 (w32) (6*4);
-  firstxor(a_out, d_out, a_out);
+  firstxor();
 
   /*calc d'*/
-  copy(r1,r3);
-  load(r2,sp,0);
+  copy(r1, r3);
+  load(r2, sp, 0);
   r2 <- r2 +w32 (w32) (4*4);
-  firstxor(c_in, d_out, d_out);
+  firstxor();
 
   /*calc b'*/
-  copy(r3,r2);
+  copy(r3, r2);
   r3 <- r3 -w32 (w32) (2*4);
   r2 <- r2 -w32 (w32) (4*4);
   r1 <- r1 -w32 (w32) (4*4);
-  firstmult(a_in, b_in, rnd_loc, b_out);
+  firstmult();
 
-  copy(r2,r1);
+  copy(r2, r1);
   r3 <- r3 +w32 (w32) (4*4);
-  firstxor(b_out, d_in, b_out);
+  firstxor();
 
   /*calc c'*/
   r3 <- r3 -w32 (w32) (4*4);
   r1 <- r1 +w32 (w32) (2*4);
-  firststore(b_in, c_out);
+  firststore();
 }
 
-macro calcB (w32 in, w32 out, w32 rnd_loc, w32 sp)
-  w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out
+macro calcB ()
 {
-  /*a_in <- in;
-  b_in <- in +w32 (w32) 8;
-  c_in <- in +w32 (w32) 16;
-  d_in <- in +w32 (w32) 24;
-
-  a_out <- out;
-  b_out <- out +w32 (w32) 8;
-  c_out <- out +w32 (w32) 16;
-  d_out <- out +w32 (w32) 24;*/
-
-  load(r2,sp,0);
-  load(r3,sp,0);
-  load(r1,sp,1);
+  load(r2, sp, 0);
+  load(r3, sp, 0);
+  load(r1, sp, 1);
 
   r2 <- r2 +w32 (w32) (2*4);
   r3 <- r3 +w32 (w32) (6*4);
   r1 <- r1 +w32 (w32) (6*4);
-  firstxor(b_in, d_in, d_out);
+  firstxor();
 
-  copy(r3,r1);
-  firstxorone(d_out, d_out);
+  copy(r3, r1);
+  firstxorone();
 
-  copy(r3,r2);
+  copy(r3, r2);
   r3 <- r3 +w32 (w32) (2*4);
   r1 <- r1 -w32 (w32) (2*4);
-  firststore(c_in, c_out);
+  firststore();
 
   r1 <- r1 -w32 (w32) (2*4);
-  firstxor(b_in, c_in, b_out);
+  firstxor();
 
-  copy(r3,r1);
-  firstref(b_out, r2, b_out);
+  copy(r3, r1);
+  firstref();
 
-  copy(r3,r2);
+  copy(r3, r2);
   r2 <- r2 -w32 (w32) (2*4);
   r1 <- r1 -w32 (w32) (2*4);
-  firstxor(a_in, b_in, a_out);
+  firstxor();
 
 }
 
-macro calcA (w32 in, w32 out, w32 rnd_loc, w32 sp)
-  w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out
+macro calcA ()
 {
-  /*a_in <- in;
-  b_in <- in +w32 (w32) 8;
-  c_in <- in +w32 (w32) 16;
-  d_in <- in +w32 (w32) 24;
-
-  a_out <- out;
-  b_out <- out +w32 (w32) 8;
-  c_out <- out +w32 (w32) 16;
-  d_out <- out +w32 (w32) 24;*/
-
-
-  load(r2,sp,0);
-  load(r3,sp,0);
-  load(r1,sp,1);
+  load(r2, sp, 0);
+  load(r3, sp, 0);
+  load(r1, sp, 1);
 
   r3 <- r3 +w32 (w32) (4*4);
   firstxor();
@@ -136,26 +102,26 @@ macro calcA (w32 in, w32 out, w32 rnd_loc, w32 sp)
   r1 <- r1 +w32 (w32) (2*4);
   firstxor();
 
-  copy(r2,r1);
+  copy(r2, r1);
   r3 <- r3 +w32 (w32) (2*4);
   firstxor();
 
-  copy(r3,r1);
+  copy(r3, r1);
   firstxorone();
 }
 
-macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, int i)
+macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc)
   w32 a_in, w32 b_in, w32 c_in, w32 d_in, w32 a_out, w32 b_out, w32 c_out, w32 d_out
 {
-  a_in <- in +w32 (w32) (i * 32);
-  b_in <- in +w32 (w32) 8 +w32 (w32) (i * 32);
-  c_in <- in +w32 (w32) 16 +w32 (w32) (i * 32);
-  d_in <- in +w32 (w32) 24 +w32 (w32) (i * 32);
+  a_in <- in;
+  b_in <- in +w32 (w32) 8;
+  c_in <- in +w32 (w32) 16;
+  d_in <- in +w32 (w32) 24;
 
-  a_out <- out +w32 (w32) ((1-i) * 32);
-  b_out <- out +w32 (w32) 8 +w32 (w32) ((1-i) * 32);
-  c_out <- out +w32 (w32) 16 +w32 (w32) ((1-i) * 32);
-  d_out <- out +w32 (w32) 24 +w32 (w32) ((1-i) * 32);
+  a_out <- out;
+  b_out <- out +w32 (w32) 8;
+  c_out <- out +w32 (w32) 16;
+  d_out <- out +w32 (w32) 24;
 
   load(r4, b_in, 0);
   load(r6, c_in, 1);
@@ -320,7 +286,7 @@ macro calcB_opt (w32 in, w32 out, w32 rnd_loc)
 
   load(r5, c_in, 0);
   xor(r4, r5);
-  load(r6,rnd_loc, 0);
+  load(r6, rnd_loc, 0);
   xor(r4, r6);
   store(r4, b_out, 0);
   store(r5, c_out, 0);
@@ -338,7 +304,7 @@ macro calcB_opt (w32 in, w32 out, w32 rnd_loc)
 
   load(r5, c_in, 1);
   xor(r4, r5);
-  load(r6,rnd_loc, 0);
+  load(r6, rnd_loc, 0);
   xor(r4, r6);
   store(r4, b_out, 1);
   store(r5, c_out, 1);

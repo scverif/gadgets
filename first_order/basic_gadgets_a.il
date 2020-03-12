@@ -1,6 +1,8 @@
 // Copyright 2020 - TU Darmstadt, NXP
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
+include il "models/pseudoisa-clearings.il"
+
 macro firstxor ()
 {
 /*calculation of thefirst outputshare c0 = a0+b0*/
@@ -40,7 +42,7 @@ clear(opA);
 clear(opB);
 }
 
-macro firstmult (w32 op1, w32 op2, w32 rnd_loc, w32 str)
+macro firstmult ()
 {
 /*calculation of the first outputshare: c0 = a0*b0 + rnd0 +a0*b1*/
 
@@ -106,7 +108,7 @@ clear(opB);
 r0 <- (r0 +w32 (w32) (1 * 4));
 }
 
-macro firstref (w32 op1, w32 rnd_loc, w32 str)
+macro firstref ()
 {
 /*calculation of the first outputshare: c0 = a0 +rnd0*/
 
@@ -144,7 +146,7 @@ clear(opB);
 r0 <- (r0 +w32 (w32) (1 * 4));
 }
 
-macro firststore (w32 op1, w32 str)
+macro firststore ()
 {
   load(r4, r3, 0);
   store(r4, r1, 0);
@@ -164,7 +166,7 @@ clear(opA);
 clear(opB);
 }
 
-macro firstxorone (w32 op1, w32 str)
+macro firstxorone ()
 {
 /*calculation of thefirst outputshare c0 = a0+b0*/
 

@@ -1,49 +1,43 @@
 // Copyright 2019-2020 - NXP, TU Darmstadt
 // SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
 
-include il "models/pseudoisa-clearings.il"
 include il "present/first_order/sbox_gadgets_a.il"
 
-w32 r8;
-w32 r9;
-w32 r10;
-w32 sp;
-
+/* present composed of non-optimized first order gadgets */
 macro present_plain()
   int i
 {
-  copy(r8,r1);
-  copy(r1,sp);
-  r1 <- r1 + w32 (w32) (2*4);
+  copy(r8, r1);
+  copy(r1, sp);
+  r1 <- r1 +w32 (w32) (2*4);
   copy (r9, r1);
-  store(r2,sp,0);
-  store(r1,sp,1);
-  r1 <- r1 + w32 (w32) (8*4);
+  store(r2, sp, 0);
+  store(r1, sp, 1);
+  r1 <- r1 +w32 (w32) (8*4);
   copy(r10, r1);
 
-  /* compostion of non-optimized first order gadgets */
-  calcB(r2, r1, r0, sp);
+  calcB();
 
-  copy(r1,r10);
-  copy(r2,r9);
-  store(r2,sp,0);
-  store(r1,sp,1);
+  copy(r1, r10);
+  copy(r2, r9);
+  store(r2, sp, 0);
+  store(r1, sp, 1);
 
-  calcG(r2, r1, r0, sp);
+  calcG();
 
-  copy(r1,r9);
-  copy(r2,r10);
-  store(r2,sp,0);
-  store(r1,sp,1);
+  copy(r1, r9);
+  copy(r2, r10);
+  store(r2, sp, 0);
+  store(r1, sp, 1);
 
-  calcG(r2, r1, r0, sp);
+  calcG();
 
-  copy(r1,r8);
-  copy(r2,r9);
-  store(r1,sp,1);
-  store(r2,sp,0);
+  copy(r1, r8);
+  copy(r2, r9);
+  store(r1, sp, 1);
+  store(r2, sp, 0);
 
-  calcA(r2, r1, r0, sp);
+  calcA();
 
   /* scrub memory holding intermediates */
   i <- 0;
@@ -53,21 +47,34 @@ macro present_plain()
   }
 }
 
+/* present sbox composed of optimzed gadgets */
 macro present_opt ()
   int i
 {
-  copy(r4, r3);
-  r4 <- r4 +w32 (w32) 32;
-  /* present with optimzed gadgets */
-  calcB_opt     (r2, r3, r0);
-  calcG_paraMult(r3, r3, r0, 0);
-  calcG_paraMult(r3, r3, r0, 1);
-  calcA_opt     (r3, r1, r0);
+  copy(r8, r1);
+  copy(r1, sp);
+  copy(r9, r1);                 // r9 holds pointer to first stack position for intermediates
+  r1 <- r1 +w32 (w32) (8*4);
+  copy(r10, r1);                // r10 holds pointer to second stack position for intermediates
+
+  calcB_opt(r2, r1, r0);
+
+  copy(r1, r10);
+  copy(r2, r9);
+  calcG_paraMult(r2, r1, r0);
+
+  copy(r1, r9);
+  copy(r2, r10);
+  calcG_paraMult(r2, r1, r0);
+
+  copy(r1, r8);
+  copy(r2, r9);
+  calcA_opt(r2, r1, r0);
 
   /* scrub memory holding intermediates */
   i <- 0;
-  while (i < 16) {
-    store(pub, r3, i);
+  while (i <= 17) {
+    store(pub, sp, i);
     i <- i + 1;
   }
 }
@@ -174,34 +181,34 @@ annotate present_opt
 
 ---
 inlinecall:
-  target: [present_plain, present_opt];
+  target: [present_opt, present_plain];
 
 print:
   kind: macrodef
-  target: [present_plain, present_opt]
+  target: [present_opt, present_plain]
   verbosity: 0;
 
 partialeval:
-  target: [present_plain];
+  target: [present_opt, present_plain];
 
 rewriteformv:
-  target: [present_plain]
+  target: [present_opt, present_plain]
   inferinput: false
   inferoutput: true;
 
 print:
   kind: maskverif
-  target: [present_plain]
+  target: [present_opt, present_plain]
   verbosity: 0;
 
 print:
   kind: variables
   variables: "metric_*"
-  target: [present_plain]
+  target: [present_opt, present_plain]
   verbosity: 1;
 
 check:
-  target: [present_plain]
+  target: [present_opt, present_plain]
   kind: "Stateful NI";
 ...
 
