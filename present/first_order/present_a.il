@@ -51,25 +51,27 @@ macro present_plain()
 macro present_opt ()
   int i
 {
-  copy(r8, r1);
-  copy(r1, sp);
-  copy(r9, r1);                 // r9 holds pointer to first stack position for intermediates
-  r1 <- r1 +w32 (w32) (8*4);
-  copy(r10, r1);                // r10 holds pointer to second stack position for intermediates
+  copy(r8,r1);
+  copy(r1,sp);
+  /*r1 <- r1 + w32 (w32) (2*4);*/ 
+  copy (r9, r1);
+  r1 <- r1 + w32 (w32) (8*4);
+  copy(r10, r1);
+  copy(r1,r9);
+  /* compostion of non-optimized first order gadgets */
+  calcB_opt(r2, r1, r0, sp);
+  
+  copy(r2,r9);
+  copy(r1,r10);
+  calcG_paraMult(r2, r1, r0, sp);
 
-  calcB_opt(r2, r1, r0);
+  copy(r2,r10);
+  copy(r1,r9);
+  calcG_paraMult(r2, r1, r0, sp);
 
-  copy(r1, r10);
-  copy(r2, r9);
-  calcG_paraMult(r2, r1, r0);
-
-  copy(r1, r9);
-  copy(r2, r10);
-  calcG_paraMult(r2, r1, r0);
-
-  copy(r1, r8);
-  copy(r2, r9);
-  calcA_opt(r2, r1, r0);
+  copy(r2,r9);
+  copy(r1,r8);
+  calcA_opt(r2, r1, r0, sp);
 
   /* scrub memory holding intermediates */
   i <- 0;
