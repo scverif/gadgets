@@ -79,6 +79,11 @@ annotate present_sbox
   init rbi2 [bi2 0]
   init rci2 [ci2 0]
   init rdi2 [di2 0]
+  init a [w32 0x0000, w32 0x0000, w32 0x0000]
+  init b [w32 0x0000, w32 0x0000, w32 0x0000]
+  init c [w32 0x0000, w32 0x0000, w32 0x0000]
+  init d [w32 0x0000, w32 0x0000, w32 0x0000]
+  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a
   input sharing b
   input sharing c
@@ -166,6 +171,11 @@ annotate present_sbox_plain
   init rbi2 [bi2 0]
   init rci2 [ci2 0]
   init rdi2 [di2 0]
+  init a [w32 0x0000, w32 0x0000, w32 0x0000]
+  init b [w32 0x0000, w32 0x0000, w32 0x0000]
+  init c [w32 0x0000, w32 0x0000, w32 0x0000]
+  init d [w32 0x0000, w32 0x0000, w32 0x0000]
+  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a
   input sharing b
   input sharing c
@@ -244,6 +254,12 @@ rewriteformv:
 print:
   kind: variables
   variables: "metric_*"
+  target: present_sbox
+  verbosity: 1;
+
+print:
+  kind: variables
+  variables: [ao, bo, co, do]
   target: present_sbox
   verbosity: 1;
 

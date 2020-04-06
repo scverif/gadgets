@@ -90,6 +90,8 @@ annotate present_plain
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
+  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
@@ -140,6 +142,8 @@ annotate present_opt
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
+  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
@@ -206,6 +210,12 @@ print:
 print:
   kind: variables
   variables: "metric_*"
+  target: [present_opt, present_plain]
+  verbosity: 1;
+
+print:
+  kind: variables
+  variables: "out"
   target: [present_opt, present_plain]
   verbosity: 1;
 
