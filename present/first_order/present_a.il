@@ -53,14 +53,14 @@ macro present_opt ()
 {
   copy(r8,r1);
   copy(r1,sp);
-  /*r1 <- r1 + w32 (w32) (2*4);*/ 
+  /*r1 <- r1 + w32 (w32) (2*4);*/
   copy (r9, r1);
   r1 <- r1 + w32 (w32) (8*4);
   copy(r10, r1);
   copy(r1,r9);
   /* compostion of non-optimized first order gadgets */
   calcB_opt(r2, r1, r0, sp);
-  
+
   copy(r2,r9);
   copy(r1,r10);
   calcG_paraMult(r2, r1, r0, sp);
@@ -90,8 +90,8 @@ annotate present_plain
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
-  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
-  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
@@ -142,8 +142,8 @@ annotate present_opt
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
-  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
-  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
