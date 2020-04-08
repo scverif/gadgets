@@ -323,9 +323,9 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc)
   store(r5, c_out, 1);
 clear(opB);
   load(r4, c_in, 1);
-  xor(r4, r4);
+clear_opB();
+  xor(r4, r5);
   store(r4, a_out, 1);
-
   load(r5, d_in, 1);
   xor(r4, r5);
   store(r4, d_out, 1);

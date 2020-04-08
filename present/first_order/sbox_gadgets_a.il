@@ -326,12 +326,12 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
   load(r5, r2, 1);
   store(r5, r1, 5);
 clear_opB();
-
-  load(r4, r2, 3);
-  xor(r4, r4);
+  load(r4, r2, 5);
+  xor(r4, r5);
   store(r4, r1, 1);
-
+clear_opB();
   load(r5, r2, 7);
+clear_opB();
   xor(r4, r5);
   store(r4, r1, 7);
 
