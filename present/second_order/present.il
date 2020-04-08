@@ -259,7 +259,7 @@ print:
 
 print:
   kind: variables
-  variables: [ao, bo, co, do]
+  variables: [a, b, c, d, rnd, ao, bo, co, do]
   target: present_sbox
   verbosity: 1;
 

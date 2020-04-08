@@ -175,7 +175,7 @@ macro firstxorone (w32 op1, w32 str)
   load(r4, op1, 0);
 
 /*xor r4 and r5 s.t. r4 contains a0+1*/
-  xor(r4, (w32) 0xFF);
+  xor(r4, (w32) 0xFFFF);
 
 /*store value of r4 = a0+b0 as output value c0*/
   store(r4, str, 0);
