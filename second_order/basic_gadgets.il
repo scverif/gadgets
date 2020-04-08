@@ -325,7 +325,7 @@ macro secnot (w32 rin1ptr, w32 rdstptr)
   load(r4, rin1ptr, 0);
 
 /*xor r4 and r5 s.t. r4 contains a0+1*/
-  xor(r4, (w32) 0xFFFF);
+  xor(r4, (w32) 0xFFFFFFFF);
 
 /*store value of r4 = a0+b0 as output value c0*/
   store(r4, rdstptr, 0);

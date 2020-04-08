@@ -215,7 +215,7 @@ print:
 
 print:
   kind: variables
-  variables: "out"
+  variables: [in, rnd, out]
   target: [present_opt, present_plain]
   verbosity: 1;
 

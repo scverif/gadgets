@@ -245,7 +245,7 @@ macro calcB_opt (w32 in, w32 out, w32 rnd_loc)
   load(r4, b_in, 0);
   load(r5, d_in, 0);
   xor(r5, r4);
-  xor(r5, (w32) 255);
+  xor(r5, (w32) 0xFFFFFFFF);
   store(r5, d_out, 0);
 
   load(r6, a_in, 0);
@@ -308,13 +308,13 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc)
   xor(r5, r4);
   store(r5, a_out, 0);
 
-  xor(r5, (w32) 255);
+  xor(r5, (w32) 0xFFFFFFFF);
   load(r6, d_in, 0);
   xor(r5, r6);
   store(r5, d_out, 0);
 
   load(r5, b_in, 0);
-  xor(r5, (w32) 255);
+  xor(r5, (w32) 0xFFFFFFFF);
   store(r5, b_out, 0);
 
   /*second share*/

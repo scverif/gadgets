@@ -110,16 +110,14 @@ macro calcA ()
   firstxorone();
 }
 
+//r2 -> [a0, a1, b0, b1, c0, c1, d0, d1]
 macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, w32 sp)
 {
 
-r2 <- r2 +w32 (w32)8;
-  load(r4, r2, 0);
-r2 <-r2 +w32 (w32)8;
-  load(r6, r2, 1);
+  load(r4, r2, 2);
+  load(r6, r2, 4);
   and(r6, r4);          /*r6 = c1b0*/
-r2 <-r2 +w32 (w32)8;
-  load(r5, r2, 0);
+  load(r5, r2, 6);
   and(r5, r4);          /*r5 = d0b0*/
 
   xor(r6, r5);          /*r6 = c1b0 + d0b0*/
@@ -264,13 +262,13 @@ rnd_loc <- (rnd_loc +w32 (w32) (3 * 4));
 }
 
 macro calcB_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
-{	
+{
   r2 <- r2 +w32 (w32) 8;
   load(r4, r2, 0);
   r2 <- r2 +w32 (w32) 16;
   load(r5, r2, 0);
   xor(r5, r4);
-  xor(r5, (w32) 255);
+  xor(r5, (w32) 0xFFFFFFFF);
   r1 <- r1 +w32 (w32) 24;
   store(r5, r1, 0);
   r2 <- r2 -w32 (w32) 24;
@@ -326,7 +324,7 @@ rnd_loc <- (rnd_loc +w32 (w32) (1 * 4));
 macro calcA_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
 {
   load(r4, r2, 0);
-  r1 <- r1 +w32 (w32) 16;  
+  r1 <- r1 +w32 (w32) 16;
   store(r4, r1, 0);
   r2 <- r2 +w32 (w32) 16;
   load(r5, r2, 0);
@@ -334,7 +332,7 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
   r1 <- r1 -w32 (w32) 16;
   store(r5, r1, 0);
 
-  xor(r5, (w32) 255);
+  xor(r5, (w32) 0xFFFFFFFF);
   r2 <- r2 +w32 (w32) 8;
   load(r6, r2, 0);
   xor(r5, r6);
@@ -343,7 +341,7 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
 
   r2 <- r2 -w32 (w32) 8;
   load(r5, r2, 0);
-  xor(r5, (w32) 255);
+  xor(r5, (w32) 0xFFFFFFFF);
 
   r1 <- r1 -w32 (w32) 16;
   store(r5, r1, 0);
