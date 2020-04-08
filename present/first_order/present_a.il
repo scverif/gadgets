@@ -51,34 +51,36 @@ macro present_plain()
 macro present_opt ()
   int i
 {
-  copy(r8,r1);
-  copy(r1,sp);
-  /*r1 <- r1 + w32 (w32) (2*4);*/
-  copy (r9, r1);
-  r1 <- r1 + w32 (w32) (8*4);
-  copy(r10, r1);
-  copy(r1,r9);
-  /* compostion of non-optimized first order gadgets */
-  calcB_opt(r2, r1, r0, sp);
+  copy(r8, r1);                // save output pointer in r8
 
-  copy(r2,r9);
-  copy(r1,r10);
-  calcG_paraMult(r2, r1, r0, sp);
+  /* calcB */
+  copy(r1, sp);                // next call will write to stack
+  sp <- sp +w32 (w32) (8*4);   // mark stack as used (programers do that)
+  calcB_opt();                 // output := stack; input := input memory
 
-  copy(r2,r10);
-  copy(r1,r9);
-  calcG_paraMult(r2, r1, r0, sp);
+  /* calcG */
+  copy(r2, r1);                // next call will use stack as first input
+  copy(r1, r8);                // next call will write to output memory
+  calcG_paraMult();            // output := output memory; input := stack
 
-  copy(r2,r9);
-  copy(r1,r8);
-  calcA_opt(r2, r1, r0, sp);
+  /* calcG */
+  copy(r2, r8);                // next call will use output memory as input
+  r1 <- sp -w32 (w32) (8*4);   // next call will write to stack
+  calcG_paraMult();            // output := stack; input := output memory
+
+  /* calcA */
+  copy(r2, r1);                // next call will use stack as input
+  copy(r1, r8);                // next call will write to output pointer
+  calcA_opt();                 // output := output memory; input := stack
 
   /* scrub memory holding intermediates */
   i <- 0;
-  while (i <= 15) {
-    store(pub, sp, i);
+  while (i <= 7) {
+    store(pub, r2, i);
     i <- i + 1;
   }
+
+  copy(sp, r2);                // free stack
 }
 
 annotate present_plain
@@ -90,8 +92,8 @@ annotate present_plain
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
-  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
-  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
@@ -136,14 +138,14 @@ annotate present_plain
 annotate present_opt
   region mem w32 in[0:7]
   region mem w32 out[0:7]
-  region mem w32 stack[0:15]       // intermediates
+  region mem w32 stack[0:7]       // intermediates
   region mem w32 rnd[0:9]
   init r0 [rnd 0]
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
-  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
-  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init in [w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
+//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]

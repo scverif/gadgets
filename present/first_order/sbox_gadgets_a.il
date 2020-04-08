@@ -111,13 +111,13 @@ macro calcA ()
 }
 //	  0   1   2   3   4   5   6   7
 //r2 -> [a0, a1, b0, b1, c0, c1, d0, d1]
-macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, w32 sp)
+macro calcG_paraMult ()
 {
 
   load(r4, r2, 2);
   load(r6, r2, 5);
   and(r6, r4);          /*r6 = c1b0*/
- 
+
  load(r5, r2, 6);
   and(r5, r4);          /*r5 = d0b0*/
 
@@ -138,7 +138,7 @@ macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, w32 sp)
 
   load(r7, r2, 7);
   and(r7, r4);          /*r7 = d1b0*/
- 
+
   xor(r5, r7);          /*r5 = d0b0 + rnd1 + c0 + d1b0*/
   store(r5, r1, 6);
 
@@ -150,7 +150,7 @@ macro calcG_paraMult (w32 in, w32 out, w32 rnd_loc, w32 sp)
   and(r5, r4);          /*r5 = a0b0*/
   clear_opA();
   xor(r6, r7);          /*r6 = c1b0 + d0b0 + rnd0 + c0b0 + a0 + d1b0*/
- 
+
   store(r6, r1, 0);
 
   load(r6, r2, 6);
@@ -256,7 +256,7 @@ clear_opB();
 r0 <- (r0 +w32 (w32) (3 * 4));
 }
 
-macro calcB_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
+macro calcB_opt ()
 {
   load(r4, r2, 2);
   load(r5, r2, 6);
@@ -303,7 +303,7 @@ clear_opW();
 r0 <- (r0 +w32 (w32) (1 * 4));
 }
 
-macro calcA_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
+macro calcA_opt ()
 {
   load(r4, r2, 0);
   store(r4, r1, 4);
@@ -327,6 +327,7 @@ macro calcA_opt (w32 in, w32 out, w32 rnd_loc, w32 sp)
   store(r5, r1, 5);
 clear_opB();
   load(r4, r2, 5);
+clear_opB();
   xor(r4, r5);
   store(r4, r1, 1);
 clear_opB();
