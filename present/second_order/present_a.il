@@ -102,18 +102,18 @@ annotate present_opt
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
-  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
-  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
-  input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
-  input sharing b [in[2:3]]
-  input sharing c [in[4:5]]
-  input sharing d [in[6:7]]
+//  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
+//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+  input sharing a [in[0:2]]     // an input sharing named "a" is located in a given range of "in"
+  input sharing b [in[3:5]]
+  input sharing c [in[6:8]]
+  input sharing d [in[9:11]]
 //  input public im
   input urandom rnd
-  output sharing oa [out[0:1]]  // an output sharing named "oa" is located in a given range of "out"
-  output sharing ob [out[2:3]]
-  output sharing oc [out[4:5]]
-  output sharing od [out[6:7]]
+  output sharing oa [out[0:2]]  // an output sharing named "oa" is located in a given range of "out"
+  output sharing ob [out[3:5]]
+  output sharing oc [out[6:8]]
+  output sharing od [out[9:11]]
   input public stack
   input public sp
   input public pub
