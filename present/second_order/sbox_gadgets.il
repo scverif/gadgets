@@ -212,7 +212,8 @@ macro calcA_opt (w32 a_in, w32 b_in, w32 c_in, w32 d_in,
   store(r5,c_out,1);
 clear(opB);
   load(r4, c_in, 1);
-  xor(r4, r4);
+clear(opB);
+  xor(r4, r5);
   store(r4, a_out, 1);
 
   load(r5, d_in, 1);
@@ -228,7 +229,8 @@ clear(opB);
   store(r5,c_out,2);
 clear(opB);
   load(r4, c_in, 2);
-  xor(r4, r4);
+clear(opB);
+  xor(r4, r5);
   store(r4, a_out, 2);
 
   load(r5, d_in, 2);

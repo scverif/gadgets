@@ -221,6 +221,7 @@ r1 <- r1 +w32 (w32) (6*4);
 r1 <- r1 -w32 (w32) (6*4);
 clear(opB);
   load(r4, r3, 1);
+clear(opB);
   xor(r4, r5);
   store(r4, r1, 1);
 
@@ -240,6 +241,7 @@ r1 <- r1 +w32 (w32) (6*4);
 r1 <- r1 -w32 (w32) (6*4);
 clear(opB);
   load(r4, r3, 2);
+clear(opB);
   xor(r4, r5);
   store(r4, r1, 2);
 
