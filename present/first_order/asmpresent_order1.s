@@ -11,66 +11,95 @@
         .text
         .align  2
 
-        .global presentOrder1
-        .align  2
-        .thumb
-        .thumb_func
-        .type presentOrder1 STT_FUNC
-        // presentOrder2(
-        //   uint32_t *entropy,
-        //   uint32_t outputs[2][4],
-        //   uint32_t inputs[2][4]
-        // )
-        // r0 *entropy, r1 *outputs, r2 *inputs
-presentOrder1:
-        PUSH    {r4, r5, r6, r7}
-        BL      calcBOrder1
-        BL      calcGOrder1
-        BL      calcGOrder1
-        BL      calcAOrder1
-        POP     {r4, r5, r6, r7}
-
         .global calcAOrder1
         .align  2
         .thumb
         .thumb_func
         .type calcAOrder1 STT_FUNC
-        // calcAOrder2(
+        // calcAOrder1(
         //   uint32_t *entropy,
         //   uint32_t outputs[2][4],
         //   uint32_t inputs[2][4]
         // )
         // r0 entropy ptr, r1 *outputs, r2 *inputs
 calcAOrder1:
-        PUSH    {r8, r9}
-        MOV     r8, r1          // r8 *outputs
-        MOV     r9, r2          // r9 *inputs
-        ADDS    r3, r9, #16     // c_in
-        BL      xorOrder1       // r1 = a_out, r2 = a_in, r3 = c_in
-        BL      notOrder1       // r1 = a_out, r2 = a_in, r3 = c_in
-        BL      memcpyOrder1
-        BL      xorOrder1
-        BL      xorOrder1
-        BL      notOrder1
-        POP     {r8, r9}
+        PUSH    {r4, r5, r6, lr}
+        LDR     r4, [r2, #0]
+        STR     r4, [r1, #16]
+        LDR     r5, [r2, #16]
+        EORS    r5, r4
+        STR     r5, [r1, #0]
+        MVNS    r5, r5
+        LDR     r6, [r2, #24]
+        EORS    r5, r6
+        STR     r5, [r1, #24]
+        LDR     r5, [r2, #8]
+        MVNS    r5, r5
+        STR     r5, [r1, #8]
+        // second share
+        LDR     r5, [r2, #4]
+        STR     r5, [r1, #20]
+        ANDS    r0, r0                  // clear(opB)
+        LDR     r4, [r2, #20]
+        ANDS    r0, r0                  // clear(opB)
+        EORS    r4, r5
+        STR     r4, [r1, #4]
+        ANDS    r0, r0                  // clear(opB)
+        LDR     r5, [r2, #28]
+        ANDS    r0, r0                  // clear(opB)
+        EORS    r4, r5
+        STR     r4, [r1, #28]
+        LDR     r5, [r2, #12]
+        STR     r4, [r1, #12]
+        ANDS    r0, r0                  // clear(opA), clear(opB)
+        STR     r0, [r0, #0]            // clear(opW)
+        POP     {r4, r5, r6, pc}        // scrub(r4), scrub(r5), scrub(r6)
 
         .global calcBOrder1
         .align  2
         .thumb
         .thumb_func
         .type calcBOrder1 STT_FUNC
-        // calcBOrder2(
+        // calcBOrder1(
         //   uint32_t *entropy,
         //   uint32_t outputs[2][4],
         //   uint32_t inputs[2][4]
         // )
         // r0 entropy ptr, r1 *outputs, r2 *inputs
 calcBOrder1:
-        PUSH    {r4, r5, r6, r7}
-        MOV     r1                      // d_out
-        BL      andOrder1
-        BL      xorOrder1
-        POP     {r4, r5, r6, r7}
+        PUSH    {r4, r5, r6, lr}
+        LDR     r4, [r2, #8]
+        LDR     r5, [r2, #24]
+        EORS    r5, r4
+        MVNS    r5, r5
+        STR     r5, [r1, #24]
+        LDR     r6, [r2, #0]
+        EORS    r6, r4
+        STR     r6, [r1, #0]
+        LDR     r5, [r2, #16]
+        EORS    r4, r5
+        LDR     r6, [r0, #4]
+        EORS    r4, r6
+        STR     r4, [r1, #8]
+        STR     r5, [r1, #16]
+        // second share
+        LDR     r4, [r2, #12]
+        LDR     r5, [r2, #28]
+        EORS    r5, r4
+        STR     r5, [r1, #28]
+        LDR     r6, [r2, #4]
+        EORS    r6, r4
+        STR     r6, [r1, #4]
+        LDR     r5, [r2, #20]
+        EORS    r4, r5
+        LDR     r6, [r0, #4]
+        EORS    r4, r6
+        STR     r4, [r1, #12]
+        STR     r5, [r1, #20]
+        ADDS    r0, #4                  // clear(opA), clear(opB)
+        STR     r0, [r0, #0]            // clear(opW)
+        POP     {r4, r5, r6, pc}        // scrub(r4), scrub(r5), scrub(r6)
+
 
         .global calcGOrder1
         .align  2
@@ -84,31 +113,126 @@ calcBOrder1:
         // )
         // r0 entropy ptr, r1 *outputs, r2 *inputs
 calcGOrder1:
-        PUSH    {r4, r5, r6, r7}
-        MOV     r1                      // d_out
-        BL      andOrder1
-        BL      xorOrder1
-        POP     {r4, r5, r6, r7}
+        PUSH    {r4, r5, r6, r7, lr}
+        LDR     r4, [r2, #8]
+        LDR     r6, [r2, #20]
+        ANDS    r6, r4
+        LDR     r5, [r2, #24]
+        ANDS    r5, r4
+        EORS    r6, r5
+        LDR     r7, [r0, #4]
+        EORS    r6, r7
+        LDR     r7, [r0, #8]
+        EORS    r5, r7
+        LDR     r7, [r2, #16]
+        EORS    r5, r7
+        ANDS    r7, r4
+        EORS    r6, r7
+        LDR     r7, [r2, #28]
+        ANDS    r7, r4
+        EORS    r5, r7
+        STR     r5, [r1, #24]
+        LDR     r5, [r0, #0]    // clear(opR)
+        LDR     r5, [r2, #0]
+        EORS    r6, r5
+        ANDS    r5, r4
+        ANDS    r0, r0          // clear(opA)
+        EORS    r6, r7
+        STR     r6, [r1, #0]
+        LDR     r6, [r2, #24]
+        ANDS    r0, r0          // clear(opB)
+        EORS    r5, r6
+        STR     r4, [r1, #16]
+        LDR     r4, [r0, #8]    // clear(opR)
+        LDR     r7, [r2, #4]
+        ANDS    r4, r7
+        LDR     r7, [r0, #8]
+        ANDS    r0, r0          // clear(opB)
+        EORS    r5, r7
+        ANDS    r0, r0          // clear(opA), clear(opB)
+        EORS    r5, r4
+        STR     r5, [r1, #8]
+        // second output share
+        ANDS    r0, r0          // clear(opB)
+        LDR     r7, [r2, #12]
+        ANDS    r0, r0          // clear(opB)
+        LDR     r5, [r2, #16]
+        ANDS    r5, r7
+        ANDS    r6, r7
+        // -----------------------------------------*/
+        EORS    r5, r6
+        ANDS    r0, r0          // clear(opB)
+        LDR     r4, [r0, #4]
+        ANDS    r0, r0          // clear(opB)
+        EORS    r5, r4
+        LDR     r4, [r0, #4]
+        EORS    r6, r4
+        LDR     r4, [r2, #20]
+        EORS    r6, r4
+        ANDS    r4, r7
+        EORS    r5, r4
+        LDR     r4, [r2, #28]
+        ANDS    r4, r7
+        EORS    r6, r4
+        STR     r6, [r1, #28]
+        LDR     r6, [r2, #4]
+        EORS    r5, r6
+        ANDS    r6, r7
+        ANDS    r0, r0          // clear(opA)
+        EORS    r5, r4
+        STR     r5, [r1, #4]
+        LDR     r5, [r2, #28]
+        ANDS    r0, r0          // clear(opB)
+        EORS    r6, r5
+        STR     r7, [r1, #20]
+        LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
+        LDR     r4, [r2, #0]
+        ANDS    r0, r0          // clear(opB)
+        ANDS    r7, r4
+        LDR     r4, [r0, #12]
+        ANDS    r0, r0          // clear(opB)
+        EORS    r6, r4
+        ANDS    r0, r0          // clear(opA), clear(opB)
+        EORS    r5, r4
+        STR     r5, [r1, #12]
+        ADDS    r0, #12         // clear(opA), clear(opB)
+        STR     r0, [r0, #0]    // clear(opW), prepare scratch
+        POP     {r4, r5, r6, r7, pc}    // scrub(r4), scrub(r5), scrub(r6), scrub(r7);
 
 
-        .global presentOptOrder1
+        .global presentOrder1
         .align  2
         .thumb
         .thumb_func
-        .type presentOptOrder1 STT_FUNC
+        .type presentOrder1 STT_FUNC
         // presentOrder2(
         //   uint32_t *entropy,
         //   uint32_t outputs[2][4],
         //   uint32_t inputs[2][4]
         // )
         // r0 entropy ptr, r1 *outputs, r2 *inputs
-presentOptOrder1:
-        PUSH    {r4, r5, r6, r7}
-        BL      calcBOptOrder1
-        BL      calcGOptOrder1
-        BL      calcGOptOrder1
-        BL      calcAOptOrder1
-        POP     {r4, r5, r6, r7}
+presentOrder1:
+        PUSH    {lr}
+        MOV     r3, r1
+        SUB     sp, #32
+        MOV     r1, sp
+        BL      calcBOrder1
+        MOV     r2, r1
+        MOV     r1, r3
+        BL      calcGOrder1
+        MOV     r2, r3
+        MOV     r1, sp
+        ADDS    r1, #32
+        BL      calcGOrder1
+        MOV     r2, r1
+        MOV     r1, r3
+        BL      calcAOrder1
+        STMIA   r2!, {r0, r1}   // clear(stack[0:1])
+        STMIA   r2!, {r0, r1}   // clear(stack[2:3])
+        STMIA   r2!, {r0, r1}   // clear(stack[4:5])
+        STMIA   r2!, {r0, r1}   // clear(stack[6:7])
+        ADD     sp, #32
+        POP     {pc}
 
         // Local Variables:
         // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " (concat (file-name-directory buffer-file-name) "asmpresent_order1.il")))
