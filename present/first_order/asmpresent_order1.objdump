@@ -31,7 +31,7 @@
   2e:	406c      	eors	r4, r5
   30:	61cc      	str	r4, [r1, #28]
   32:	68d5      	ldr	r5, [r2, #12]
-  34:	60cc      	str	r4, [r1, #12]
+  34:	60cd      	str	r5, [r1, #12]
   36:	4000      	ands	r0, r0
   38:	6000      	str	r0, [r0, #0]
   3a:	bd70      	pop	{r4, r5, r6, pc}
@@ -101,10 +101,10 @@
   b2:	4000      	ands	r0, r0
   b4:	4075      	eors	r5, r6
   b6:	610c      	str	r4, [r1, #16]
-  b8:	6884      	ldr	r4, [r0, #8]
+  b8:	6807      	ldr	r7, [r0, #0]
   ba:	6857      	ldr	r7, [r2, #4]
   bc:	403c      	ands	r4, r7
-  be:	6887      	ldr	r7, [r0, #8]
+  be:	68c7      	ldr	r7, [r0, #12]
   c0:	4000      	ands	r0, r0
   c2:	407d      	eors	r5, r7
   c4:	4000      	ands	r0, r0
@@ -121,7 +121,7 @@
   da:	6844      	ldr	r4, [r0, #4]
   dc:	4000      	ands	r0, r0
   de:	4065      	eors	r5, r4
-  e0:	6844      	ldr	r4, [r0, #4]
+  e0:	6884      	ldr	r4, [r0, #8]
   e2:	4066      	eors	r6, r4
   e4:	6954      	ldr	r4, [r2, #20]
   e6:	4066      	eors	r6, r4
@@ -165,16 +165,15 @@
  130:	460a      	mov	r2, r1
  132:	4619      	mov	r1, r3
  134:	f7ff fffe 	bl	7c <calcGOrder1>
- 138:	461a      	mov	r2, r3
+ 138:	460a      	mov	r2, r1
  13a:	4669      	mov	r1, sp
- 13e:	f7ff fffe 	bl	7c <calcGOrder1>
- 142:	460a      	mov	r2, r1
- 144:	4619      	mov	r1, r3
- 146:	f7ff fffe 	bl	0 <calcAOrder1>
- 14a:	c203      	stmia	r2!, {r0, r1}
+ 13c:	f7ff fffe 	bl	7c <calcGOrder1>
+ 140:	460a      	mov	r2, r1
+ 142:	4619      	mov	r1, r3
+ 144:	f7ff fffe 	bl	0 <calcAOrder1>
+ 148:	c20b      	stmia	r2!, {r0, r1, r3}
+ 14a:	c20b      	stmia	r2!, {r0, r1, r3}
  14c:	c203      	stmia	r2!, {r0, r1}
- 14e:	c203      	stmia	r2!, {r0, r1}
- 150:	c203      	stmia	r2!, {r0, r1}
- 152:	b008      	add	sp, #32
- 154:	bd00      	pop	{pc}
- 156:	46c0      	nop			; (mov r8, r8)
+ 14e:	b008      	add	sp, #32
+ 150:	bd00      	pop	{pc}
+ 152:	46c0      	nop			; (mov r8, r8)

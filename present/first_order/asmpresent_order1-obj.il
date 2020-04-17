@@ -27,6 +27,9 @@ annotate presentOrder1
   output sharing co [out[4:5]]
   output sharing do [out[6:7]]
   input public stack
+  output secret apsrc
+  output public stack
+  output secret rnd  /* we assume good handling of the presampled randomness */
   input public sp
   input public opA
   input public opB
@@ -99,7 +102,7 @@ print:
   verbosity: 1;
 
 verbosity:
-  verbosity: 3;
+  verbosity: 0;
 
 check:
   target: [presentOrder1]

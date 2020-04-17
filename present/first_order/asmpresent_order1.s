@@ -50,7 +50,7 @@ calcAOrder1:
         EORS    r4, r5
         STR     r4, [r1, #28]
         LDR     r5, [r2, #12]
-        STR     r4, [r1, #12]
+        STR     r5, [r1, #12]
         ANDS    r0, r0                  // clear(opA), clear(opB)
         STR     r0, [r0, #0]            // clear(opW)
         POP     {r4, r5, r6, pc}        // scrub(r4), scrub(r5), scrub(r6)
@@ -143,10 +143,10 @@ calcGOrder1:
         ANDS    r0, r0          // clear(opB)
         EORS    r5, r6
         STR     r4, [r1, #16]
-        LDR     r4, [r0, #8]    // clear(opR)
+        LDR     r7, [r0, #0]    // clear(opR)
         LDR     r7, [r2, #4]
         ANDS    r4, r7
-        LDR     r7, [r0, #8]
+        LDR     r7, [r0, #12]
         ANDS    r0, r0          // clear(opB)
         EORS    r5, r7
         ANDS    r0, r0          // clear(opA), clear(opB)
@@ -165,7 +165,7 @@ calcGOrder1:
         LDR     r4, [r0, #4]
         ANDS    r0, r0          // clear(opB)
         EORS    r5, r4
-        LDR     r4, [r0, #4]
+        LDR     r4, [r0, #8]
         EORS    r6, r4
         LDR     r4, [r2, #20]
         EORS    r6, r4
@@ -205,7 +205,7 @@ calcGOrder1:
         .thumb
         .thumb_func
         .type presentOrder1 STT_FUNC
-        // presentOrder2(
+        // presentOrder1(
         //   uint32_t *entropy,
         //   uint32_t outputs[2][4],
         //   uint32_t inputs[2][4]
@@ -216,21 +216,27 @@ presentOrder1:
         MOV     r3, r1
         SUB     sp, #32
         MOV     r1, sp
-        BL      calcBOrder1
+.psL1:  // labels needed for GAS checking with scverif, remove for assembling
+        BL      calcBOrder1             // write to stack, read from input buffer
+.psL1+4:
         MOV     r2, r1
         MOV     r1, r3
-        BL      calcGOrder1
-        MOV     r2, r3
+.psL2:
+        BL      calcGOrder1             // write to output buffer, read from stack
+.psL2+4:
+        MOV     r2, r1
         MOV     r1, sp
-        ADDS    r1, #32
-        BL      calcGOrder1
+.psL3:
+        BL      calcGOrder1             // write to stack, read from output buffer
+.psL3+4:
         MOV     r2, r1
         MOV     r1, r3
-        BL      calcAOrder1
-        STMIA   r2!, {r0, r1}   // clear(stack[0:1])
-        STMIA   r2!, {r0, r1}   // clear(stack[2:3])
-        STMIA   r2!, {r0, r1}   // clear(stack[4:5])
-        STMIA   r2!, {r0, r1}   // clear(stack[6:7])
+.psL4:
+        BL      calcAOrder1             // read from stack, write to output buffer
+.psL4+4:
+        STMIA   r2!, {r0, r1, r3}   // clear(stack[0:2])
+        STMIA   r2!, {r0, r1, r3}   // clear(stack[3:5])
+        STMIA   r2!, {r0, r1}       // clear(stack[6:7])
         ADD     sp, #32
         POP     {pc}
 

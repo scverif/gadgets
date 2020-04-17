@@ -8,15 +8,18 @@ include gas "present/first_order/asmpresent_order1.s"
 annotate presentOrder1
   region mem w32 in[0:7]
   region mem w32 out[0:7]
-  region mem w32 stack[-1:7]
-  region mem w32 rnd[0:10]
+  region mem w32 stack[-14:-1]
+  region mem w32 rnd[0:7]
   init r0 [rnd 0]
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]
   init lr exit
+//  init rnd [w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0]
+// input result in zero output:
 //  init in [w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
-//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+// sbox of zero:
+//  init in [w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
@@ -27,6 +30,7 @@ annotate presentOrder1
   output sharing co [out[4:5]]
   output sharing do [out[6:7]]
   input public stack
+  output public stack
   input public sp
   input public opA
   input public opB
@@ -46,6 +50,7 @@ annotate presentOrder1
   init metric_ops_copy 0
   init metric_ops_load 0
   init metric_ops_store 0
+  output secret apsrc
   ;
 
 ---
@@ -63,7 +68,7 @@ inlinecall:
 print:
   kind: macrodef
   target: [presentOrder1]
-  verbosity: 1;
+  verbosity: 0;
 
 partialeval:
   target: [presentOrder1];
@@ -86,7 +91,7 @@ print:
 
 print:
   kind: variables
-  variables: [in, rnd, out]
+  variables: [in, rnd, out, stack, sp, r0, r1, r2]
   target: [presentOrder1]
   verbosity: 1;
 
