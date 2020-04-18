@@ -16,7 +16,13 @@ annotate presentOrder1
   init sp [stack 0]
   init lr exit
 //  init in [w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
-//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init rnd [w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0]
+//  init in [w32 0, w32 0, w32 0xFFFFFFFF, w32 0, w32 0, w32 0, w32 0, w32 0]
+
+  init in [w32 0xD84870A5, w32 0xFF10BAE1, w32 0x08E14400, w32 0xFF31B8AA, w32 0x412FE9D6, w32 0x783C5B5D, w32 0x56A7A53B, w32 0x1F6BB130]
+//  init rnd [w32 0x1FFFA210, w32 0x99BE28FB, w32 0x6CA2C0E4, w32 0x62CAD584, w32 0x644ECF39, w32 0x1B0ACEA1, w32 0x73E75F86, w32 0x0B9602F0]
+  init rnd [w32 0x0, w32 0x99BE28FB, w32 0x6CA2C0E4, w32 0x62CAD584, w32 0x644ECF39, w32 0x1B0ACEA1, w32 0x73E75F86, w32 0x0B9602F0]
+// concrete assembly returns out => {4153785012, 1866303755, 2276250768, 298028837, 3798101861, 3945353128, 3123514209, 41523458}
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]

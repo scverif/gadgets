@@ -139,13 +139,47 @@ annotate present_opt
   region mem w32 in[0:7]
   region mem w32 out[0:7]
   region mem w32 stack[0:7]       // intermediates
-  region mem w32 rnd[0:9]
+  region mem w32 rnd[0:6]
   init r0 [rnd 0]
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
+//  init rnd [w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0, w32 0]
 //  init in [w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
-//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init in [w32 0, w32 0, w32 0xFFFFFFFF, w32 0, w32 0, w32 0, w32 0, w32 0]
+
+
+
+
+// DEBUG WITH REAL RANDOM VECTOR
+//  init in [w32 0xD84870A5, w32 0xFF10BAE1, w32 0x08E14400, w32 0xFF31B8AA, w32 0x412FE9D6, w32 0x783C5B5D, w32 0x56A7A53B, w32 0x1F6BB130]
+  // unshared in [2758CA44, F7D0FCAA, 3913B28B, 49CC140B]
+  // unshared in bin [00100111010110001100101001000100,
+                      11110111110100001111110010101010,
+                      00111001000100111011001010001011,
+                      01001001110011000001010000001011]
+  init rnd [w32 0x99BE28FB, w32 0x6CA2C0E4, w32 0x62CAD584, w32 0x644ECF39, w32 0x1B0ACEA1, w32 0x73E75F86, w32 0x0B9602F0]
+// concrete assembly returns out => {4153785012, 1866303755, 2276250768, 298028837, 3798101861, 3945353128, 3123514209, 41523458}
+
+  // unshared out [98A833BF, 966F5BB5, 94B20CD, B8549263]
+  // unshared out bin [10011000101010000011001110111111,
+                       10010110011011110101101110110101,
+                       00001001010010110010000011001101,
+                       10111000010101001001001001100011]
+
+  // correct out should be
+                      [1,
+                       0,
+                       0,
+                       1]
+
+// non-optimized present returns out => {3862442163, 2114978568, 430297457, 533367403, 3813598575,
+         4194682794, 3555528776, 2075755047}
+
+
+
+
+
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]

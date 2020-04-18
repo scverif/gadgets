@@ -119,13 +119,17 @@ annotate present_plain
   region mem w32 in[0:7]
   region mem w32 out[0:7]
   region mem w32 im[0:15]       // intermediates
-  region mem w32 rnd[0:9]
+  region mem w32 rnd[0:6]
   init r0 [rnd 0]
   init r1 [out 0]
   init r2 [in 0]
   init r3 [im 0]                // pointer to intermediate's memory
 //  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
 //  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+
+// RANDOM VECTOR AS TEST
+//  init in [w32 0xD84870A5, w32 0xFF10BAE1, w32 0x08E14400, w32 0xFF31B8AA, w32 0x412FE9D6, w32 0x783C5B5D, w32 0x56A7A53B, w32 0x1F6BB130]
+//  init rnd [w32 0x99BE28FB, w32 0x6CA2C0E4, w32 0x62CAD584, w32 0x644ECF39, w32 0x1B0ACEA1, w32 0x73E75F86, w32 0x0B9602F0]
   input sharing a [in[0:1]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[2:3]]
   input sharing c [in[4:5]]
