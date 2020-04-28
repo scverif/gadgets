@@ -205,7 +205,7 @@ clear_opB();
 
   xor(r5, r4);          /*r5 = c0b1 + d0b1 + rnd0 + c1b1*/
   load(r4, r2, 7);
-  and(r4, r7);          /*r4 = d0b1*/
+  and(r4, r7);          /*r4 = d1b1*/
 
   xor(r6, r4);          /*r6 = d0b1 + rnd1 + c1 + d1b1*/
   store(r6, r1, 7);
@@ -236,12 +236,12 @@ clear_opB();
   load(r4, r0, 2);
 
 clear_opB();
-  xor(r6, r4);          /*r4 = b1a0 +rnd2*/
+  xor(r7, r4);          /*r4 = b1a0 +rnd2*/
 clear_opB();
 clear_opA();
 
-  xor(r5, r4);          /*r6 = a1b1 + d1 +b1a0 + rnd2*/
-  store(r5, r1, 3);
+  xor(r6, r7);          /*r6 = a1b1 + d1 +b1a0 + rnd2*/
+  store(r6, r1, 3);
 
 scrub(r5);
 scrub(r6);
