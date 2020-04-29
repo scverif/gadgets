@@ -191,10 +191,10 @@ calcGOrder1:
         ANDS    r7, r4
         LDR     r4, [r0, #12]
         ANDS    r0, r0          // clear(opB)
-        EORS    r6, r4
+        EORS    r7, r4
         ANDS    r0, r0          // clear(opA), clear(opB)
-        EORS    r5, r4
-        STR     r5, [r1, #12]
+        EORS    r6, r7
+        STR     r6, [r1, #12]
         ADDS    r0, #12         // clear(opA), clear(opB)
         STR     r0, [r0, #0]    // clear(opW), prepare scratch
         POP     {r4, r5, r6, r7, pc}    // scrub(r4), scrub(r5), scrub(r6), scrub(r7);

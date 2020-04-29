@@ -32,6 +32,8 @@ annotate presentOrder1
   input public stack
   output public stack
   input public sp
+  input public lr
+  input public pc
   input public opA
   input public opB
   input public opR
