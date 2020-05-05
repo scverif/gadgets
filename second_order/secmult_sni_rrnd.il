@@ -171,10 +171,11 @@ print:
 partialeval:
   target: secmult;
 
-rewriteformv:
-target: secmult
-inferinput: true
-inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: secmult;
 
 print:
   kind: evaltrace

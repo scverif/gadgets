@@ -173,10 +173,11 @@ inlinecall:
 partialeval:
   target: [firstxor, firstmult, firstref, firstxorone, firststore];
 
-rewriteformv:
-  target: [firstxor, firstmult, firstref, firstxorone, firststore]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [firstxor, firstmult, firstref, firstxorone, firststore];
 
 print:
   kind: variables

@@ -75,9 +75,10 @@ print:
 partialeval:
   target: firstref;
 
-rewriteformv:
-  inferinput: true
-  inferoutput: true
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
   target: firstref;
 
 print:

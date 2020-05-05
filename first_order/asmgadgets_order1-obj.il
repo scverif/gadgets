@@ -146,10 +146,11 @@ inlinecall:
 partialeval:
   target: [xorOrder1, andOrder1, refOrder1, notOrder1];
 
-rewriteformv:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1];
 
 print:
   kind: variables
@@ -162,6 +163,11 @@ print:
   variables: "metric_*"
   target: [xorOrder1, andOrder1, refOrder1, notOrder1]
   verbosity: 1;
+
+print:
+  kind: macrodef
+  target: [leakOrder1]
+  verbosity: 0;
 
 check:
   kind: "Stateful NI"

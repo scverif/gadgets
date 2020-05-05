@@ -161,10 +161,11 @@ inlinecall:
 partialeval:
   target: [xorOrder2, andOrder2, refOrder2, notOrder2, leakOrder2];
 
-rewriteformv:
-  target: [xorOrder2, andOrder2, refOrder2, notOrder2, leakOrder2]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [xorOrder2, andOrder2, refOrder2, notOrder2, leakOrder2];
 
 print:
   kind: variables

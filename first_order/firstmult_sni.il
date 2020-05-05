@@ -89,9 +89,10 @@ print:
 partialeval:
   target: firstmult;
 
-rewriteformv:
-  inferinput: true
-  inferoutput: true
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
   target: firstmult;
 
 print:

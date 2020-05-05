@@ -89,6 +89,12 @@ annotate present_sbox
   input sharing c
   input sharing d
   input urandom rnd
+  input public r0
+  input public r3
+  input public r4
+  input public r5
+  input public r6
+  input public r7
   input public pub
   input public opA
   input public opB
@@ -181,6 +187,11 @@ annotate present_sbox_plain
   input sharing c
   input sharing d
   input urandom rnd
+  input public r3
+  input public r4
+  input public r5
+  input public r6
+  input public r7
   input public pub
   input public opA
   input public opB
@@ -246,10 +257,11 @@ print:
   target: present_sbox
   verbosity: 0;
 
-rewriteformv:
-  target: present_sbox
-  inferinput: true
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: present_sbox;
 
 print:
   kind: variables

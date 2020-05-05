@@ -83,10 +83,11 @@ inlinecall:
 partialeval:
   target: secref;
 
-rewriteformv:
-  target: secref
-  inferinput: true
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: secref;
 
 print:
   kind: evaltrace

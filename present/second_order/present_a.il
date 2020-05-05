@@ -97,13 +97,13 @@ annotate present_opt
   region mem w32 in[0:11]
   region mem w32 out[0:11]
   region mem w32 stack[0:23]       // intermediates
-  region mem w32 rnd[0:26]
+  region mem w32 rnd[0:25]
   init r0 [rnd 0]
   init r1 [out 0]
   init r2 [in 0]
   init sp [stack 0]                // pointer to intermediate's memory
 //  init in [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0xFFFFFFFF]
-//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
+//  init rnd [w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000, w32 0x0000]
   input sharing a [in[0:2]]     // an input sharing named "a" is located in a given range of "in"
   input sharing b [in[3:5]]
   input sharing c [in[6:8]]
@@ -157,10 +157,11 @@ print:
 partialeval:
   target: [present_opt];
 
-rewriteformv:
-  target: [present_opt]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [present_opt];
 
 print:
   kind: maskverif
@@ -175,7 +176,7 @@ print:
 
 print:
   kind: variables
-  variables: [in, rnd, out]
+  variables: [in, rnd, out, r0]
   target: [present_opt]
   verbosity: 1;
 

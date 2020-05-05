@@ -89,9 +89,10 @@ print:
 partialeval:
   target: firstxor;
 
-rewriteformv:
-  inferinput: true
-  inferoutput: true
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
   target: firstxor;
 
 print:

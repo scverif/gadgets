@@ -148,10 +148,11 @@ inlinecall:
 partialeval:
   target: [calcA_inst, calcB_inst, calcG_inst];
 
-rewriteformv:
-  target: [calcA_inst, calcB_inst, calcG_inst]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [calcA_inst, calcB_inst, calcG_inst];
 
 print:
   kind: maskverif

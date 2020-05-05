@@ -38,6 +38,10 @@ annotate xorOrder1
   input public rnd[0:0]
   output sharing c
   init metric_cyclecount 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate andOrder1
@@ -74,6 +78,10 @@ annotate andOrder1
   input public c
   output sharing c
   init metric_cyclecount 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate refOrder1
@@ -107,6 +115,10 @@ annotate refOrder1
   input public c
   output sharing c
   init metric_cyclecount 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate notOrder1
@@ -127,6 +139,10 @@ annotate notOrder1
   input public rnd[0:0]
   output sharing a
   init metric_cyclecount 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate cpyOrder1
@@ -156,6 +172,10 @@ annotate cpyOrder1
   input public c
   output sharing c
   init metric_cyclecount 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 annotate leakOrder1
@@ -177,6 +197,10 @@ annotate leakOrder1
   input public rnd[0:0]
   output sharing a
   init metric_cyclecount 0
+  init metric_ops_xor 0
+  init metric_ops_and 0
+  init metric_ops_load 0
+  init metric_ops_store 0
   ;
 
 ---
@@ -189,10 +213,11 @@ inlinecall:
 partialeval:
   target: [xorOrder1, andOrder1, refOrder1, notOrder1, cpyOrder1, leakOrder1];
 
-rewriteformv:
-  target: [xorOrder1, andOrder1, refOrder1, notOrder1, cpyOrder1, leakOrder1]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [xorOrder1, andOrder1, refOrder1, notOrder1, cpyOrder1, leakOrder1];
 
 print:
   kind: variables
@@ -203,6 +228,11 @@ print:
 print:
   kind: maskverif
   target: [xorOrder1, andOrder1, refOrder1, notOrder1, cpyOrder1, leakOrder1]
+  verbosity: 0;
+
+print:
+  kind: macrodef
+  target: [leakOrder1]
   verbosity: 0;
 
 check:

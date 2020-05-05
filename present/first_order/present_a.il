@@ -233,10 +233,11 @@ print:
 partialeval:
   target: [present_opt, present_plain];
 
-rewriteformv:
-  target: [present_opt, present_plain]
-  inferinput: false
-  inferoutput: true;
+infertaint:
+  inputsAsPublic: false
+  outputsAsPublic: true
+  memoryAsPublicOut: true
+  target: [present_opt, present_plain];
 
 print:
   kind: maskverif
