@@ -21,21 +21,17 @@
         //   uint32_t outputs[3][4],
         //   uint32_t inputs[3][4]
         // )
-        // r0 entropy ptr, r1 *outputs, r2 *inputs
+        // r0 enropy ptr, r1 *outputs, r2 *inputs
 calcAOrder2:
-        MOV     r3, r2
-        MOV     r7, r1
-        ADDS    r3, r3, #32     // using r3 to address input shares c2 to d2
-        ADDS    r7, r7, #32     // using r7 to address output shares c2 to d2
-        LDR	r4, [r2, #0]    // a0
-        STR	r4, [r1, #24]   // c0'
-        LDR	r5, [r2, #24]   // c0
+        LDR     r4, [r2, #0]    // a0
+        STR     r4, [r1, #24]   // c0' //
+        LDR     r5, [r2, #24]   // c0
         EORS	r5, r4
         STR	r5, [r1, #0]    // a0'
         MVNS	r5, r5
-        LDR	r6, [r3, #4]    // d0
+        LDR	r6, [r2, #36]   // d0
         EORS	r5, r6
-        STR	r5, [r7, #4]    // c0'
+        STR	r5, [r1, #36]   // c0' //
         LDR	r5, [r2, #12]   // b0
         MVNS	r5, r5
         STR	r5, [r1, #12]   // b0'
@@ -47,24 +43,25 @@ calcAOrder2:
         ANDS    r0, r0          // clear(opB)
         EORS	r4, r5
         STR	r4, [r1, #4]    // a1'
-        LDR	r5, [r3, #8]    // d1
+        LDR	r5, [r2, #40]   // d1
         EORS	r4, r5
-        STR	r4, [r7, #8]    // d1'
+        STR	r4, [r1, #40]   // d1'
         LDR	r5, [r2, #16]   // b1
         STR	r5, [r1, #16]   // b1'
         // third share
         LDR	r5, [r2, #8]    // a2
-        STR	r5, [r7, #0]    // c2'
+        STR	r5, [r1, #32]   // c2'
         ANDS    r0, r0          // clear(opB)
-        LDR	r4, [r3, #0]    // c2
+        LDR	r4, [r2, #32]   // c2
         ANDS    r0, r0          // clear(opB)
         EORS	r4, r5
         STR	r4, [r1, #8]    // a2'
-        LDR	r5, [r3, #12]   // d2
+        LDR	r5, [r2, #44]   // d2
         EORS	r4, r5
-        STR	r4, [r7, #12]   // d2'
+        STR	r4, [r1, #44]   // d2'
         LDR	r5, [r2, #20]   // b2
         STR	r5, [r1, #20]   // b2'
+        BX      lr
 
         .global calcBOrder2
         .align  2
@@ -78,17 +75,13 @@ calcAOrder2:
         // )
         // r0 entropy ptr, r1 *outputs, r2 *inputs
 calcBOrder2:
-        MOV     r3, r2
-        MOV     r7, r1
-        ADDS    r3, r3, #32     // using r3 to address input shares c2 to d2
-        ADDS    r7, r7, #32     // using r7 to address output shares c2 to d2
         LDR	r4, [r2, #12]   // b0
-        LDR	r5, [r3, #4]    // d0
+        LDR	r5, [r2, #36]   // d0
         EORS	r5, r4
         MVNS	r5, r5
         LDR	r6, [r0, #4]    // rnd0
         EORS	r5, r6
-        STR	r5, [r7, #4]    // d0'
+        STR	r5, [r1, #36]   // d0'
         LDR	r6, [r2, #0]    // a0
         EORS	r6, r4
         LDR	r5, [r0, #12]   // rnd2
@@ -98,7 +91,7 @@ calcBOrder2:
         EORS	r4, r5
         LDR	r6, [r0, #20]   // rnd4
         EORS	r4, r6
-        STR	r4, [r1, #12]
+        STR	r4, [r1, #12]   // b0'
         LDR	r6, [r0, #28]   // rnd6
         EORS	r5, r6
         STR	r5, [r1, #24]   // c0'
@@ -106,14 +99,13 @@ calcBOrder2:
         STR     r4, [r0, #0]    // clear(opW)
         ADDS    r5, r1, r4      // scrub(r5), clear(opA), clear(opB)
         ADDS    r6, r0, r5      // scrub(r6)
-
         // second share
         LDR	r4, [r2, #16]   // b1
-        LDR	r5, [r3, #8]    // d1
+        LDR	r5, [r2, #40]   // d1
         EORS	r5, r4
         LDR	r6, [r0, #8]    // rnd1
         EORS	r5, r6
-        STR	r5, [r7, #8]    // d1'
+        STR	r5, [r1, #40]   // d1'
         LDR	r6, [r2, #4]    // a1
         EORS	r6, r4
         LDR	r5, [r0, #16]   // rnd3
@@ -124,7 +116,7 @@ calcBOrder2:
         LDR	r6, [r0, #24]   // rnd5
         EORS	r4, r6
         STR	r4, [r1, #16]   // b1'
-        LDR	r6, [r0, #28]   // rnd7
+        LDR	r6, [r0, #32]   // rnd7
         EORS	r5, r6
         STR	r5, [r1, #28]   // c1'
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
@@ -133,15 +125,14 @@ calcBOrder2:
         ADDS    r6, r0, r5      // scrub(r6)
         // third share
         LDR	r4, [r2, #20]   // b2
-        LDR	r5, [r3, #12]   // d2
+        LDR	r5, [r2, #44]   // d2
         EORS	r5, r4
         LDR	r6, [r0, #4]    // rnd0
         LDR	r7, [r0, #8]    // rnd1
         EORS	r6, r7
         ANDS    r1, r1          // clear(opA), clear(opB)
         EORS	r5, r6
-        ADDS    r1, r1, #24
-        STR	r5, [r1, #20]   // d2'
+        STR	r5, [r1, #44]   // d2'
         LDR	r6, [r2, #8]    // a2
         EORS	r6, r4
         MOV     r5, r1          // scrub(r5)
@@ -150,9 +141,8 @@ calcBOrder2:
         EORS	r5, r7
         ANDS    r1, r1          // clear(opA), clear(opB)
         EORS	r6, r5
-        SUBS    r1, r1, #24
         STR	r6, [r1, #8]    // a2'
-        LDR	r5, [r3, #0]    // c2
+        LDR	r5, [r2, #32]   // c2
         ANDS    r1, r1          // clear(opB)
         EORS	r4, r5
         MOV     r6, r1          // scrub(r6)
@@ -163,14 +153,12 @@ calcBOrder2:
         EORS	r4, r6
         STR	r4, [r1, #20]   // b2'
         MOV     r6, r1          // scrub(r6)
-        LDR	r6, [r0, #24]   // rnd6
-        LDR	r7, [r0, #28]   // rnd7
+        LDR	r6, [r0, #28]   // rnd6
+        LDR	r7, [r0, #32]   // rnd7
         EORS	r6, r7
         ANDS    r1, r1          // clear(opA), clear(opB)
         EORS	r5, r6
-        ADDS    r1, r1, #24
-        STR	r5, [r1, #8]    // c2'
-
+        STR	r5, [r1, #32]   // c2'
         ADDS    r4, r0, r1      // scrub(r4)
         ADDS    r5, r2, r0      // scrub(r5)
         ADDS    r6, r2, r1      // scrub(r6)
@@ -178,6 +166,7 @@ calcBOrder2:
         ADDS    r0, r0, #32     // clear(opA), increment rnd ptr
         STR     r0, [r0, #0]    // clear(opW), prepare scratch word
         LDR     r0, [r0, #0]    // clear(opR), clear(opB)
+        BX      lr
 
         .global calcGOrder2
         .align  2
@@ -192,10 +181,8 @@ calcBOrder2:
         // r0 entropy ptr, r1 *outputs, r2 *inputs
 calcGOrder2:
         LDR	r4, [r2, #12]   // b0
-        ADDS    r2, r2, #24
-        LDR	r5, [r2, #16]   // d1
-        LDR	r6, [r2, #4]    // c1
-        SUBS    r2, r2, #24
+        LDR	r5, [r2, #40]   // d1
+        LDR	r6, [r2, #28]   // c1
         LDR	r7, [r2, #4]    // a1
         ANDS	r5, r4
         ANDS	r6, r4
@@ -205,19 +192,17 @@ calcGOrder2:
         EORS	r5, r3
         LDR	r3, [r0, #16]   // rnd3
         EORS	r6, r3
-        LDR	r3, [r0, #24]   // rnd6
+        LDR	r3, [r0, #28]   // rnd6
         EORS	r7, r3
         LDR	r3, [r2, #0]    // a0
         EORS	r6, r3
         ANDS	r3, r4
         EORS	r7, r3
-        ADDS    r2, r2, #24
-        LDR	r3, [r2, #0]    // c0
+        LDR	r3, [r2, #24]   // c0
         EORS	r5, r3
         ANDS	r3, r4
         EORS	r6, r3
-        LDR	r3, [r2, #12]   // d0
-        SUBS    r2, r2, #24
+        LDR	r3, [r2, #36]   // d0
         EORS	r7, r3
         ANDS	r3, r4
         EORS	r5, r3
@@ -228,26 +213,22 @@ calcGOrder2:
         EORS	r5, r3
         LDR	r3, [r0, #20]   // rnd4
         EORS	r6, r3
-        LDR	r3, [r0, #28]   // rnd7
+        LDR	r3, [r0, #32]   // rnd7
         EORS	r7, r3
         LDR	r3, [r2, #8]    // a2
         ANDS	r3, r4
         EORS	r7, r3
-        ADDS    r2, r2, #24
-        LDR	r3, [r2, #8]    // c2
+        LDR	r3, [r2, #32]   // c2
         ANDS	r3, r4
         EORS	r6, r3
-        LDR	r3, [r2, #20]   // d2
-        SUBS    r2, r2, #24
+        LDR	r3, [r2, #44]   // d2
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
         STR	r6, [r1, #0]    // a0'
         STR	r7, [r1, #12]   // b0'
-        ADDS    r1, r1, #24
-        STR	r4, [r1, #0]    // c0'
-        STR	r5, [r1, #12]   // d0'
-        SUBS    r1, r1, #24
+        STR	r4, [r1, #24]   // c0'
+        STR	r5, [r1, #36]   // d0'
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
         STR     r4, [r0, #0]    // clear(opW)
         ADDS    r3, r2, r5      // scrub(r3)
@@ -255,12 +236,10 @@ calcGOrder2:
         ADDS    r6, r0, r5      // scrub(r6)
         ADDS    r7, r1, r2      // scrub(r7), clear(opA), clear(opB)
         LDR	r4, [r2, #16]   // b1
-        ADDS    r2, r2, #24
-        LDR	r5, [r2, #20]   // d2
-        LDR	r6, [r2, #8]    // c2
-        SUBS    r2, r2, #24
+        LDR	r5, [r2, #44]   // d2
+        LDR	r6, [r2, #32]   // c2
         LDR	r7, [r2, #8]    // a2
-        ANDS	r5, r4
+        ANDS    r5, r4
         ANDS	r6, r4
         ANDS	r7, r4
         EORS	r6, r5
@@ -268,19 +247,17 @@ calcGOrder2:
         EORS	r5, r3
         LDR	r3, [r0, #20]   // rnd4
         EORS	r6, r3
-        LDR	r3, [r0, #28]   // rnd7
+        LDR	r3, [r0, #32]   // rnd7
         EORS	r7, r3
         LDR	r3, [r2, #4]    // a1
         EORS	r6, r3
         ANDS	r3, r4
         EORS	r7, r3
-        ADDS    r2, r2, #24
-        LDR	r3, [r2, #4]    // c1
+        LDR	r3, [r2, #28]   // c1
         EORS	r5, r3
         ANDS	r3, r4
         EORS	r6, r3
-        LDR	r3, [r2, #44]   // d1
-        SUBS    r2, r2, #24
+        LDR	r3, [r2, #40]   // d1
         EORS	r7, r3
         ANDS	r3, r4
         EORS	r5, r3
@@ -288,31 +265,25 @@ calcGOrder2:
         LDR     r3, [r0, #0]    // scrub(r3), clear(opR)
         LDR	r3, [r0, #12]   // rnd2
         ANDS    r1, r1          // clear(opA), clear(opB)
-        EORS	r5, r3
+        EORS	r5, r3 //
         LDR	r3, [r0, #24]   // rnd5
         EORS	r6, r3
-        // FIXME OFFSET
-        LDR	r3, [r0, #32]    // rnd8
+        LDR	r3, [r0, #36]   // rnd8
         EORS	r7, r3
-
         LDR	r3, [r2, #0]    // a0
         ANDS	r3, r4
         EORS	r7, r3
-        ADDS    r2, r2, #24
-        LDR	r3, [r2, #0]    // c0
+        LDR	r3, [r2, #24]   // c0
         ANDS	r3, r4
-        EORS	r6, r3
-        LDR	r3, [r2, #12]   // d0
-        SUBS    r2, r2, #24
+        EORS	r6, r3 //
+        LDR	r3, [r2, #36]   // d0
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
         STR	r6, [r1, #4]    // a1'
         STR	r7, [r1, #16]   // b1'
-        ADDS    r1, r1, #24
-        STR	r4, [r1, #4]    // c1'
-        STR	r5, [r1, #16]   // d1'
-        SUBS    r1, r1, #24
+        STR	r4, [r1, #28]   // c1'
+        STR	r5, [r1, #40]   // d1'
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
         STR     r4, [r0, #0]    // clear(opW)
         ADDS    r3, r2, r5      // scrub(r3)
@@ -321,10 +292,8 @@ calcGOrder2:
         ADDS    r7, r1, r2      // scrub(r7), clear(opA), clear(opB)
         ANDS    r1, r1          // clear(opA), clear(opB)
         LDR	r4, [r2, #20]   // b2
-        ADDS    r2, r2, #24
-        LDR	r5, [r2, #12]   // d0
-        LDR	r6, [r2, #0]    // c0
-        SUBS    r2, r2, #24
+        LDR	r5, [r2, #36]   // d0
+        LDR	r6, [r2, #24]   // c0
         LDR	r7, [r2, #0]    // a0
         ANDS	r5, r4
         ANDS	r6, r4
@@ -334,20 +303,17 @@ calcGOrder2:
         EORS	r5, r3
         LDR	r3, [r0, #24]   // rnd5
         EORS	r6, r3
-        // FIXME RANGE
-        LDR	r3, [r0, #32]   // rnd8
+        LDR	r3, [r0, #36]   // rnd8
         EORS	r7, r3
         LDR	r3, [r2, #8]    // a2
         EORS	r6, r3
         ANDS	r3, r4
         EORS	r7, r3
-        ADDS    r2, r2, #24
-        LDR	r3, [r2, #8]    // c2
+        LDR	r3, [r2, #32]   // c2
         EORS	r5, r3
         ANDS	r3, r4
         EORS	r6, r3
-        LDR	r3, [r2, #20]   // d2
-        SUBS    r2, r2, #24
+        LDR	r3, [r2, #44]   // d2
         EORS	r7, r3
         ANDS	r3, r4
         EORS	r5, r3
@@ -358,33 +324,30 @@ calcGOrder2:
         EORS	r5, r3
         LDR	r3, [r0, #16]   // rnd3
         EORS	r6, r3
-        LDR	r3, [r0, #24]   // rnd6
+        LDR	r3, [r0, #28]   // rnd6
         EORS	r7, r3
         LDR	r3, [r2, #4]    // a1
         ANDS	r3, r4
         EORS	r7, r3
-        ADDS    r2, r2, #24
-        LDR	r3, [r2, #4]    // c1
+        LDR	r3, [r2, #28]   // c1
         ANDS	r3, r4
         EORS	r6, r3
-        LDR	r3, [r2, #16]   // d1
-        SUBS    r2, r2, #24
+        LDR	r3, [r2, #40]   // d1
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
         STR	r6, [r1, #8]    // a2'
         STR	r7, [r1, #20]   // b2'
-        ADDS    r1, r1, #24
-        STR	r4, [r1, #8]    // c2'
-        STR	r5, [r1, #20]   // d2'
-        SUBS    r1, r1, #24     // clear(opA)
+        STR	r4, [r1, #32]   // c2'
+        STR	r5, [r1, #44]   // d2'
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
         ADDS    r3, r2, r5      // scrub(r3)
         ADDS    r5, r1, r4      // scrub(r5)
         ADDS    r6, r0, r5      // scrub(r6)
         ADDS    r7, r1, r2      // scrub(r7), clear(opA), clear(opB)
-        ADDS    r0, r0, #32     // update randomness pointer
+        ADDS    r0, r0, #36     // update randomness pointer
         STR     r4, [r0, #0]    // clear(opW), prepare scratch
+        BX      lr
 
         .global presentOrder2
         .align  2
@@ -429,5 +392,5 @@ presentOrder2:
         POP     {r4, r5, r6, r7, pc}
 
         // Local Variables:
-        // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "..") compile-command (concat "scverif --il " (concat (file-name-directory buffer-file-name) "asmpresent_order2.il")))
+        // eval: (setq default-directory (concat (file-name-directory buffer-file-name) "../..") compile-command (concat "scverif --il " (concat (file-name-directory buffer-file-name) "asmpresent_order2.il")))
         // End:
