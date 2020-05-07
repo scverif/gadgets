@@ -184,16 +184,23 @@ calcGOrder2:
         LDR	r5, [r2, #40]   // d1
         LDR	r6, [r2, #28]   // c1
         LDR	r7, [r2, #4]    // a1
+
         ANDS	r5, r4
         ANDS	r6, r4
         ANDS	r7, r4
+
         EORS	r6, r5
+
+        ANDS    r1, r1          // INEFFICIENT
+        LDR     r3, [r0, #0]    // scrub(r3), clear(opR) INEFFICIENT
         LDR	r3, [r0, #4]    // rnd0
+        ANDS    r1, r1          // clear(opA), clear(opB) INEFFICIENT
         EORS	r5, r3
         LDR	r3, [r0, #16]   // rnd3
         EORS	r6, r3
         LDR	r3, [r0, #28]   // rnd6
         EORS	r7, r3
+
         LDR	r3, [r2, #0]    // a0
         EORS	r6, r3
         ANDS	r3, r4
@@ -202,11 +209,13 @@ calcGOrder2:
         EORS	r5, r3
         ANDS	r3, r4
         EORS	r6, r3
+
         LDR	r3, [r2, #36]   // d0
         EORS	r7, r3
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
+
         LDR     r3, [r0, #0]    // scrub(r3), clear(opR)
         LDR	r3, [r0, #8]    // rnd1
         ANDS    r1, r1          // clear(opA), clear(opB)
@@ -215,40 +224,51 @@ calcGOrder2:
         EORS	r6, r3
         LDR	r3, [r0, #32]   // rnd7
         EORS	r7, r3
+
         LDR	r3, [r2, #8]    // a2
         ANDS	r3, r4
         EORS	r7, r3
         LDR	r3, [r2, #32]   // c2
         ANDS	r3, r4
         EORS	r6, r3
+
         LDR	r3, [r2, #44]   // d2
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
+
         STR	r6, [r1, #0]    // a0'
         STR	r7, [r1, #12]   // b0'
         STR	r4, [r1, #24]   // c0'
         STR	r5, [r1, #36]   // d0'
+
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
         STR     r4, [r0, #0]    // clear(opW)
         ADDS    r3, r2, r5      // scrub(r3)
         ADDS    r5, r1, r4      // scrub(r5)
         ADDS    r6, r0, r5      // scrub(r6)
         ADDS    r7, r1, r2      // scrub(r7), clear(opA), clear(opB)
+
         LDR	r4, [r2, #16]   // b1
         LDR	r5, [r2, #44]   // d2
         LDR	r6, [r2, #32]   // c2
         LDR	r7, [r2, #8]    // a2
+
         ANDS    r5, r4
         ANDS	r6, r4
         ANDS	r7, r4
+
         EORS	r6, r5
+
+        LDR     r3, [r0, #0]    // scrub(r3), clear(opR) INEFFICIENT
         LDR	r3, [r0, #8]    // rnd1
+        ANDS    r1, r1          // clear(opA), clear(opB) INEFFICIENT
         EORS	r5, r3
         LDR	r3, [r0, #20]   // rnd4
         EORS	r6, r3
         LDR	r3, [r0, #32]   // rnd7
         EORS	r7, r3
+
         LDR	r3, [r2, #4]    // a1
         EORS	r6, r3
         ANDS	r3, r4
@@ -257,11 +277,13 @@ calcGOrder2:
         EORS	r5, r3
         ANDS	r3, r4
         EORS	r6, r3
+
         LDR	r3, [r2, #40]   // d1
         EORS	r7, r3
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
+
         LDR     r3, [r0, #0]    // scrub(r3), clear(opR)
         LDR	r3, [r0, #12]   // rnd2
         ANDS    r1, r1          // clear(opA), clear(opB)
@@ -270,20 +292,24 @@ calcGOrder2:
         EORS	r6, r3
         LDR	r3, [r0, #36]   // rnd8
         EORS	r7, r3
+
         LDR	r3, [r2, #0]    // a0
         ANDS	r3, r4
         EORS	r7, r3
         LDR	r3, [r2, #24]   // c0
         ANDS	r3, r4
-        EORS	r6, r3 //
+        EORS	r6, r3
+
         LDR	r3, [r2, #36]   // d0
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
+
         STR	r6, [r1, #4]    // a1'
         STR	r7, [r1, #16]   // b1'
         STR	r4, [r1, #28]   // c1'
         STR	r5, [r1, #40]   // d1'
+
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
         STR     r4, [r0, #0]    // clear(opW)
         ADDS    r3, r2, r5      // scrub(r3)
@@ -291,20 +317,27 @@ calcGOrder2:
         ADDS    r6, r0, r5      // scrub(r6)
         ADDS    r7, r1, r2      // scrub(r7), clear(opA), clear(opB)
         ANDS    r1, r1          // clear(opA), clear(opB)
+
         LDR	r4, [r2, #20]   // b2
         LDR	r5, [r2, #36]   // d0
         LDR	r6, [r2, #24]   // c0
         LDR	r7, [r2, #0]    // a0
+
         ANDS	r5, r4
         ANDS	r6, r4
         ANDS	r7, r4
+
         EORS	r6, r5
+
+        LDR	r3, [r0, #0]    // scrub(r3), clear(opR) INEFFICIENT
         LDR	r3, [r0, #12]   // rnd2
+        ANDS    r1, r1          // clear(opA), clear(opB) INEFFICIENT
         EORS	r5, r3
         LDR	r3, [r0, #24]   // rnd5
         EORS	r6, r3
         LDR	r3, [r0, #36]   // rnd8
         EORS	r7, r3
+
         LDR	r3, [r2, #8]    // a2
         EORS	r6, r3
         ANDS	r3, r4
@@ -313,11 +346,13 @@ calcGOrder2:
         EORS	r5, r3
         ANDS	r3, r4
         EORS	r6, r3
+
         LDR	r3, [r2, #44]   // d2
         EORS	r7, r3
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
+
         LDR     r3, [r0, #0]    // scrub(r3), clear(opR)
         LDR	r3, [r0, #4]    // rnd0
         ANDS    r1, r1          // clear(opA), clear(opB)
@@ -326,20 +361,24 @@ calcGOrder2:
         EORS	r6, r3
         LDR	r3, [r0, #28]   // rnd6
         EORS	r7, r3
+
         LDR	r3, [r2, #4]    // a1
         ANDS	r3, r4
         EORS	r7, r3
         LDR	r3, [r2, #28]   // c1
         ANDS	r3, r4
         EORS	r6, r3
+
         LDR	r3, [r2, #40]   // d1
         ANDS	r3, r4
         EORS	r5, r3
         EORS	r6, r3
+
         STR	r6, [r1, #8]    // a2'
         STR	r7, [r1, #20]   // b2'
         STR	r4, [r1, #32]   // c2'
         STR	r5, [r1, #44]   // d2'
+
         LDR     r4, [r0, #0]    // scrub(r4), clear(opR)
         ADDS    r3, r2, r5      // scrub(r3)
         ADDS    r5, r1, r4      // scrub(r5)
@@ -365,24 +404,24 @@ presentOrder2:
         MOV     r8, r1
         SUB     sp, #48
         MOV     r1, sp
-//.psL1:  // labels needed for GAS checking with scverif, remove for assembling
+.psL1:  // labels needed for GAS checking with scverif, remove for assembling
         BL      calcBOrder2             // write to stack, read from input buffer
-//.psL1+4:
+.psL1+4:
         MOV     r2, r1
         MOV     r1, r8
-//.psL2:
+.psL2:
         BL      calcGOrder2             // write to output buffer, read from stack
-//.psL2+4:
+.psL2+4:
         MOV     r2, r1
         MOV     r1, sp
-//.psL3:
+.psL3:
         BL      calcGOrder2             // write to stack, read from output buffer
-//.psL3+4:
+.psL3+4:
         MOV     r2, r1
         MOV     r1, r8
-//.psL4:
+.psL4:
         BL      calcAOrder2             // read from stack, write to output buffer
-//.psL4+4:
+.psL4+4:
         MOV     r3, sp
         STMIA   r2!, {r0, r1, r3}   // clear(stack[0:2])
         STMIA   r2!, {r0, r1, r3}   // clear(stack[3:5])

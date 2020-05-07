@@ -338,12 +338,12 @@ r1 <- r1 +w32 (w32) (6*4);
 store(r4, r1, 0);
 store(r5, r1, 3);
 r1 <- r1 -w32 (w32) (6*4);
+
 scrub(r3);
+scrub(r4);
 scrub(r5);
 scrub(r6);
-scrub(r4);
 scrub(r7);
-
 clear(opR);
 clear(opW);
 clear(opA);
@@ -418,10 +418,11 @@ r1 <- r1 +w32 (w32) (6*4);
 store(r4, r1, 1);
 store(r5, r1, 4);
 r1 <- r1 -w32 (w32) (6*4);
+
 scrub(r3);
+scrub(r4);
 scrub(r5);
 scrub(r6);
-scrub(r4);
 scrub(r7);
 
 clear(opR);
