@@ -1,10 +1,10 @@
 /*
- * Copyright 2020 - NXP, TU Darmstadt
+ * Copyright 2020 - NXP, TU Darmstadt 
  * SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
  */
 
-#ifndef ASMPRESENT_ORDER1_H
-#define ASMPRESENT_ORDER1_H
+#ifndef ASMPRESENT_ORDER2_H
+#define ASMPRESENT_ORDER2_H
 
 #include <stdint.h>
 
@@ -14,8 +14,8 @@
  * the function returns an updated pointer after execution
  */
 
-uint32_t* presentOrder1( 	uint32_t*      entropy,  // advances by 7 positions
-							uint32_t       output[4][2],
-							const uint32_t input[4][2]);
+uint32_t* presentOrder2( 	uint32_t*      entropy,  // advances by 20 positions
+							uint32_t       output[4][3],
+							const uint32_t input[4][3]);
 
 #endif

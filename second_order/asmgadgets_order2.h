@@ -19,12 +19,12 @@ uint32_t* xorOrder2( uint32_t*      entropy   ,  // advances by 0 positions
                      const uint32_t input1[3] ,
                      const uint32_t input2[3] );
 
-uint32_t* andOrder2( uint32_t*      entropy   ,  // advances by TODO position
+uint32_t* andOrder2( uint32_t*      entropy   ,  // advances by 3 positions
                      uint32_t       output[3] ,
                      const uint32_t input1[3] ,
                      const uint32_t input2[3] );
 
-uint32_t* refOrder2( uint32_t*      entropy   ,  // advances by TODO position
+uint32_t* refOrder2( uint32_t*      entropy   ,  // advances by 2 positions
                      uint32_t       output[3] ,
                      const uint32_t input [3] );
 

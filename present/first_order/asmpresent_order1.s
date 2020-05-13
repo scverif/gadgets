@@ -214,14 +214,14 @@ calcGOrder1:
         // r0 entropy ptr, r1 *outputs, r2 *inputs
 presentOrder1:
         PUSH    {lr}
-        MOV     r3, r1
+        MOV     r8, r1
         SUB     sp, #32
         MOV     r1, sp
 .psL1:  // labels needed for GAS checking with scverif, remove for assembling
         BL      calcBOrder1             // write to stack, read from input buffer
 .psL1+4:
         MOV     r2, r1
-        MOV     r1, r3
+        MOV     r1, r8
 .psL2:
         BL      calcGOrder1             // write to output buffer, read from stack
 .psL2+4:
@@ -231,7 +231,7 @@ presentOrder1:
         BL      calcGOrder1             // write to stack, read from output buffer
 .psL3+4:
         MOV     r2, r1
-        MOV     r1, r3
+        MOV     r1, r8
 .psL4:
         BL      calcAOrder1             // read from stack, write to output buffer
 .psL4+4:

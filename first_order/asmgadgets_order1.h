@@ -36,6 +36,6 @@ uint32_t* cpyOrder1( uint32_t*      entropy   ,  // advances by 0 positions
                      const uint32_t input1[2] );
 
 uint32_t* leakOrder1(uint32_t*      entropy   ,  // advances by 0 positions
-                     uint32_t       inplacedata[2]);
+                     const uint32_t inplacedata[2]);
 
 #endif
