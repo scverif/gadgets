@@ -39,7 +39,7 @@ calcAOrder1:
         // second share
         LDR     r5, [r2, #4]
         STR     r5, [r1, #20]
-        ANDS    r0, r0                  // clear(opB)
+        ADDS    r3, r0, r1              // clear(opB)
         LDR     r4, [r2, #20]
         ANDS    r0, r0                  // clear(opB)
         EORS    r4, r5
@@ -152,6 +152,7 @@ calcGOrder1:
         ANDS    r0, r0          // clear(opA), clear(opB)
         EORS    r5, r4
         STR     r5, [r1, #8]
+        ADDS    r5, r0, r1
         // second output share
         ANDS    r0, r0          // clear(opB)
         LDR     r7, [r2, #12]
