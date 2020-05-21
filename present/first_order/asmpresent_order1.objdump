@@ -1,0 +1,179 @@
+
+; present/first_order/asmpresent_order1.o:     file format elf32-littlearm
+
+
+; Disassembly of section .text:
+
+00000000 <calcAOrder1>:
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	6814      	ldr	r4, [r2, #0]
+   4:	610c      	str	r4, [r1, #16]
+   6:	6915      	ldr	r5, [r2, #16]
+   8:	4065      	eors	r5, r4
+   a:	600d      	str	r5, [r1, #0]
+   c:	43ed      	mvns	r5, r5
+   e:	6996      	ldr	r6, [r2, #24]
+  10:	4075      	eors	r5, r6
+  12:	618d      	str	r5, [r1, #24]
+  14:	6895      	ldr	r5, [r2, #8]
+  16:	43ed      	mvns	r5, r5
+  18:	608d      	str	r5, [r1, #8]
+  1a:	6855      	ldr	r5, [r2, #4]
+  1c:	614d      	str	r5, [r1, #20]
+  1e:	4000      	ands	r0, r0
+  20:	6954      	ldr	r4, [r2, #20]
+  22:	4000      	ands	r0, r0
+  24:	406c      	eors	r4, r5
+  26:	604c      	str	r4, [r1, #4]
+  28:	4000      	ands	r0, r0
+  2a:	69d5      	ldr	r5, [r2, #28]
+  2c:	4000      	ands	r0, r0
+  2e:	406c      	eors	r4, r5
+  30:	61cc      	str	r4, [r1, #28]
+  32:	68d5      	ldr	r5, [r2, #12]
+  34:	60cd      	str	r5, [r1, #12]
+  36:	4000      	ands	r0, r0
+  38:	6000      	str	r0, [r0, #0]
+  3a:	bd70      	pop	{r4, r5, r6, pc}
+
+0000003c <calcBOrder1>:
+  3c:	b570      	push	{r4, r5, r6, lr}
+  3e:	6894      	ldr	r4, [r2, #8]
+  40:	6995      	ldr	r5, [r2, #24]
+  42:	4065      	eors	r5, r4
+  44:	43ed      	mvns	r5, r5
+  46:	618d      	str	r5, [r1, #24]
+  48:	6816      	ldr	r6, [r2, #0]
+  4a:	4066      	eors	r6, r4
+  4c:	600e      	str	r6, [r1, #0]
+  4e:	6915      	ldr	r5, [r2, #16]
+  50:	406c      	eors	r4, r5
+  52:	6846      	ldr	r6, [r0, #4]
+  54:	4074      	eors	r4, r6
+  56:	608c      	str	r4, [r1, #8]
+  58:	610d      	str	r5, [r1, #16]
+  5a:	68d4      	ldr	r4, [r2, #12]
+  5c:	69d5      	ldr	r5, [r2, #28]
+  5e:	4065      	eors	r5, r4
+  60:	61cd      	str	r5, [r1, #28]
+  62:	6856      	ldr	r6, [r2, #4]
+  64:	4066      	eors	r6, r4
+  66:	604e      	str	r6, [r1, #4]
+  68:	6955      	ldr	r5, [r2, #20]
+  6a:	406c      	eors	r4, r5
+  6c:	6846      	ldr	r6, [r0, #4]
+  6e:	4074      	eors	r4, r6
+  70:	60cc      	str	r4, [r1, #12]
+  72:	614d      	str	r5, [r1, #20]
+  74:	3004      	adds	r0, #4
+  76:	6000      	str	r0, [r0, #0]
+  78:	bd70      	pop	{r4, r5, r6, pc}
+  7a:	46c0      	nop			; (mov r8, r8)
+
+0000007c <calcGOrder1>:
+  7c:	b5f0      	push	{r4, r5, r6, r7, lr}
+  7e:	6894      	ldr	r4, [r2, #8]
+  80:	6956      	ldr	r6, [r2, #20]
+  82:	4026      	ands	r6, r4
+  84:	6995      	ldr	r5, [r2, #24]
+  86:	4025      	ands	r5, r4
+  88:	406e      	eors	r6, r5
+  8a:	6847      	ldr	r7, [r0, #4]
+  8c:	407e      	eors	r6, r7
+  8e:	6887      	ldr	r7, [r0, #8]
+  90:	407d      	eors	r5, r7
+  92:	6917      	ldr	r7, [r2, #16]
+  94:	407d      	eors	r5, r7
+  96:	4027      	ands	r7, r4
+  98:	407e      	eors	r6, r7
+  9a:	69d7      	ldr	r7, [r2, #28]
+  9c:	4027      	ands	r7, r4
+  9e:	407d      	eors	r5, r7
+  a0:	618d      	str	r5, [r1, #24]
+  a2:	6805      	ldr	r5, [r0, #0]
+  a4:	6815      	ldr	r5, [r2, #0]
+  a6:	406e      	eors	r6, r5
+  a8:	4025      	ands	r5, r4
+  aa:	4000      	ands	r0, r0
+  ac:	407e      	eors	r6, r7
+  ae:	600e      	str	r6, [r1, #0]
+  b0:	6996      	ldr	r6, [r2, #24]
+  b2:	4000      	ands	r0, r0
+  b4:	4075      	eors	r5, r6
+  b6:	610c      	str	r4, [r1, #16]
+  b8:	6807      	ldr	r7, [r0, #0]
+  ba:	6857      	ldr	r7, [r2, #4]
+  bc:	403c      	ands	r4, r7
+  be:	68c7      	ldr	r7, [r0, #12]
+  c0:	4000      	ands	r0, r0
+  c2:	407d      	eors	r5, r7
+  c4:	4000      	ands	r0, r0
+  c6:	4065      	eors	r5, r4
+  c8:	608d      	str	r5, [r1, #8]
+  ca:	4000      	ands	r0, r0
+  cc:	68d7      	ldr	r7, [r2, #12]
+  ce:	4000      	ands	r0, r0
+  d0:	6915      	ldr	r5, [r2, #16]
+  d2:	403d      	ands	r5, r7
+  d4:	403e      	ands	r6, r7
+  d6:	4075      	eors	r5, r6
+  d8:	4000      	ands	r0, r0
+  da:	6844      	ldr	r4, [r0, #4]
+  dc:	4000      	ands	r0, r0
+  de:	4065      	eors	r5, r4
+  e0:	6884      	ldr	r4, [r0, #8]
+  e2:	4066      	eors	r6, r4
+  e4:	6954      	ldr	r4, [r2, #20]
+  e6:	4066      	eors	r6, r4
+  e8:	403c      	ands	r4, r7
+  ea:	4065      	eors	r5, r4
+  ec:	69d4      	ldr	r4, [r2, #28]
+  ee:	403c      	ands	r4, r7
+  f0:	4066      	eors	r6, r4
+  f2:	61ce      	str	r6, [r1, #28]
+  f4:	6856      	ldr	r6, [r2, #4]
+  f6:	4075      	eors	r5, r6
+  f8:	403e      	ands	r6, r7
+  fa:	4000      	ands	r0, r0
+  fc:	4065      	eors	r5, r4
+  fe:	604d      	str	r5, [r1, #4]
+ 100:	69d5      	ldr	r5, [r2, #28]
+ 102:	4000      	ands	r0, r0
+ 104:	406e      	eors	r6, r5
+ 106:	614f      	str	r7, [r1, #20]
+ 108:	6804      	ldr	r4, [r0, #0]
+ 10a:	6814      	ldr	r4, [r2, #0]
+ 10c:	4000      	ands	r0, r0
+ 10e:	4027      	ands	r7, r4
+ 110:	68c4      	ldr	r4, [r0, #12]
+ 112:	4000      	ands	r0, r0
+ 114:	4066      	eors	r6, r4
+ 116:	4000      	ands	r0, r0
+ 118:	4065      	eors	r5, r4
+ 11a:	60cd      	str	r5, [r1, #12]
+ 11c:	300c      	adds	r0, #12
+ 11e:	6000      	str	r0, [r0, #0]
+ 120:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 122:	46c0      	nop			; (mov r8, r8)
+
+00000124 <presentOrder1>:
+ 124:	b500      	push	{lr}
+ 126:	460b      	mov	r3, r1
+ 128:	b088      	sub	sp, #32
+ 12a:	4669      	mov	r1, sp
+ 12c:	f7ff fffe 	bl	3c <calcBOrder1>
+ 130:	460a      	mov	r2, r1
+ 132:	4619      	mov	r1, r3
+ 134:	f7ff fffe 	bl	7c <calcGOrder1>
+ 138:	460a      	mov	r2, r1
+ 13a:	4669      	mov	r1, sp
+ 13c:	f7ff fffe 	bl	7c <calcGOrder1>
+ 140:	460a      	mov	r2, r1
+ 142:	4619      	mov	r1, r3
+ 144:	f7ff fffe 	bl	0 <calcAOrder1>
+ 148:	c20b      	stmia	r2!, {r0, r1, r3}
+ 14a:	c20b      	stmia	r2!, {r0, r1, r3}
+ 14c:	c203      	stmia	r2!, {r0, r1}
+ 14e:	b008      	add	sp, #32
+ 150:	bd00      	pop	{pc}
+ 152:	46c0      	nop			; (mov r8, r8)

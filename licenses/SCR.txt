@@ -1,0 +1,11 @@
+--------------------------------------------
+NXP Software Content Register
+
+Package:                   scverif - examples
+Outgoing License:          modified BSD 3-Clause License
+License Files:             COPYING
+Type of content:           Source code
+Description and comments:  Masked algorithms and masked software implementations for microcontrollers
+Release Location:          https://github.com/scverif/gadgets
+Origin:                    NXP (proprietary)
+--------------------------------------------

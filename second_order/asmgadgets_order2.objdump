@@ -1,0 +1,172 @@
+; Copyright 2020 - NXP, TU Darmstadt
+; SPDX-License-Identifier: BSD-3-Clause-Clear WITH modifications
+
+; second_order/asmgadgets_order2.o:     file format elf32-littlearm
+
+; Disassembly of section .text:
+
+00000000 <xorOrder2>:
+   0:	b4f0      	push	{r4, r5, r6, r7}
+   2:	6814      	ldr	r4, [r2, #0]
+   4:	681d      	ldr	r5, [r3, #0]
+   6:	406c      	eors	r4, r5
+   8:	600c      	str	r4, [r1, #0]
+   a:	4000      	ands	r0, r0
+   c:	6000      	str	r0, [r0, #0]
+   e:	6856      	ldr	r6, [r2, #4]
+  10:	685f      	ldr	r7, [r3, #4]
+  12:	4077      	eors	r7, r6
+  14:	604f      	str	r7, [r1, #4]
+  16:	0006      	movs	r6, r0
+  18:	6804      	ldr	r4, [r0, #0]
+  1a:	6000      	str	r0, [r0, #0]
+  1c:	6895      	ldr	r5, [r2, #8]
+  1e:	689e      	ldr	r6, [r3, #8]
+  20:	4075      	eors	r5, r6
+  22:	608d      	str	r5, [r1, #8]
+  24:	0004      	movs	r4, r0
+  26:	0007      	movs	r7, r0
+  28:	bcf0      	pop	{r4, r5, r6, r7}
+  2a:	6000      	str	r0, [r0, #0]
+  2c:	4770      	bx	lr
+  2e:	46c0      	nop			; (mov r8, r8)
+
+00000030 <andOrder2>:
+  30:	b4f0      	push	{r4, r5, r6, r7}
+  32:	6815      	ldr	r5, [r2, #0]
+  34:	681c      	ldr	r4, [r3, #0]
+  36:	402c      	ands	r4, r5
+  38:	6846      	ldr	r6, [r0, #4]
+  3a:	4066      	eors	r6, r4
+  3c:	4000      	ands	r0, r0
+  3e:	685f      	ldr	r7, [r3, #4]
+  40:	402f      	ands	r7, r5
+  42:	407e      	eors	r6, r7
+  44:	4000      	ands	r0, r0
+  46:	6804      	ldr	r4, [r0, #0]
+  48:	6854      	ldr	r4, [r2, #4]
+  4a:	681d      	ldr	r5, [r3, #0]
+  4c:	4000      	ands	r0, r0
+  4e:	402c      	ands	r4, r5
+  50:	4066      	eors	r6, r4
+  52:	4000      	ands	r0, r0
+  54:	6805      	ldr	r5, [r0, #0]
+  56:	6885      	ldr	r5, [r0, #8]
+  58:	406e      	eors	r6, r5
+  5a:	600e      	str	r6, [r1, #0]
+  5c:	4000      	ands	r0, r0
+  5e:	6000      	str	r0, [r0, #0]
+  60:	6804      	ldr	r4, [r0, #0]
+  62:	4000      	ands	r0, r0
+  64:	0005      	movs	r5, r0
+  66:	4000      	ands	r0, r0
+  68:	0007      	movs	r7, r0
+  6a:	6855      	ldr	r5, [r2, #4]
+  6c:	685c      	ldr	r4, [r3, #4]
+  6e:	402c      	ands	r4, r5
+  70:	6886      	ldr	r6, [r0, #8]
+  72:	4066      	eors	r6, r4
+  74:	4000      	ands	r0, r0
+  76:	689f      	ldr	r7, [r3, #8]
+  78:	402f      	ands	r7, r5
+  7a:	407e      	eors	r6, r7
+  7c:	4000      	ands	r0, r0
+  7e:	6804      	ldr	r4, [r0, #0]
+  80:	6894      	ldr	r4, [r2, #8]
+  82:	4000      	ands	r0, r0
+  84:	685d      	ldr	r5, [r3, #4]
+  86:	4000      	ands	r0, r0
+  88:	402c      	ands	r4, r5
+  8a:	4066      	eors	r6, r4
+  8c:	4000      	ands	r0, r0
+  8e:	6805      	ldr	r5, [r0, #0]
+  90:	68c5      	ldr	r5, [r0, #12]
+  92:	406e      	eors	r6, r5
+  94:	604e      	str	r6, [r1, #4]
+  96:	6000      	str	r0, [r0, #0]
+  98:	4000      	ands	r0, r0
+  9a:	6804      	ldr	r4, [r0, #0]
+  9c:	4000      	ands	r0, r0
+  9e:	0005      	movs	r5, r0
+  a0:	4000      	ands	r0, r0
+  a2:	0007      	movs	r7, r0
+  a4:	6895      	ldr	r5, [r2, #8]
+  a6:	689c      	ldr	r4, [r3, #8]
+  a8:	402c      	ands	r4, r5
+  aa:	68c6      	ldr	r6, [r0, #12]
+  ac:	4066      	eors	r6, r4
+  ae:	4000      	ands	r0, r0
+  b0:	681f      	ldr	r7, [r3, #0]
+  b2:	402f      	ands	r7, r5
+  b4:	407e      	eors	r6, r7
+  b6:	4000      	ands	r0, r0
+  b8:	6804      	ldr	r4, [r0, #0]
+  ba:	6814      	ldr	r4, [r2, #0]
+  bc:	689d      	ldr	r5, [r3, #8]
+  be:	4000      	ands	r0, r0
+  c0:	402c      	ands	r4, r5
+  c2:	4066      	eors	r6, r4
+  c4:	4000      	ands	r0, r0
+  c6:	6805      	ldr	r5, [r0, #0]
+  c8:	6845      	ldr	r5, [r0, #4]
+  ca:	406e      	eors	r6, r5
+  cc:	608e      	str	r6, [r1, #8]
+  ce:	6804      	ldr	r4, [r0, #0]
+  d0:	bcf0      	pop	{r4, r5, r6, r7}
+  d2:	60c0      	str	r0, [r0, #12]
+  d4:	300c      	adds	r0, #12
+  d6:	4770      	bx	lr
+
+000000d8 <refOrder2>:
+  d8:	b470      	push	{r4, r5, r6}
+  da:	6844      	ldr	r4, [r0, #4]
+  dc:	6816      	ldr	r6, [r2, #0]
+  de:	6805      	ldr	r5, [r0, #0]
+  e0:	6885      	ldr	r5, [r0, #8]
+  e2:	4066      	eors	r6, r4
+  e4:	600e      	str	r6, [r1, #0]
+  e6:	6000      	str	r0, [r0, #0]
+  e8:	6806      	ldr	r6, [r0, #0]
+  ea:	6853      	ldr	r3, [r2, #4]
+  ec:	4000      	ands	r0, r0
+  ee:	406b      	eors	r3, r5
+  f0:	604b      	str	r3, [r1, #4]
+  f2:	6000      	str	r0, [r0, #0]
+  f4:	4000      	ands	r0, r0
+  f6:	406c      	eors	r4, r5
+  f8:	6805      	ldr	r5, [r0, #0]
+  fa:	4000      	ands	r0, r0
+  fc:	6895      	ldr	r5, [r2, #8]
+  fe:	4065      	eors	r5, r4
+ 100:	608d      	str	r5, [r1, #8]
+ 102:	bc70      	pop	{r4, r5, r6}
+ 104:	405b      	eors	r3, r3
+ 106:	6080      	str	r0, [r0, #8]
+ 108:	3008      	adds	r0, #8
+ 10a:	4770      	bx	lr
+
+0000010c <notOrder2>:
+ 10c:	680a      	ldr	r2, [r1, #0]
+ 10e:	43d2      	mvns	r2, r2
+ 110:	600a      	str	r2, [r1, #0]
+ 112:	6802      	ldr	r2, [r0, #0]
+ 114:	6002      	str	r2, [r0, #0]
+ 116:	3000      	adds	r0, #0
+ 118:	4770      	bx	lr
+ 11a:	46c0      	nop			; (mov r8, r8)
+
+0000011c <leakOrder2>:
+ 11c:	680a      	ldr	r2, [r1, #0]
+ 11e:	684b      	ldr	r3, [r1, #4]
+ 120:	405a      	eors	r2, r3
+ 122:	4000      	ands	r0, r0
+ 124:	688b      	ldr	r3, [r1, #8]
+ 126:	405a      	eors	r2, r3
+ 128:	4052      	eors	r2, r2
+ 12a:	4000      	ands	r0, r0
+ 12c:	6803      	ldr	r3, [r0, #0]
+ 12e:	6003      	str	r3, [r0, #0]
+ 130:	4000      	ands	r0, r0
+ 132:	3000      	adds	r0, #0
+ 134:	4770      	bx	lr
+ 136:	46c0      	nop			; (mov r8, r8)
